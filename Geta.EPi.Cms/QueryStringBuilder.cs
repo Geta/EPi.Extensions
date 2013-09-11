@@ -34,6 +34,18 @@ namespace Geta.EPi.Cms
 			return this;
 		}
 
+		public QueryStringBuilder Toggle(string name, string value)
+		{
+			var exists = UrlBuilder.QueryCollection[name] != null;
+
+			if (exists)
+				UrlBuilder.QueryCollection.Remove(name);
+			else
+				UrlBuilder.QueryCollection[name] = value;
+
+			return this;
+		}
+
 		public override string ToString()
 		{
 			return UrlBuilder.ToString();

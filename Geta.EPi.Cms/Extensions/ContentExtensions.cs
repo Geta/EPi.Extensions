@@ -35,8 +35,25 @@ namespace Geta.EPi.Cms.Extensions
 				{
 					content = content.Where(x => VisibleInMenu(x));
 				}
+
 				return content;
             }
+
+			return Enumerable.Empty<T>();
+		}
+
+		public static IEnumerable<PageData> GetChildren(this ContentReference contentLink)
+		{
+			return contentLink.GetChildren<PageData>();
+		}
+
+		public static IEnumerable<T> GetChildren<T>(this ContentReference contentLink) where T : IContentData
+		{
+			if (!contentLink.IsNullOrEmptyContentReference())
+			{
+				var repository = ServiceLocator.Current.GetInstance<IContentLoader>();
+				return repository.GetChildren<T>(contentLink);
+			}
 
 			return Enumerable.Empty<T>();
 		}
@@ -48,24 +65,13 @@ namespace Geta.EPi.Cms.Extensions
 
 		public static T GetPage<T>(this ContentReference contentLink) where T: PageData
 		{
-			var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
-			return loader.Get<PageData>(contentLink) as T;
-		}
-
-		public static IEnumerable<PageData> GetChildren(this ContentReference contentLink)
-		{
-			return contentLink.GetChildren<PageData>();
-		}
-
-		public static IEnumerable<T> GetChildren<T>(this ContentReference contentLink) where T: IContentData
-		{
 			if (!contentLink.IsNullOrEmptyContentReference())
 			{
-				var repository = ServiceLocator.Current.GetInstance<IContentLoader>();
-				return repository.GetChildren<T>(contentLink);
+				var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
+				return loader.Get<PageData>(contentLink) as T;
 			}
 
-			return Enumerable.Empty<T>();
+			return null;
 		}
 
 		public static string GetFriendlyUrl(this ContentReference contentLink, bool includeHost = false)

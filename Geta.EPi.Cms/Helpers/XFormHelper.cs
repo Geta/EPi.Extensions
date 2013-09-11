@@ -11,8 +11,9 @@ namespace Geta.EPi.Cms.Helpers
 		/// Replaces tables with divs.
 		/// </summary>
 		/// <param name="htmlFragment"></param>
+		/// <param name="addClassAttribute"></param>
 		/// <returns>Modified HtmlFragment</returns>
-        public static HtmlFragment CleanupXFormHtmlMarkup(HtmlFragment htmlFragment)
+        public static HtmlFragment CleanupXFormHtmlMarkup(HtmlFragment htmlFragment, bool addClassAttribute = true)
         {
 			var originalTag = htmlFragment.Name;
 	        var isTableRow = originalTag == "tr";
@@ -30,10 +31,13 @@ namespace Geta.EPi.Cms.Helpers
 			            elFragment.Attributes.Remove("valign");
 		            }
 
-					var classAttribute = GetCssClass(originalTag);
+		            if (addClassAttribute)
+		            {
+			            var classAttribute = GetCssClass(originalTag);
 
-					if (classAttribute != null)
-						elFragment.Attributes.Add(classAttribute);
+			            if (classAttribute != null)
+				            elFragment.Attributes.Add(classAttribute);
+		            }
 	            }
             }
 

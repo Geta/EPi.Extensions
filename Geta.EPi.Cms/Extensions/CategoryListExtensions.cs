@@ -28,9 +28,16 @@ namespace Geta.EPi.Cms.Extensions
 
 		public static IEnumerable<Category> GetFullCategories(this CategoryList categoryList)
 		{
-			return categoryList == null 
-				? Enumerable.Empty<Category>() 
-				: categoryList.Select(Category.Find).Where(category => category != null).ToList();
+			return categoryList != null 
+				? categoryList.Select(Category.Find).Where(category => category != null).ToList()
+				: Enumerable.Empty<Category>();
+		}
+
+		public static IEnumerable<string> GetCategoryNames(this CategoryList categoryList)
+		{
+			return categoryList != null 
+				? categoryList.Select(categoryList.GetCategoryName)
+				: Enumerable.Empty<string>();
 		}
 	}
 }

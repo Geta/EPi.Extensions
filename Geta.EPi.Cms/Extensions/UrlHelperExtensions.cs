@@ -66,19 +66,19 @@ namespace Geta.EPi.Cms.Extensions
             return MvcHtmlString.Empty;
         }
 
-		public static QueryStringBuilder AddQueryString(this UrlHelper urlHelper, PageReference pageLink)
+		public static QueryStringBuilder QueryBuilder(this UrlHelper urlHelper, PageReference pageLink)
 		{
 			if (!PageReference.IsNullOrEmpty(pageLink))
 			{
 				var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
 				var page = contentLoader.Get<PageData>(pageLink);
-				return urlHelper.AddQueryString(page);
+				return urlHelper.QueryBuilder(page);
 			}
 
 			return QueryStringBuilder.Empty;
 		}
 
-		public static QueryStringBuilder AddQueryString(this UrlHelper urlHelper, PageData page)
+		public static QueryStringBuilder QueryBuilder(this UrlHelper urlHelper, PageData page)
 		{
 			if (page != null)
 			{
@@ -89,7 +89,7 @@ namespace Geta.EPi.Cms.Extensions
 			return QueryStringBuilder.Empty;
 		}
 
-		public static QueryStringBuilder AddQueryString(this UrlHelper urlHelper, string url)
+		public static QueryStringBuilder QueryBuilder(this UrlHelper urlHelper, string url)
 		{
 			return QueryStringBuilder.Create(url);
 		}
