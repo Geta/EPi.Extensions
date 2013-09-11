@@ -36,7 +36,8 @@ namespace Geta.EPi.Cms
 
 		public QueryStringBuilder Toggle(string name, string value)
 		{
-			var exists = UrlBuilder.QueryCollection[name] != null;
+			var currVal = UrlBuilder.QueryCollection[name];
+			var exists = currVal != null && currVal == value;
 
 			if (exists)
 				UrlBuilder.QueryCollection.Remove(name);
