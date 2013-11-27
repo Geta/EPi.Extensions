@@ -24,11 +24,11 @@ namespace Geta.EPi.Cms
 
 		public QueryStringBuilder Add(string name, string value)
 		{
-			UrlBuilder.QueryCollection[name] = value;
+			UrlBuilder.QueryCollection[name] = HttpUtility.UrlEncode(value);
 			return this;
 		}
 
-		public QueryStringBuilder Remove(string name, string value)
+		public QueryStringBuilder Remove(string name)
 		{
 			UrlBuilder.QueryCollection.Remove(name);
 			return this;
@@ -36,13 +36,13 @@ namespace Geta.EPi.Cms
 
 		public QueryStringBuilder Toggle(string name, string value)
 		{
-			var currVal = UrlBuilder.QueryCollection[name];
+			var currVal = HttpUtility.UrlDecode(UrlBuilder.QueryCollection[name]);
 			var exists = currVal != null && currVal == value;
 
 			if (exists)
-				UrlBuilder.QueryCollection.Remove(name);
+				Remove(name);
 			else
-				UrlBuilder.QueryCollection[name] = value;
+				Add(name, value);
 
 			return this;
 		}
