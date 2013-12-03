@@ -7,10 +7,10 @@ namespace Geta.EPi.Cms.Extensions
     public static class UrlExtensions
     {
         /// <summary>
-        /// 
+        /// Creates external Uri from provided Url. Uses HttpContext if available, othervise uses EPiServer settings' SiteUrl
         /// </summary>
         /// <param name="url">Url</param>
-        /// <returns></returns>
+        /// <returns>External Uri for Url</returns>
         public static Uri ToExternalUri(this Url url)
         {
             if (url == null)
