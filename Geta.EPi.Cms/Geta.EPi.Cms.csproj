@@ -180,6 +180,7 @@
     <Compile Include="Extensions\PageDataExtensions.cs" />
     <Compile Include="Extensions\PageReferenceExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\UrlExtensions.cs" />
     <Compile Include="Helpers\PageHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Helpers\XFormHelper.cs" />
