@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using System.Web.Mvc;
 using EPiServer;
 
 namespace Geta.EPi.Cms.Extensions
@@ -30,6 +31,16 @@ namespace Geta.EPi.Cms.Extensions
 
             var baseUri = GetBaseUri();
             return new Uri(baseUri, url.Uri);
+        }
+
+        public static IHtmlString ToIHtmlString(this Url url)
+        {
+            if (url == null)
+            {
+                return MvcHtmlString.Empty;
+            }
+
+            return MvcHtmlString.Create(url.ToString());
         }
 
         private static Uri GetBaseUri()
