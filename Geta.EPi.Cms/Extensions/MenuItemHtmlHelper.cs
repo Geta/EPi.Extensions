@@ -14,7 +14,7 @@ using EPiServer.Web.Routing;
 
 namespace Geta.EPi.Cms.Extensions
 {
-    public static class HtmlHelpers
+    public static class MenuItemHtmlHelper
     {
         /// <summary>
         /// Returns an element for each child page of the rootLink using the itemTemplate.
