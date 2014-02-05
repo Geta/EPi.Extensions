@@ -163,15 +163,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\EnumerableOfPageReferenceExtensions.cs" />
-    <Compile Include="Coop\HtmlHelper.cs" />
-    <Compile Include="Coop\HtmlImageExtensions.cs" />
     <Compile Include="Coop\HtmlLinkExtensions.cs" />
     <Compile Include="Coop\ObjectExtensions.cs" />
     <Compile Include="Coop\PageDataCollectionExtensions.cs" />
     <Compile Include="Coop\PageDataExtensions.cs" />
     <Compile Include="Coop\PageReferenceExtensions.cs" />
-    <Compile Include="Coop\TagBuilder.cs" />
-    <Compile Include="Coop\TagRenderMode.cs" />
     <Compile Include="Extensions\CategoryExtensions.cs" />
     <Compile Include="Extensions\CategoryListExtensions.cs" />
     <Compile Include="Extensions\ContentExtensions.cs" />

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web.Routing;
 using EPiServer.Core;
 
@@ -65,16 +64,6 @@ namespace Geta.EPi.Cms.Coop
             }
 
             return HtmlLink(page, linkText(page), new RouteValueDictionary(attributes));
-        }
-
-        private static string HtmlLink(PageData page, string linkText, IDictionary<string, object> attributes)
-        {
-            if (page.IsEPiServerPage())
-            {
-                return HtmlHelper.GenerateLink(page.LinkURL, linkText, attributes);
-            }
-
-            return string.Empty;
         }
     }
 }
