@@ -179,7 +179,7 @@
     <Compile Include="Extensions\ContentExtensions.cs" />
     <Compile Include="Extensions\ContentReferenceExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Kolumbus\EnumerableOfPageDataExtensions.cs" />
+    <Compile Include="Extensions\EnumerableOfPageDataExtensions.cs" />
     <Compile Include="Kolumbus\LinkItemCollectionExtensions.cs" />
     <Compile Include="Kolumbus\ObjectValidationExtensions.cs" />
     <Compile Include="Kolumbus\PageDataExtensions.cs" />

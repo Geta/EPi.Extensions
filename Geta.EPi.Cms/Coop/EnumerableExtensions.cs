@@ -5,10 +5,7 @@ namespace Geta.EPi.Cms.Coop
 {
     public static class EnumerableExtensions
     {
-        public static PageDataCollection ToPageDataCollection(this IEnumerable<PageData> pages)
-        {
-            return new PageDataCollection(pages);
-        }
+        
 
         public static PageDataCollection ToPageDataCollection(this IEnumerable<PageReference> pageReferences)
         {
