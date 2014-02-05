@@ -163,7 +163,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\EnumerableOfPageReferenceExtensions.cs" />
-    <Compile Include="Coop\ObjectExtensions.cs" />
     <Compile Include="Coop\PageDataCollectionExtensions.cs" />
     <Compile Include="Coop\PageDataExtensions.cs" />
     <Compile Include="Coop\PageReferenceExtensions.cs" />
