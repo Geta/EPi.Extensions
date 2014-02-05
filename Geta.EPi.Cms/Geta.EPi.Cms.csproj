@@ -164,7 +164,6 @@
   <ItemGroup>
     <Compile Include="Extensions\EnumerableOfPageReferenceExtensions.cs" />
     <Compile Include="Coop\PageDataCollectionExtensions.cs" />
-    <Compile Include="Coop\PageDataExtensions.cs" />
     <Compile Include="Coop\PageReferenceExtensions.cs" />
     <Compile Include="Extensions\CategoryExtensions.cs" />
     <Compile Include="Extensions\CategoryListExtensions.cs" />
