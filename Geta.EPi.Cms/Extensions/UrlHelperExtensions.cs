@@ -4,7 +4,6 @@ using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Mvc.Html;
-using EPiServer.Web.Routing;
 
 namespace Geta.EPi.Cms.Extensions
 {
