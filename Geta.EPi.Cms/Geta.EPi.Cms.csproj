@@ -170,7 +170,6 @@
     <Compile Include="Coop\PageDataCollectionExtensions.cs" />
     <Compile Include="Coop\PageDataExtensions.cs" />
     <Compile Include="Coop\PageReferenceExtensions.cs" />
-    <Compile Include="Coop\StringExtensions.cs" />
     <Compile Include="Coop\TagBuilder.cs" />
     <Compile Include="Coop\TagRenderMode.cs" />
     <Compile Include="Extensions\CategoryExtensions.cs" />
