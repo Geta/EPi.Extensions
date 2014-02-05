@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Web.Mvc;
 
-namespace Geta.EPi.Cms.MarineHarvest
+namespace Geta.EPi.Cms.Extensions
 {
     public static class HtmlHelperExtensions
     {
