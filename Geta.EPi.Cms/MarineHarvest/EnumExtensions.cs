@@ -1,6 +1,5 @@
 ﻿using System;
 using EPiServer.Framework.Localization;
-using Geta.EPi.Cms.Extensions;
 
 namespace Geta.EPi.Cms.MarineHarvest
 {
