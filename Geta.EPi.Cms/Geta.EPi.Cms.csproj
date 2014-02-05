@@ -162,7 +162,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Coop\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\EnumerableOfPageReferenceExtensions.cs" />
     <Compile Include="Coop\FileExtensions.cs" />
     <Compile Include="Coop\HtmlHelper.cs" />
     <Compile Include="Coop\HtmlImageExtensions.cs" />
