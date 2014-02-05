@@ -2,7 +2,7 @@
 using EPiServer.DataAbstraction;
 using EPiServer.ServiceLocation;
 
-namespace Geta.EPi.Cms.MarineHarvest
+namespace Geta.EPi.Cms.Extensions
 {
     public static class TypeExtensions
     {

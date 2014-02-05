@@ -187,7 +187,7 @@
     <Compile Include="Extensions\LinkItemExtensions.cs" />
     <Compile Include="MarineHarvest\PageDataExtensions.cs" />
     <Compile Include="MarineHarvest\StringExtensions.cs" />
-    <Compile Include="MarineHarvest\TypeExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\PageDataExtensions.cs" />
     <Compile Include="Extensions\PageReferenceExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
