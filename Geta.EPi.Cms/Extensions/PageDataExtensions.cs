@@ -19,6 +19,12 @@ namespace Geta.EPi.Cms.Extensions
 			return Enumerable.Empty<T>();
 		}
 
+        public static int ChildCount<T>(this PageData page) where T : IContentData
+        {
+            var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
+            return loader.GetChildren<T>(page.ContentLink).Count();
+        }
+
         public static PageData GetParent(this PageData page)
         {
             if (page != null && !PageReference.IsNullOrEmpty(page.ParentLink) && !DataFactory.Instance.IsWastebasket(page.PageLink))
