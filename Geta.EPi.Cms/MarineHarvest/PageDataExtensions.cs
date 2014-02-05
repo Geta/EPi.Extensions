@@ -35,7 +35,7 @@ namespace Geta.EPi.Cms.MarineHarvest
             where TPageType : PageData
             where TPropertyType : class
         {
-            TPropertyType result = pageType.GetPropertyValue(expression);
+            var result = pageType.GetPropertyValue(expression);
             if (result != null)
             {
                 return result;
