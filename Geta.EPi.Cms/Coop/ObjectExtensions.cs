@@ -5,11 +5,6 @@ namespace Geta.EPi.Cms.Coop
 {
     public static class ObjectExtensions
     {
-        //public static string Translate(this object obj, string xpath)
-        //{
-        //    return EPiServer.Core.LanguageManager.Instance.Translate(xpath);
-        //}
-
         /// <summary>
         /// Get the web string representation of the property's value, on properties that do not use the editor this string will usually not contain any markup characters.
         /// </summary>

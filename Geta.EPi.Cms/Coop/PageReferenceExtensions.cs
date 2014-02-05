@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using EPiServer;
 using EPiServer.Core;
-using ContentReferenceExtensions = Geta.EPi.Cms.Extensions.ContentReferenceExtensions;
+using Geta.EPi.Cms.Extensions;
 
 namespace Geta.EPi.Cms.Coop
 {
@@ -42,7 +42,7 @@ namespace Geta.EPi.Cms.Coop
 
                     if (levels > 1)
                     {
-                        foreach (PageData grandChild in Extensions.PageDataExtensions.GetDescendants(child, levels - 1))
+                        foreach (PageData grandChild in child.GetDescendants(levels - 1))
                         {
                             yield return grandChild;
                         }
@@ -58,18 +58,7 @@ namespace Geta.EPi.Cms.Coop
                 return string.Empty;
             }
 
-            return Extensions.ContentReferenceExtensions.GetPage(pageReference).GetExternalUrl();
-        }
-
-        public static string GetLinkUrl(this PageReference pageReference)
-        {
-            var page = Extensions.ContentReferenceExtensions.GetPage(pageReference);
-            return page != null ? page.LinkURL : string.Empty;
-        }
-
-        public static bool IsNullOrEmptyPageReference(this PageReference pageReference)
-        {
-            return PageReference.IsNullOrEmpty(pageReference);
+            return pageReference.GetPage().GetExternalUrl();
         }
     }
 }

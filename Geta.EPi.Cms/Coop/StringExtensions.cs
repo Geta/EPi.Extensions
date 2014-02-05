@@ -20,15 +20,5 @@ namespace Geta.EPi.Cms.Coop
 
             return string.Format("{0}{1}{2}", startTag, text, endTag);
         }
-
-        public static string StripHtml(this string htmlText, int maxLength = int.MaxValue)
-        {
-            if (string.IsNullOrWhiteSpace(htmlText))
-            {
-                return htmlText;
-            }
-
-            return TextIndexer.StripHtml(htmlText, maxLength);
-        }
     }
 }

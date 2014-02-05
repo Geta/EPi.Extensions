@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Web;
 using EPiServer;
 using EPiServer.BaseLibrary;
 using EPiServer.Core;
-using EPiServer.ServiceLocation;
 using EPiServer.Web;
-using ContentReferenceExtensions = Geta.EPi.Cms.Extensions.ContentReferenceExtensions;
 
 namespace Geta.EPi.Cms.Coop
 {
@@ -60,12 +56,6 @@ namespace Geta.EPi.Cms.Coop
             return formattedString;
         }
 
-        public static T GetChildPageOfType<T>(this PageData currentPage) where T : PageData
-        {
-            var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
-            return loader.GetChildren<T>(currentPage.ContentLink).FirstOrDefault();
-        }
-
         public static PageDataCollection GetChildren(this PageData page)
         {
             var children = new PageDataCollection();
@@ -76,45 +66,6 @@ namespace Geta.EPi.Cms.Coop
             }
 
             return children;
-        }
-
-        public static IEnumerable<T> GetChildren<T>(this PageData parentPage) where T : PageData
-        {
-            if (parentPage != null)
-            {
-                var repository = ServiceLocator.Current.GetInstance<IContentLoader>();
-                return repository.GetChildren<T>(parentPage.ContentLink);
-            }
-
-            return Enumerable.Empty<T>();
-        }
-
-        public static IEnumerable<PageData> GetDescendants(this PageData pageData, int levels)
-        {
-            return pageData.GetDescendants<PageData>(levels);
-        }
-
-        public static IEnumerable<T> GetDescendants<T>(this PageData pageData, int levels) where T : PageData
-        {
-            if (pageData == null || levels <= 0)
-            {
-                yield break;
-            }
-
-            foreach (var child in pageData.GetChildren<T>())
-            {
-                yield return child;
-
-                if (levels <= 1)
-                {
-                    continue;
-                }
-
-                foreach (var grandChild in child.GetDescendants<T>(levels - 1))
-                {
-                    yield return grandChild;
-                }
-            }
         }
 
         public static string GetExternalUrl(this PageData page)
@@ -135,8 +86,8 @@ namespace Geta.EPi.Cms.Coop
                     }
 
                     url =
-                            new UrlBuilder(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) +
-                                           HttpContext.Current.Request.ApplicationPath.TrimEnd('/') + linkUrl);
+                        new UrlBuilder(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) +
+                                       HttpContext.Current.Request.ApplicationPath.TrimEnd('/') + linkUrl);
 
                     if (UrlRewriteProvider.IsFurlEnabled)
                     {
@@ -157,20 +108,6 @@ namespace Geta.EPi.Cms.Coop
             return result;
         }
 
-        public static string GetFriendlyUrl(this PageData page, bool includeHost = false)
-        {
-            return page != null ? Extensions.ContentReferenceExtensions.GetFriendlyUrl(page.ContentLink, includeHost) : string.Empty;
-        }
-
-        public static PageData GetParent(this PageData page)
-        {
-            if (page != null && !PageReference.IsNullOrEmpty(page.ParentLink) && !DataFactory.Instance.IsWastebasket(page.PageLink))
-            {
-                return Extensions.ContentReferenceExtensions.GetPage(page.ParentLink);
-            }
-
-            return null;
-        }
 
         /// <summary>
         ///     Find the first not null and not IsNull property from a list seperated by |
@@ -197,29 +134,6 @@ namespace Geta.EPi.Cms.Coop
             }
 
             return null;
-        }
-
-        public static IEnumerable<PageData> GetSiblings(this PageData currentPage, bool excludeSelf = true)
-        {
-            return currentPage.GetSiblings<PageData>();
-        }
-
-        public static IEnumerable<T> GetSiblings<T>(this PageData currentPage, bool excludeSelf = true) where T : PageData
-        {
-            if (currentPage != null)
-            {
-                var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
-                var siblings = loader.GetChildren<T>(currentPage.ParentLink);
-
-                if (excludeSelf)
-                {
-                    siblings = siblings.Where(p => !p.PageGuid.Equals(currentPage.PageGuid));
-                }
-
-                return siblings;
-            }
-
-            return Enumerable.Empty<T>();
         }
 
         public static bool IsEPiServerPage(this PageData page)
@@ -256,8 +170,9 @@ namespace Geta.EPi.Cms.Coop
             }
 
             var currentLevel = currentPage.PageLink;
-            while (!PageReference.IsNullOrEmpty(currentLevel) && currentLevel != PageReference.StartPage && currentLevel != PageReference.RootPage
-                   && currentLevel != PageReference.WasteBasket)
+            while (!PageReference.IsNullOrEmpty(currentLevel) && currentLevel != ContentReference.StartPage &&
+                   currentLevel != ContentReference.RootPage
+                   && currentLevel != ContentReference.WasteBasket)
             {
                 if (page.PageLink.CompareToIgnoreWorkID(currentLevel))
                 {
@@ -297,21 +212,22 @@ namespace Geta.EPi.Cms.Coop
         /// <returns>The property value or default value</returns>
         public static T PropertyValue<T>(this PageData page, string propertyName)
         {
-            return PropertyValueWithDefault<T>(page, propertyName, default(T));
+            return PropertyValueWithDefault(page, propertyName, default(T));
         }
 
-        public static T PropertyValue<T>(this PageData page, string propertyName, string defaultValue) where T : PropertyData, new()
+        public static T PropertyValue<T>(this PageData page, string propertyName, string defaultValue)
+            where T : PropertyData, new()
         {
             T prop = new T();
             prop.ParseToSelf(defaultValue);
-            return PropertyValueWithDefault<T>(page, propertyName, prop);
+            return PropertyValueWithDefault(page, propertyName, prop);
         }
 
         public static T PropertyValueWithDefault<T>(this PageData page, string propertyName, T defaultValue)
         {
             if (page.IsValue(propertyName))
             {
-                return (T)page.Property[propertyName].Value;
+                return (T) page.Property[propertyName].Value;
             }
 
             return defaultValue;
@@ -334,7 +250,8 @@ namespace Geta.EPi.Cms.Coop
                 {
                     return false;
                 }
-                if ((status >= PagePublishedStatus.PublishedIgnoreStopPublish) && (page.StartPublish > Context.Current.RequestTime))
+                if ((status >= PagePublishedStatus.PublishedIgnoreStopPublish) &&
+                    (page.StartPublish > Context.Current.RequestTime))
                 {
                     return false;
                 }
