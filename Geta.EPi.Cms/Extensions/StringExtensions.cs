@@ -34,5 +34,10 @@ namespace Geta.EPi.Cms.Extensions
 
             return url;
         }
+
+        public static Url ToUrl(this string target)
+        {
+            return new Url(target);
+        }
     }
 }

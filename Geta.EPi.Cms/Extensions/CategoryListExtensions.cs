@@ -39,5 +39,10 @@ namespace Geta.EPi.Cms.Extensions
 				? categoryList.Select(categoryList.GetCategoryName)
 				: Enumerable.Empty<string>();
 		}
+
+        public static bool Contains(this CategoryList list, string name)
+        {
+            return list.Select(list.GetCategoryName).Any(categoryName => categoryName.Equals(name));
+        }
 	}
 }
