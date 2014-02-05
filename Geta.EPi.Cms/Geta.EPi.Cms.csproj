@@ -184,7 +184,7 @@
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Extensions\MenuItemHtmlHelper.cs" />
     <Compile Include="Extensions\LinkItemCollectionExtensions.cs" />
-    <Compile Include="MarineHarvest\LinkItemExtensions.cs" />
+    <Compile Include="Extensions\LinkItemExtensions.cs" />
     <Compile Include="MarineHarvest\PageDataExtensions.cs" />
     <Compile Include="MarineHarvest\StringExtensions.cs" />
     <Compile Include="MarineHarvest\TypeExtensions.cs" />
