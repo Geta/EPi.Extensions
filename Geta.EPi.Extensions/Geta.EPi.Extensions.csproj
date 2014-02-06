@@ -162,6 +162,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionExtensions.cs" />
     <Compile Include="EnumerableOfPageReferenceExtensions.cs" />
     <Compile Include="CategoryExtensions.cs" />
     <Compile Include="CategoryListExtensions.cs" />
