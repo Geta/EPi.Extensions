@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
+using Geta.EPi.Extensions;
 
 namespace Geta.EPi.Cms.Extensions
 {

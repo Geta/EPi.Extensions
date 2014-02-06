@@ -1,4 +1,5 @@
 ﻿using EPiServer.Core;
+using Geta.EPi.Extensions;
 
 namespace Geta.EPi.Cms.Extensions
 {

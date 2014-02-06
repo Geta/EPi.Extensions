@@ -7,78 +7,101 @@ using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
 
-namespace Geta.EPi.Cms.Extensions
+namespace Geta.EPi.Extensions
 {
     public static class ContentReferenceExtensions
     {
-        public static IEnumerable<PageData> GetChildren(this ContentReference contentLink)
+        /// <summary>
+        /// Returns enumeration of child contents of PageData type for provided content reference.
+        /// </summary>
+        /// <param name="contentReference">Content reference for which child contents to get.</param>
+        /// <returns>Enumeration of PageData child content.</returns>
+        public static IEnumerable<PageData> GetChildren(this ContentReference contentReference)
         {
-            return contentLink.GetChildren<PageData>();
+            return contentReference.GetChildren<PageData>();
         }
 
-        public static IEnumerable<T> GetChildren<T>(this ContentReference contentLink) where T : IContentData
+        /// <summary>
+        /// Returns enumeration of child contents of concrete type for provided content reference.
+        /// </summary>
+        /// <typeparam name="T">Type of child content (IContentData).</typeparam>
+        /// <param name="contentReference">Content reference for which child contents to get.</param>
+        /// <returns>Enumeration of <typeparamref name="T"/> child content.</returns>
+        public static IEnumerable<T> GetChildren<T>(this ContentReference contentReference) where T : IContentData
         {
-            if (!contentLink.IsNullOrEmptyContentReference())
+            if (!contentReference.IsNullOrEmpty())
             {
                 var repository = ServiceLocator.Current.GetInstance<IContentLoader>();
-                return repository.GetChildren<T>(contentLink);
+                return repository.GetChildren<T>(contentReference);
             }
 
             return Enumerable.Empty<T>();
         }
 
-        public static PageData GetPage(this ContentReference contentLink)
+        /// <summary>
+        /// Returns page of PageData type for provided content reference.
+        /// </summary>
+        /// <param name="contentReference">Content reference for which to get page.</param>
+        /// <returns>Page of PageData type that match content reference.</returns>
+        public static PageData GetPage(this ContentReference contentReference)
         {
-            return contentLink.GetPage<PageData>();
+            return contentReference.GetPage<PageData>();
         }
 
-        public static T GetPage<T>(this ContentReference contentLink) where T : PageData
+        /// <summary>
+        /// Returns page of concrete type for provided content reference.
+        /// </summary>
+        /// <typeparam name="T">Type of page (PageData).</typeparam>
+        /// <param name="contentReference">Content reference for which to get page.</param>
+        /// <returns>Page of <typeparamref name="T"/> that match content reference.</returns>
+        public static T GetPage<T>(this ContentReference contentReference) where T : PageData
         {
-            if (!contentLink.IsNullOrEmptyContentReference())
+            if (contentReference.IsNullOrEmpty()) return null;
+
+            var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
+            return loader.Get<PageData>(contentReference) as T;
+        }
+
+        /// <summary>
+        ///     Returns friendly URL for provided content reference.
+        /// </summary>
+        /// <param name="contentReference">Content reference for which to create friendly url.</param>
+        /// <param name="includeHost">Mark if include host name in the url.</param>
+        /// <returns>String representation of URL for provided content reference.</returns>
+        public static string GetFriendlyUrl(this ContentReference contentReference, bool includeHost = false)
+        {
+            if (contentReference.IsNullOrEmpty()) return string.Empty;
+
+            var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
+            var url = urlResolver.GetUrl(contentReference);
+
+            if (!includeHost)
             {
-                var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
-                return loader.Get<PageData>(contentLink) as T;
+                return url;
             }
 
-            return null;
-        }
+            var siteUri = HttpContext.Current != null
+                ? HttpContext.Current.Request.Url
+                : SiteDefinition.Current.SiteUrl;
 
-        public static string GetFriendlyUrl(this ContentReference contentLink, bool includeHost = false)
-        {
-            if (!contentLink.IsNullOrEmptyContentReference())
+            var urlBuilder = new UrlBuilder(url)
             {
-                var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-                var url = urlResolver.GetUrl(contentLink);
+                Scheme = siteUri.Scheme,
+                Host = siteUri.Host,
+                Port = siteUri.Port
+            };
 
-                if (!includeHost)
-                {
-                    return url;
-                }
-
-                var urlBuilder = new UrlBuilder(url);
-
-                if (HttpContext.Current != null)
-                {
-                    urlBuilder.Scheme = HttpContext.Current.Request.Url.Scheme;
-                    urlBuilder.Host = HttpContext.Current.Request.Url.Host;
-                    urlBuilder.Port = HttpContext.Current.Request.Url.Port;
-                }
-                else
-                {
-                    urlBuilder.Scheme = SiteDefinition.Current.SiteUrl.Scheme;
-                    urlBuilder.Host = SiteDefinition.Current.SiteUrl.Host;
-                    urlBuilder.Port = SiteDefinition.Current.SiteUrl.Port;
-                }
-
-                return urlBuilder.ToString();
-            }
-
-            return string.Empty;
+            return urlBuilder.ToString();
         }
 
-        public static bool IsNullOrEmptyContentReference(this ContentReference contentLink)
+        /// <summary>
+        ///     Indicates whether the specified content reference is null or an EmptyReference.
+        /// </summary>
+        /// <param name="contentReference">Content reference to test.</param>
+        /// <returns>true if content reference is null or EmptyReference else false</returns>
+        public static bool IsNullOrEmpty(this ContentReference contentReference)
         {
-            return ContentReference.IsNullOrEmpty(contentLink);
+            return ContentReference.IsNullOrEmpty(contentReference);
         }
     }
 }
