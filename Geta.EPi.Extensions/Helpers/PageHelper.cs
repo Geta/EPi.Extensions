@@ -4,6 +4,9 @@ using EPiServer.ServiceLocation;
 
 namespace Geta.EPi.Extensions.Helpers
 {
+    /// <summary>
+    /// Utility class to help work with EPiServer PageData objects
+    /// </summary>
 	public static class PageHelper
 	{
 		/// <summary>
