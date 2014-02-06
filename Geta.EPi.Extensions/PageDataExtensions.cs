@@ -89,11 +89,24 @@ namespace Geta.EPi.Extensions
             return siblings;
         }
 
+        /// <summary>
+        /// Returns all descendants of PageData type for provided page and level deep.
+        /// </summary>
+        /// <param name="pageData">The page for which to find descendants.</param>
+        /// <param name="levels">Level of how deep to look for descendants in page hiararchy.</param>
+        /// <returns>Returns sequence of PageData of descendants for provided page.</returns>
 		public static IEnumerable<PageData> GetDescendants(this PageData pageData, int levels)
 		{
 			return pageData.GetDescendants<PageData>(levels);
 		} 
 
+        /// <summary>
+        /// Returns all descendants of <typeparamref name="T"/> type for provided page and level deep.
+        /// </summary>
+        /// <typeparam name="T">Type of pages to look for.</typeparam>
+        /// <param name="pageData">The page for which to find descendants.</param>
+        /// <param name="levels">Level of how deep to look for descendants in page hiararchy.</param>
+        /// <returns>Returns sequence of PageData of descendants for provided page.</returns>
         public static IEnumerable<T> GetDescendants<T>(this PageData pageData, int levels) where T: PageData
         {
 	        if (pageData == null || levels <= 0)
