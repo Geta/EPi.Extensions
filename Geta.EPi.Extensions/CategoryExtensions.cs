@@ -2,14 +2,21 @@
 using System.Linq;
 using EPiServer.DataAbstraction;
 
-namespace Geta.EPi.Cms.Extensions
+namespace Geta.EPi.Extensions
 {
     public static class CategoryExtensions
     {
-         public static IEnumerable<Category> GetCategories(this int categoryRootId)
+        /// <summary>
+        /// Returns child categories of provided parent category ID
+        /// </summary>
+        /// <param name="categoryRootId">Parent category ID</param>
+        /// <returns>Enumeration of child categories</returns>
+         public static IEnumerable<Category> GetChildCategories(this int categoryRootId)
          {
-             return Category.Find(categoryRootId).Categories
-                                     .Cast<Category>();
+             var root = Category.Find(categoryRootId);
+            return root != null 
+                ? root.Categories.Cast<Category>() 
+                : Enumerable.Empty<Category>();
          }
     }
 }
