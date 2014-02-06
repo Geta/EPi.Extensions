@@ -19,7 +19,7 @@ namespace Geta.EPi.Extensions
         {
             if (linkItemCollection == null)
             {
-                return null;
+                return new PageDataCollection();
             }
 
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
