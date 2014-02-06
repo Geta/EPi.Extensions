@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
@@ -101,5 +103,36 @@ namespace Geta.EPi.Cms.Extensions
 		{
 			return page != null ? page.ContentLink.GetFriendlyUrl(includeHost) : string.Empty;
 		}
+
+        public static TPropertyType GetInheritedProperty<TPageType, TPropertyType>(
+           this TPageType pageType,
+           Expression<Func<TPageType, TPropertyType>> expression)
+            where TPageType : PageData
+            where TPropertyType : class
+        {
+            var result = pageType.GetPropertyValue(expression);
+            if (result != null)
+            {
+                return result;
+            }
+
+            var parent = pageType.GetParent() as TPageType;
+            if (parent != null)
+            {
+                result = parent.GetInheritedProperty(expression);
+            }
+
+            return result;
+        }
+
+        public static bool IsEqualTo(this PageData page1, PageData page2)
+        {
+            if (page1 == page2)
+            {
+                return true;
+            }
+
+            return page1 != null && page2 != null && page1.ContentLink.CompareToIgnoreWorkID(page2.ContentLink);
+        }
     }
 }

@@ -163,21 +163,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\EnumerableOfPageReferenceExtensions.cs" />
-    <Compile Include="Coop\PageDataCollectionExtensions.cs" />
-    <Compile Include="Coop\PageReferenceExtensions.cs" />
     <Compile Include="Extensions\CategoryExtensions.cs" />
     <Compile Include="Extensions\CategoryListExtensions.cs" />
     <Compile Include="Extensions\ContentExtensions.cs" />
     <Compile Include="Extensions\ContentReferenceExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\EnumerableOfPageDataExtensions.cs" />
-    <Compile Include="MarineHarvest\EnumExtensions.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Extensions\MenuItemHtmlHelper.cs" />
     <Compile Include="Extensions\LinkItemCollectionExtensions.cs" />
     <Compile Include="Extensions\LinkItemExtensions.cs" />
-    <Compile Include="MarineHarvest\PageDataExtensions.cs" />
-    <Compile Include="MarineHarvest\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\PageDataExtensions.cs" />
     <Compile Include="Extensions\PageReferenceExtensions.cs" />
