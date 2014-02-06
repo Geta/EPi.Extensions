@@ -162,28 +162,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\EnumerableOfPageReferenceExtensions.cs" />
-    <Compile Include="Extensions\CategoryExtensions.cs" />
-    <Compile Include="Extensions\CategoryListExtensions.cs" />
-    <Compile Include="Extensions\ContentExtensions.cs" />
-    <Compile Include="Extensions\ContentReferenceExtensions.cs" />
-    <Compile Include="Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Extensions\EnumerableOfPageDataExtensions.cs" />
-    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
-    <Compile Include="Extensions\MenuList\HtmlHelperExtensions.cs" />
-    <Compile Include="Extensions\LinkItemCollectionExtensions.cs" />
-    <Compile Include="Extensions\LinkItemExtensions.cs" />
-    <Compile Include="Extensions\TypeExtensions.cs" />
-    <Compile Include="Extensions\PageDataExtensions.cs" />
-    <Compile Include="Extensions\PageReferenceExtensions.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Extensions\UrlExtensions.cs" />
+    <Compile Include="EnumerableOfPageReferenceExtensions.cs" />
+    <Compile Include="CategoryExtensions.cs" />
+    <Compile Include="CategoryListExtensions.cs" />
+    <Compile Include="ContentExtensions.cs" />
+    <Compile Include="ContentReferenceExtensions.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="EnumerableOfPageDataExtensions.cs" />
+    <Compile Include="HtmlHelperExtensions.cs" />
+    <Compile Include="MenuList\HtmlHelperExtensions.cs" />
+    <Compile Include="LinkItemCollectionExtensions.cs" />
+    <Compile Include="LinkItemExtensions.cs" />
+    <Compile Include="TypeExtensions.cs" />
+    <Compile Include="PageDataExtensions.cs" />
+    <Compile Include="PageReferenceExtensions.cs" />
+    <Compile Include="StringExtensions.cs" />
+    <Compile Include="UrlExtensions.cs" />
     <Compile Include="Helpers\PageHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Helpers\XFormHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryStringBuilder.cs" />
-    <Compile Include="Extensions\UrlHelperExtensions.cs" />
+    <Compile Include="UrlHelperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

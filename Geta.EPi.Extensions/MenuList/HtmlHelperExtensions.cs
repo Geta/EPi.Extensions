@@ -11,8 +11,9 @@ using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
+using Geta.EPi.Cms.Extensions;
 
-namespace Geta.EPi.Cms.Extensions.MenuList
+namespace Geta.EPi.Extensions.MenuList
 {
     public static class HtmlHelperExtensions
     {

@@ -2,12 +2,12 @@
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 
-namespace Geta.EPi.Cms.Helpers
+namespace Geta.EPi.Extensions.Helpers
 {
 	public static class PageHelper
 	{
 		/// <summary>
-		/// Gets the start page untyped.
+		/// Gets the start page for current site.
 		/// </summary>
 		/// <returns>PageData object</returns>
 		public static PageData GetStartPage()
@@ -16,10 +16,10 @@ namespace Geta.EPi.Cms.Helpers
 		}
 
 		/// <summary>
-		/// Gets the start page typed.
+		/// Gets the start page of concrete type for current site.
 		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <returns>The typed start page</returns>
+		/// <typeparam name="T">StartPage type</typeparam>
+		/// <returns>StartPage of <typeparamref name="T"/></returns>
 		public static T GetStartPage<T>() where T : PageData
 		{
 			var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
