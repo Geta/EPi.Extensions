@@ -12,9 +12,9 @@ using EPiServer.ServiceLocation;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
 
-namespace Geta.EPi.Cms.Extensions
+namespace Geta.EPi.Cms.Extensions.MenuList
 {
-    public static class MenuItemHtmlHelper
+    public static class HtmlHelperExtensions
     {
         /// <summary>
         /// Returns an element for each child page of the rootLink using the itemTemplate.

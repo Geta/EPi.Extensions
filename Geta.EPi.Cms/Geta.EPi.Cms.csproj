@@ -170,7 +170,7 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\EnumerableOfPageDataExtensions.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
-    <Compile Include="Extensions\MenuItemHtmlHelper.cs" />
+    <Compile Include="Extensions\MenuList\HtmlHelperExtensions.cs" />
     <Compile Include="Extensions\LinkItemCollectionExtensions.cs" />
     <Compile Include="Extensions\LinkItemExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
