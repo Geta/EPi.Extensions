@@ -23,7 +23,7 @@ namespace Geta.EPi.Extensions
         /// <summary>
         /// Converts sequence of PageData to PageDataCollection.
         /// </summary>
-        /// <param name="pages">Source sequence of PageData.</param>
+        /// <param name="pages">Source sequence of PageData to convert.</param>
         /// <returns>Instance of PageDataCollection from source sequence.</returns>
         public static PageDataCollection ToPageDataCollection(this IEnumerable<PageData> pages)
         {
