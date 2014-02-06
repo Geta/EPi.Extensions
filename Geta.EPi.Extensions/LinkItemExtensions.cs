@@ -12,7 +12,7 @@ namespace Geta.EPi.Extensions
         /// </summary>
         /// <param name="source">Source LinkItem for which to return content reference.</param>
         /// <returns>Returns ContentReference for provided LinkItem if it is EPiServer page otherwise returns EmptyReference.</returns>
-        public static ContentReference GetContentReference(this LinkItem source)
+        public static ContentReference ToContentReference(this LinkItem source)
         {
             var urlBuilder = new UrlBuilder(source.Href);
             return PermanentLinkMapStore.ToMapped(urlBuilder) 

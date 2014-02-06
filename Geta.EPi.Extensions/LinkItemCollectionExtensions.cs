@@ -35,19 +35,9 @@ namespace Geta.EPi.Extensions
 
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
             return linkItemCollection
-                .Select(x => ConvertLinkItemToPage<T>(x, contentLoader))
-                .Where(x => x != null);
-        }
-
-        private static T ConvertLinkItemToPage<T>(LinkItem linkItem, IContentLoader contentLoader)
-            where T : PageData
-        {
-            var url = new UrlBuilder(linkItem.Href);
-            var isEPiServerPage = PermanentLinkMapStore.ToMapped(url);
-
-            return isEPiServerPage
-                ? contentLoader.Get<PageData>(PermanentLinkUtility.GetContentReference(url)) as T
-                : null;
+                .Select(x=> x.ToContentReference())
+                .Where(x => !x.IsNullOrEmpty())
+                .Select(contentLoader.Get<T>);
         }
     }
 }
