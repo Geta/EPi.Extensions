@@ -4,7 +4,6 @@ using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.SpecializedProperties;
-using EPiServer.Web;
 
 namespace Geta.EPi.Extensions
 {
@@ -17,7 +16,7 @@ namespace Geta.EPi.Extensions
         /// <returns>PageDataCollection with EPiServer pages from a LinkItemCollection.</returns>
         public static PageDataCollection ToPageDataCollection(this LinkItemCollection linkItemCollection)
         {
-            return new PageDataCollection(linkItemCollection.ToEnumerable<PageData>());
+            return linkItemCollection.ToEnumerable<PageData>().ToPageDataCollection();
         }
 
         /// <summary>
