@@ -71,8 +71,9 @@ namespace Geta.EPi.Cms.Extensions.MenuList
 
         private static MenuItem CreateMenuItem(PageData page, ContentReference currentContentLink, List<ContentReference> pagePath, IContentLoader contentLoader, Func<IEnumerable<PageData>, IEnumerable<PageData>> filter)
         {
-            var menuItem = new MenuItem(page)
+            var menuItem = new MenuItem
             {
+                Page = page,
                 Selected = page.ContentLink.CompareToIgnoreWorkID(currentContentLink) ||
                            pagePath.Contains(page.ContentLink),
                 HasChildren =
@@ -88,10 +89,6 @@ namespace Geta.EPi.Cms.Extensions.MenuList
 
         public class MenuItem
         {
-            public MenuItem(PageData page)
-            {
-                Page = page;
-            }
             public PageData Page { get; set; }
             public bool Selected { get; set; }
             public Lazy<bool> HasChildren { get; set; }
