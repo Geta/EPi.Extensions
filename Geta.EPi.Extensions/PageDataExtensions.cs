@@ -5,66 +5,89 @@ using System.Linq.Expressions;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
-using Geta.EPi.Extensions;
 
-namespace Geta.EPi.Cms.Extensions
+namespace Geta.EPi.Extensions
 {
     public static class PageDataExtensions
     {
-        public static IEnumerable<T> GetChildren<T>(this PageData parentPage) where T: PageData
-        {
-            if (parentPage != null)
-            {
-				var repository = ServiceLocator.Current.GetInstance<IContentLoader>();
-				return repository.GetChildren<T>(parentPage.ContentLink);
-            }
-
-			return Enumerable.Empty<T>();
-		}
-
+        /// <summary>
+        /// Returns all child pages of PageData type for provided parent page.
+        /// </summary>
+        /// <param name="parentPage">Parent page of PageData type for which to return children.</param>
+        /// <returns>Returns PageDataCollection of child pages.</returns>
         public static PageDataCollection GetChildren(this PageData parentPage)
         {
             return parentPage.GetChildren<PageData>().ToPageDataCollection();
         }
 
-        public static int ChildCount<T>(this PageData page) where T : IContentData
+        /// <summary>
+        /// Returns all child pages of <typeparamref name="T"/> for provided parent page.
+        /// </summary>
+        /// <typeparam name="T">The type of child pages to return.</typeparam>
+        /// <param name="parentPage">Parent page of PageData type for which to return children.</param>
+        /// <returns>Returns sequence of child pages of <typeparamref name="T"/> for provided parent page.</returns>
+        public static IEnumerable<T> GetChildren<T>(this PageData parentPage) 
+            where T: PageData
         {
-            var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
-            return loader.GetChildren<T>(page.ContentLink).Count();
+            if (parentPage == null)
+            {
+                return Enumerable.Empty<T>();
+            }
+            var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
+            return contentLoader.GetChildren<T>(parentPage.ContentLink);
         }
 
+        /// <summary>
+        /// Returns parent page of provided page.
+        /// </summary>
+        /// <param name="page">The page for which to find parent page.</param>
+        /// <returns>Returns instance of parent page of PageData type or null if parent page not found./></returns>
         public static PageData GetParent(this PageData page)
         {
-            if (page != null && !PageReference.IsNullOrEmpty(page.ParentLink) && !DataFactory.Instance.IsWastebasket(page.PageLink))
+            if (page == null 
+                || PageReference.IsNullOrEmpty(page.ParentLink) 
+                || DataFactory.Instance.IsWastebasket(page.PageLink)) // TODO: Might be obsolete in EPi 7 - should verify
             {
-                return page.ParentLink.GetPage();
+                return null;
             }
-
-            return null;
+            return page.ParentLink.GetPage();
         }
 
+        /// <summary>
+        /// Returns all siblings of PageData type of provided page.
+        /// </summary>
+        /// <param name="currentPage">Page for which to find siblings.</param>
+        /// <param name="excludeSelf">Mark if exclude itself from sibling sequence.</param>
+        /// <returns>Sequence of siblings of provided page.</returns>
 		public static IEnumerable<PageData> GetSiblings(this PageData currentPage, bool excludeSelf = true)
 		{
-			return currentPage.GetSiblings<PageData>();
+			return currentPage.GetSiblings<PageData>(excludeSelf);
 		} 
 
+        /// <summary>
+        /// Returns all siblings of <typeparamref name="T"/> type of provided page.
+        /// </summary>
+        /// <typeparam name="T">Type of siblings to return.</typeparam>
+        /// <param name="currentPage">Page for which to find siblings.</param>
+        /// <param name="excludeSelf">Mark if exclude itself from sibling sequence.</param>
+        /// <returns>Sequence of siblings of provided page.</returns>
 	    public static IEnumerable<T> GetSiblings<T>(this PageData currentPage, bool excludeSelf = true) where T : PageData
         {
-            if (currentPage != null)
+            if (currentPage == null)
             {
-				var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
-				var siblings = loader.GetChildren<T>(currentPage.ParentLink);
-
-				if (excludeSelf)
-				{
-					siblings = siblings.Where(p => !p.PageGuid.Equals(currentPage.PageGuid));
-				}
-
-				return siblings;
+                return Enumerable.Empty<T>();
             }
 
-			return Enumerable.Empty<T>();
-		}
+            var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
+            var siblings = loader.GetChildren<T>(currentPage.ParentLink);
+
+            if (excludeSelf)
+            {
+                siblings = siblings.Where(p => !p.PageGuid.Equals(currentPage.PageGuid));
+            }
+
+            return siblings;
+        }
 
 		public static IEnumerable<PageData> GetDescendants(this PageData pageData, int levels)
 		{
