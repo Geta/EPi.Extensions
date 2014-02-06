@@ -3,7 +3,7 @@
 namespace Geta.EPi.Extensions.Helpers
 {
     /// <summary>
-    /// Utility class to help work with validation
+    /// Helper methods for validation
     /// </summary>
 	public static class ValidationHelper
 	{
