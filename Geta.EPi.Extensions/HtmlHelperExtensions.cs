@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Web.Mvc;
 
-namespace Geta.EPi.Cms.Extensions
+namespace Geta.EPi.Extensions
 {
     public static class HtmlHelperExtensions
     {
@@ -31,11 +31,7 @@ namespace Geta.EPi.Cms.Extensions
             return new MvcHtmlString(buffer.ToString());
         }
 
-        public static MvcHtmlString WrapActionLink(
-                this HtmlHelper helper,
-                bool shouldWrapFunc,
-                string link,
-                string text)
+        public static MvcHtmlString WrapActionLink(this HtmlHelper helper, bool shouldWrapFunc, string link, string text)
         {
             var buffer = new StringBuilder();
             var writer = new StringWriter(buffer);
