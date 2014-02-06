@@ -7,8 +7,8 @@
     <ProjectGuid>{31D431C7-6614-4E22-BE07-7A2097E8337E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Geta.EPi.Cms</RootNamespace>
-    <AssemblyName>Geta.EPi.Cms</AssemblyName>
+    <RootNamespace>Geta.EPi.Extensions</RootNamespace>
+    <AssemblyName>Geta.EPi.Extensions</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
