@@ -4,6 +4,7 @@ using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Mvc.Html;
+using Geta.EPi.Extensions.QueryString;
 
 namespace Geta.EPi.Cms.Extensions
 {

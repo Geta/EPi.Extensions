@@ -1,60 +1,97 @@
-﻿using EPiServer;
-using System.Web;
-namespace Geta.EPi.Cms
+﻿using System.Web;
+using EPiServer;
+
+namespace Geta.EPi.Extensions.QueryString
 {
-	public class QueryStringBuilder : IHtmlString
-	{
-		protected readonly UrlBuilder UrlBuilder;
-		public static readonly QueryStringBuilder Empty;
+    /// <summary>
+    ///     Helper class for createing and modifying URL's QueryString.
+    /// </summary>
+    public class QueryStringBuilder : IHtmlString
+    {
+        protected readonly UrlBuilder UrlBuilder;
 
-		static QueryStringBuilder()
-		{
-			Empty = new QueryStringBuilder(string.Empty);	
-		}
+        /// <summary>
+        ///     Represents the empty query string. Field is read-only.
+        /// </summary>
+        public static readonly QueryStringBuilder Empty = new QueryStringBuilder(string.Empty);
 
-		public QueryStringBuilder(string url)
-		{
-			UrlBuilder = new UrlBuilder(url);
-		}
+        /// <summary>
+        ///     Instantiates new QueryStringBuilder with provided URL.
+        /// </summary>
+        /// <param name="url">URL for which to build query.</param>
+        public QueryStringBuilder(string url)
+        {
+            UrlBuilder = new UrlBuilder(url);
+        }
 
-		public static QueryStringBuilder Create(string url)
-		{
-			return new QueryStringBuilder(url);
-		}
+        /// <summary>
+        ///     Factory method for instantiating new QueryStringBuilder with provided URL.
+        /// </summary>
+        /// <param name="url">URL for which to build query.</param>
+        /// <returns>Instance of QueryStringBuilder.</returns>
+        public static QueryStringBuilder Create(string url)
+        {
+            return new QueryStringBuilder(url);
+        }
 
-		public QueryStringBuilder Add(string name, string value)
-		{
-			UrlBuilder.QueryCollection[name] = HttpUtility.UrlEncode(value);
-			return this;
-		}
+        /// <summary>
+        ///     Adds query string parameter to query.
+        /// </summary>
+        /// <param name="name">Name of parameter.</param>
+        /// <param name="value">Value of parameter.</param>
+        /// <returns>Instance of modified QueryStringBuilder.</returns>
+        public QueryStringBuilder Add(string name, string value)
+        {
+            UrlBuilder.QueryCollection[name] = HttpUtility.UrlEncode(value);
+            return this;
+        }
 
-		public QueryStringBuilder Remove(string name)
-		{
-			UrlBuilder.QueryCollection.Remove(name);
-			return this;
-		}
+        /// <summary>
+        ///     Removes query string parameter from query.
+        /// </summary>
+        /// <param name="name">Name of parameter to remove.</param>
+        /// <returns>Instance of modified QueryStringBuilder.</returns>
+        public QueryStringBuilder Remove(string name)
+        {
+            UrlBuilder.QueryCollection.Remove(name);
+            return this;
+        }
 
-		public QueryStringBuilder Toggle(string name, string value)
-		{
-			var currVal = HttpUtility.UrlDecode(UrlBuilder.QueryCollection[name]);
-			var exists = currVal != null && currVal == value;
+        /// <summary>
+        ///     Adds query string parameter to query string if parameter not present or removes query string parameter if it is present.
+        /// </summary>
+        /// <param name="name">Name of parameter to add or remove.</param>
+        /// <param name="value">Value of parameter to add.</param>
+        /// <returns>Instance of modified QueryStringBuilder.</returns>
+        public QueryStringBuilder Toggle(string name, string value)
+        {
+            var currVal = HttpUtility.UrlDecode(UrlBuilder.QueryCollection[name]);
+            var exists = currVal != null && currVal == value;
 
-			if (exists)
-				Remove(name);
-			else
-				Add(name, value);
+            if (exists)
+                Remove(name);
+            else
+                Add(name, value);
 
-			return this;
-		}
+            return this;
+        }
 
-		public override string ToString()
-		{
-			return UrlBuilder.ToString();
-		}
+        /// <summary>
+        /// Returns string representation of URL with query string.
+        /// </summary>
+        /// <returns>String representation of URL with query string.</returns>
+        public override string ToString()
+        {
+            return UrlBuilder.ToString();
+        }
 
-		public string ToHtmlString()
-		{
-			return ToString();
-		}
-	}
+        /// <summary>
+        /// Returns string representation of URL with query string. This is implementation of IHtmlString.
+        /// </summary>
+        /// <returns>String representation of URL with query string.</returns>
+        public string ToHtmlString()
+        {
+            return ToString();
+        }
+    }
 }
