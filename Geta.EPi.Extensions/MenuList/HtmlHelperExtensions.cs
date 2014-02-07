@@ -11,7 +11,6 @@ using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
-using Geta.EPi.Cms.Extensions;
 
 namespace Geta.EPi.Extensions.MenuList
 {
