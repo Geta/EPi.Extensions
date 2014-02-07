@@ -7,6 +7,9 @@ using EPiServer.SpecializedProperties;
 
 namespace Geta.EPi.Extensions
 {
+    /// <summary>
+    ///     LinkItemCollection extensions.
+    /// </summary>
     public static class LinkItemCollectionExtensions
     {
         /// <summary>
@@ -20,11 +23,11 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///     Returns a sequence with all the EPiServer pages of given type <typeparamref name="T"/> in a LinkItemCollection
+        ///     Returns a sequence with all the EPiServer pages of given type <typeparamref name="T" /> in a LinkItemCollection
         /// </summary>
         /// <param name="linkItemCollection">Source LinkItemCollection to look for EPiServer pages.</param>
-        /// <returns>Sequence of the EPiServer pages of type <typeparamref name="T"/> in a LinkItemCollection</returns>
-        public static IEnumerable<T> ToEnumerable<T>(this LinkItemCollection linkItemCollection) 
+        /// <returns>Sequence of the EPiServer pages of type <typeparamref name="T" /> in a LinkItemCollection</returns>
+        public static IEnumerable<T> ToEnumerable<T>(this LinkItemCollection linkItemCollection)
             where T : PageData
         {
             if (linkItemCollection == null)
@@ -34,7 +37,7 @@ namespace Geta.EPi.Extensions
 
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
             return linkItemCollection
-                .Select(x=> x.ToContentReference())
+                .Select(x => x.ToContentReference())
                 .Where(x => !x.IsNullOrEmpty())
                 .Select(contentLoader.Get<T>);
         }

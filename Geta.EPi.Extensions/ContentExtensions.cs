@@ -8,6 +8,9 @@ using EPiServer.ServiceLocation;
 
 namespace Geta.EPi.Extensions
 {
+    /// <summary>
+    ///     Content extensions.
+    /// </summary>
     public static class ContentExtensions
     {
         /// <summary>

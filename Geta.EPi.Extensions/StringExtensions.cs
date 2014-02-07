@@ -50,10 +50,10 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///     Converts string URL <paramref name="source"/> to Url instance.
+        ///     Converts string URL <paramref name="source" /> to Url instance.
         /// </summary>
         /// <param name="source">String URL.</param>
-        /// <returns>Instance of Url class which represents <paramref name="source"/> URL.</returns>
+        /// <returns>Instance of Url class which represents <paramref name="source" /> URL.</returns>
         public static Url ToUrl(this string source)
         {
             return new Url(source);
@@ -104,7 +104,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Parses string to nullable int (Int32).
+        ///     Parses string to nullable int (Int32).
         /// </summary>
         /// <param name="input">Source string.</param>
         /// <returns>int (Int32) value if parse succeeds otherwise null.</returns>
@@ -115,7 +115,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Parses string to nullable long (Int64).
+        ///     Parses string to nullable long (Int64).
         /// </summary>
         /// <param name="input">Source string.</param>
         /// <returns>long (Int64) value if parse succeeds otherwise null.</returns>

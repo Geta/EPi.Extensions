@@ -82,7 +82,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Creates QueryStringBuilder instance for provided EPiServer page reference.
+        ///     Creates QueryStringBuilder instance for provided EPiServer page reference.
         /// </summary>
         /// <param name="urlHelper">UrlHelper instance.</param>
         /// <param name="pageLink">Page reference for which to crete builder.</param>
@@ -100,7 +100,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Creates QueryStringBuilder instance for provided EPiServer page.
+        ///     Creates QueryStringBuilder instance for provided EPiServer page.
         /// </summary>
         /// <param name="urlHelper">UrlHelper instance.</param>
         /// <param name="page">Page for which to create builder.</param>
@@ -117,11 +117,11 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Creates QueryStringBuilder instance for provided <paramref name="url"/>.
+        ///     Creates QueryStringBuilder instance for provided <paramref name="url" />.
         /// </summary>
         /// <param name="urlHelper">UrlHelper instance.</param>
         /// <param name="url">Url for which to create builder.</param>
-        /// <returns>Instance of QueryStringBuilder for provided <paramref name="url"/></returns>
+        /// <returns>Instance of QueryStringBuilder for provided <paramref name="url" /></returns>
         public static QueryStringBuilder QueryBuilder(this UrlHelper urlHelper, string url)
         {
             return QueryStringBuilder.Create(url);

@@ -5,10 +5,13 @@ using EPiServer.DataAbstraction;
 
 namespace Geta.EPi.Extensions
 {
+    /// <summary>
+    ///     CategoryList extensions.
+    /// </summary>
     public static class CategoryListExtensions
     {
         /// <summary>
-        /// Returns string of comma separated category LocalizedDescription.
+        ///     Returns string of comma separated category LocalizedDescription.
         /// </summary>
         /// <param name="categoryList">CategoryList with categories.</param>
         /// <param name="requireAvailable">Mark if return only categories with Available = true.</param>
@@ -37,7 +40,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Returns enumeration of Category instances for provided CategoryList.
+        ///     Returns enumeration of Category instances for provided CategoryList.
         /// </summary>
         /// <param name="categoryList">CategoryList with categories.</param>
         /// <returns>Enumeration of Category instances.</returns>
@@ -49,7 +52,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Returns names of categories for provided CategoryList.
+        ///     Returns names of categories for provided CategoryList.
         /// </summary>
         /// <param name="categoryList">CategoryList with categories.</param>
         /// <returns>Enumeration of category names.</returns>
@@ -61,7 +64,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Returns a value indicating whether the specified category by name occurs within this CategoryList.
+        ///     Returns a value indicating whether the specified category by name occurs within this CategoryList.
         /// </summary>
         /// <param name="categoryList">CategoryList with categories.</param>
         /// <param name="name">Category name to seek.</param>

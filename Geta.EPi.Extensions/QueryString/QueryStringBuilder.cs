@@ -58,7 +58,8 @@ namespace Geta.EPi.Extensions.QueryString
         }
 
         /// <summary>
-        ///     Adds query string parameter to query string if parameter not present or removes query string parameter if it is present.
+        ///     Adds query string parameter to query string if parameter not present or removes query string parameter if it is
+        ///     present.
         /// </summary>
         /// <param name="name">Name of parameter to add or remove.</param>
         /// <param name="value">Value of parameter to add.</param>
@@ -77,7 +78,7 @@ namespace Geta.EPi.Extensions.QueryString
         }
 
         /// <summary>
-        /// Returns string representation of URL with query string.
+        ///     Returns string representation of URL with query string.
         /// </summary>
         /// <returns>String representation of URL with query string.</returns>
         public override string ToString()
@@ -86,7 +87,7 @@ namespace Geta.EPi.Extensions.QueryString
         }
 
         /// <summary>
-        /// Returns string representation of URL with query string. This is implementation of IHtmlString.
+        ///     Returns string representation of URL with query string. This is implementation of IHtmlString.
         /// </summary>
         /// <returns>String representation of URL with query string.</returns>
         public string ToHtmlString()

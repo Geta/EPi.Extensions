@@ -5,12 +5,12 @@ using EPiServer.ServiceLocation;
 namespace Geta.EPi.Extensions
 {
     /// <summary>
-    /// Type extensions
+    ///     Type extensions
     /// </summary>
     public static class TypeExtensions
     {
         /// <summary>
-        /// Returns PageType for provided Type.
+        ///     Returns PageType for provided Type.
         /// </summary>
         /// <param name="pageType">Type for which to lookup PageType.</param>
         /// <returns>PageType instance if found.</returns>

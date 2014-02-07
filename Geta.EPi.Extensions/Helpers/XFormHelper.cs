@@ -13,8 +13,10 @@ namespace Geta.EPi.Extensions.Helpers
         ///     Replaces XForm HTML tables with divs.
         /// </summary>
         /// <param name="htmlFragment">HtmlFragment of XForm</param>
-        /// <param name="addClassAttribute">Mark if to add table tag specific class to div element. 
-        /// For matching Css classes see <see cref="XFormHelper.TableTagCssClasses"/></param>
+        /// <param name="addClassAttribute">
+        ///     Mark if to add table tag specific class to div element.
+        ///     For matching Css classes see <see cref="XFormHelper.TableTagCssClasses" />
+        /// </param>
         /// <returns>Modified HtmlFragment</returns>
         public static HtmlFragment CleanupXFormHtmlMarkup(HtmlFragment htmlFragment, bool addClassAttribute = true)
         {
@@ -38,18 +40,18 @@ namespace Geta.EPi.Extensions.Helpers
         }
 
         /// <summary>
-        /// Dictionary of TABLE tags and matching CSS classes for DIV replacements
-        /// when cleaning XForm using <see cref="XFormHelper.CleanupXFormHtmlMarkup"/> 
-        /// method with parameter addClassAttribute = true
+        ///     Dictionary of TABLE tags and matching CSS classes for DIV replacements
+        ///     when cleaning XForm using <see cref="XFormHelper.CleanupXFormHtmlMarkup" />
+        ///     method with parameter addClassAttribute = true
         /// </summary>
         public static Dictionary<string, string> TableTagCssClasses = new Dictionary<string, string>
-            {
-                {"table", "xform-table"},
-                {"tr", "xform-row"},
-                {"td", "xform-col"},
-                {"tbody", "xform-body"},
-                {"thead", "xform-thead"}
-            };
+        {
+            {"table", "xform-table"},
+            {"tr", "xform-row"},
+            {"td", "xform-col"},
+            {"tbody", "xform-body"},
+            {"thead", "xform-thead"}
+        };
 
         private static void AddClassAttribute(string originalTag, ElementFragment elFragment)
         {

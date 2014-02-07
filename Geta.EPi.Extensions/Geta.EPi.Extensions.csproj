@@ -165,13 +165,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CollectionExtensions.cs" />
-    <Compile Include="EnumerableOfPageReferenceExtensions.cs" />
     <Compile Include="CategoryExtensions.cs" />
     <Compile Include="CategoryListExtensions.cs" />
     <Compile Include="ContentExtensions.cs" />
     <Compile Include="ContentReferenceExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
-    <Compile Include="EnumerableOfPageDataExtensions.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="MenuList\HtmlHelperExtensions.cs" />
     <Compile Include="LinkItemCollectionExtensions.cs" />

@@ -4,12 +4,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using EPiServer;
 using EPiServer.Core;
+using EPiServer.Filters;
 using EPiServer.ServiceLocation;
 
 namespace Geta.EPi.Extensions
 {
     /// <summary>
-    /// Extension methods for PageData
+    ///     Extension methods for PageData
     /// </summary>
     public static class PageDataExtensions
     {
@@ -147,7 +148,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Returns value of page propety if it is not null otherwise returns value of parent page property.
+        ///     Returns value of page propety if it is not null otherwise returns value of parent page property.
         /// </summary>
         /// <typeparam name="TPageType">Page type of page and it's parent page.</typeparam>
         /// <typeparam name="TPropertyType">Type of property.</typeparam>
@@ -176,11 +177,14 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Compares two pages by reference or by WorkID.
+        ///     Compares two pages by reference or by WorkID.
         /// </summary>
         /// <param name="page1">First page to compare.</param>
         /// <param name="page2">Second page to compare.</param>
-        /// <returns>true if first page and second page references are equals or page content link WorkID equals otherwise returns false.</returns>
+        /// <returns>
+        ///     true if first page and second page references are equals or page content link WorkID equals otherwise returns
+        ///     false.
+        /// </returns>
         public static bool IsEqualTo(this PageData page1, PageData page2)
         {
             if (page1 == page2)
@@ -189,6 +193,30 @@ namespace Geta.EPi.Extensions
             }
 
             return page1 != null && page2 != null && page1.ContentLink.CompareToIgnoreWorkID(page2.ContentLink);
+        }
+
+        /// <summary>
+        ///     Sorts sequence of PageData based on FilterSortOrder.
+        /// </summary>
+        /// <param name="pages">Source sequence of PageData.</param>
+        /// <param name="sortOrder">FilterSortOrder value which indicates sort order.</param>
+        /// <returns>Sorted sequence of PageData.</returns>
+        public static IEnumerable<PageData> Sort(this IEnumerable<PageData> pages, FilterSortOrder sortOrder)
+        {
+            var asCollection = pages.ToPageDataCollection();
+            var sortFilter = new FilterSort(sortOrder);
+            sortFilter.Sort(asCollection);
+            return asCollection;
+        }
+
+        /// <summary>
+        ///     Converts sequence of PageData to PageDataCollection.
+        /// </summary>
+        /// <param name="pages">Source sequence of PageData to convert.</param>
+        /// <returns>Instance of PageDataCollection from source sequence.</returns>
+        public static PageDataCollection ToPageDataCollection(this IEnumerable<PageData> pages)
+        {
+            return new PageDataCollection(pages);
         }
     }
 }

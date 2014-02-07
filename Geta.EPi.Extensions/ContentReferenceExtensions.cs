@@ -9,10 +9,13 @@ using EPiServer.Web.Routing;
 
 namespace Geta.EPi.Extensions
 {
+    /// <summary>
+    ///     ContentReference extensions.
+    /// </summary>
     public static class ContentReferenceExtensions
     {
         /// <summary>
-        /// Returns enumeration of child contents of PageData type for provided content reference.
+        ///     Returns enumeration of child contents of PageData type for provided content reference.
         /// </summary>
         /// <param name="contentReference">Content reference for which child contents to get.</param>
         /// <returns>Enumeration of PageData child content.</returns>
@@ -22,11 +25,11 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Returns enumeration of child contents of concrete type for provided content reference.
+        ///     Returns enumeration of child contents of concrete type for provided content reference.
         /// </summary>
         /// <typeparam name="T">Type of child content (IContentData).</typeparam>
         /// <param name="contentReference">Content reference for which child contents to get.</param>
-        /// <returns>Enumeration of <typeparamref name="T"/> child content.</returns>
+        /// <returns>Enumeration of <typeparamref name="T" /> child content.</returns>
         public static IEnumerable<T> GetChildren<T>(this ContentReference contentReference) where T : IContentData
         {
             if (!contentReference.IsNullOrEmpty())
@@ -39,7 +42,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Returns page of PageData type for provided content reference.
+        ///     Returns page of PageData type for provided content reference.
         /// </summary>
         /// <param name="contentReference">Content reference for which to get page.</param>
         /// <returns>Page of PageData type that match content reference.</returns>
@@ -49,11 +52,11 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Returns page of concrete type for provided content reference.
+        ///     Returns page of concrete type for provided content reference.
         /// </summary>
         /// <typeparam name="T">Type of page (PageData).</typeparam>
         /// <param name="contentReference">Content reference for which to get page.</param>
-        /// <returns>Page of <typeparamref name="T"/> that match content reference.</returns>
+        /// <returns>Page of <typeparamref name="T" /> that match content reference.</returns>
         public static T GetPage<T>(this ContentReference contentReference) where T : PageData
         {
             if (contentReference.IsNullOrEmpty()) return null;

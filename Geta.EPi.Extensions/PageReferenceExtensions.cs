@@ -1,31 +1,42 @@
-﻿using EPiServer.Core;
+﻿using System.Collections.Generic;
+using EPiServer.Core;
 
 namespace Geta.EPi.Extensions
 {
     /// <summary>
-    /// PageReference extensions.
+    ///     PageReference extensions.
     /// </summary>
     public static class PageReferenceExtensions
     {
         /// <summary>
-        /// Returns string representation of page LinkURL property for provided PageReference.
+        ///     Returns string representation of page LinkURL property for provided PageReference.
         /// </summary>
         /// <param name="pageReference"></param>
         /// <returns></returns>
-		public static string GetLinkUrl(this PageReference pageReference)
-		{
-			var page = pageReference.GetPage();
-			return page != null ? page.LinkURL : string.Empty;
-		}
+        public static string GetLinkUrl(this PageReference pageReference)
+        {
+            var page = pageReference.GetPage();
+            return page != null ? page.LinkURL : string.Empty;
+        }
 
         /// <summary>
-        /// Indicates whether the specified page reference is null or an EmptyReference.
+        ///     Indicates whether the specified page reference is null or an EmptyReference.
         /// </summary>
         /// <param name="pageReference">Page reference to test.</param>
         /// <returns>true if page reference is null or EmptyReference else false</returns>
-	    public static bool IsNullOrEmpty(this PageReference pageReference)
+        public static bool IsNullOrEmpty(this PageReference pageReference)
         {
             return PageReference.IsNullOrEmpty(pageReference);
+        }
+
+        /// <summary>
+        ///     Converts sequence of PageReference to PageDataCollection.
+        /// </summary>
+        /// <param name="pageReferences">Source sequence of PageReference to convert.</param>
+        /// <returns>Instance of PageDataCollection from source sequence.</returns>
+        public static PageDataCollection ToPageDataCollection(this IEnumerable<PageReference> pageReferences)
+        {
+            return new PageDataCollection(pageReferences);
         }
     }
 }
