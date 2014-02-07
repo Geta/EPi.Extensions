@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+    <title>CategoryListExtensions - Geta.EPi.Extensions Documentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <link type="text/css" rel="stylesheet" href="../main.css"/>
+    <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.scrollTo-min.js"></script>
+    <script type="text/javascript" src="../js/navigation.js"></script>
+    <script type="text/javascript" src="../js/example.js"></script>
+  </head>
+  <body>
+  	<header><h1>Geta.EPi.Extensions : API Documentation</h1>
+	</header>
+<nav id="namespaces">
+	<h2 class="fixed">Namespaces</h2>
+	<div class="scroll">
+		<ul>
+			<li>
+          <a href="../Geta.EPi.Extensions/index.htm" class="current">Geta.EPi.Extensions</a>
+      </li>
+			<li>
+          <a href="../Geta.EPi.Extensions.Helpers/index.htm">Geta.EPi.Extensions.Helpers</a>
+      </li>
+			<li>
+          <a href="../Geta.EPi.Extensions.MenuList/index.htm">Geta.EPi.Extensions.MenuList</a>
+      </li>
+			<li>
+          <a href="../Geta.EPi.Extensions.QueryString/index.htm">Geta.EPi.Extensions.QueryString</a>
+      </li>
+		</ul>
+	</div>
+</nav><nav id="types">
+  <h2 class="fixed">Types in Geta.EPi.Extensions</h2>
+	<div class="scroll">
+		<ul>
+				<li>
+            <a href="../Geta.EPi.Extensions/CategoryExtensions.htm">CategoryExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/CategoryListExtensions.htm" class="current">CategoryListExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/CollectionExtensions.htm">CollectionExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/ContentExtensions.htm">ContentExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/ContentReferenceExtensions.htm">ContentReferenceExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/EnumerableExtensions.htm">EnumerableExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/HtmlHelperExtensions.htm">HtmlHelperExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/LinkItemCollectionExtensions.htm">LinkItemCollectionExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/LinkItemExtensions.htm">LinkItemExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/PageDataExtensions.htm">PageDataExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/PageReferenceExtensions.htm">PageReferenceExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/StringExtensions.htm">StringExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/TypeExtensions.htm">TypeExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/UrlExtensions.htm">UrlExtensions</a>
+        </li>
+				<li>
+            <a href="../Geta.EPi.Extensions/UrlHelperExtensions.htm">UrlHelperExtensions</a>
+        </li>
+		</ul>
+	</div>
+</nav>
+	<article>
+    <header>
+		<p class="class"><strong>Type</strong> CategoryListExtensions</p>
+	</header>
+	<section>
+		<header>
+		<p><strong>Namespace</strong> Geta.EPi.Extensions</p>
+		</header>
+    <div class="sub-header">
+			<div id="summary">CategoryList extensions. 
+			</div>
+		
+		
+			<h3 class="section">Methods</h3>
+			<ul>
+				<li><a href="../Geta.EPi.Extensions/CategoryListExtensions.htm#Contains">Contains</a></li>
+				<li><a href="../Geta.EPi.Extensions/CategoryListExtensions.htm#GetCategoryNames">GetCategoryNames</a></li>
+				<li><a href="../Geta.EPi.Extensions/CategoryListExtensions.htm#GetCommaSeparatedCategories">GetCommaSeparatedCategories</a></li>
+				<li><a href="../Geta.EPi.Extensions/CategoryListExtensions.htm#GetFullCategories">GetFullCategories</a></li>
+			</ul>
+		
+		
+	</div>
+	
+	
+	<h3 class="section">Public static methods</h3>
+
+	<div id="Contains" class="method">
+		<h4>
+			<span title="System.bool">bool</span> <strong>Contains</strong>(this <span title="EPiServer.Core.CategoryList">CategoryList</span> categoryList, <span title="System.string">string</span> name)
+		</h4>
+		<div class="content">Returns a value indicating whether the specified category by name occurs within this CategoryList. 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="EPiServer.Core.CategoryList">CategoryList</span></code> categoryList
+						</dt>
+						<dd>CategoryList with categories. 
+						</dd>
+						<dt>
+							<code><span title="System.string">string</span></code> name
+						</dt>
+						<dd>Category name to seek. 
+						</dd>
+				</dl>
+			</div>
+
+
+		</div>
+	</div>
+	<div id="GetCategoryNames" class="method">
+		<h4>
+			<span title="System.Collections.Generic.IEnumerable<string>">IEnumerable&lt;string&gt;</span> <strong>GetCategoryNames</strong>(this <span title="EPiServer.Core.CategoryList">CategoryList</span> categoryList)
+		</h4>
+		<div class="content">Returns names of categories for provided CategoryList. 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="EPiServer.Core.CategoryList">CategoryList</span></code> categoryList
+						</dt>
+						<dd>CategoryList with categories. 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.Collections.Generic.IEnumerable<string>">IEnumerable&lt;string&gt;</span></code>
+					</dt>
+					<dd>Enumeration of category names. 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+	<div id="GetCommaSeparatedCategories" class="method">
+		<h4>
+			<span title="System.string">string</span> <strong>GetCommaSeparatedCategories</strong>(this <span title="EPiServer.Core.CategoryList">CategoryList</span> categoryList, <span title="System.bool">bool</span> requireAvailable, <span title="System.bool">bool</span> requireSelectable)
+		</h4>
+		<div class="content">Returns string of comma separated category LocalizedDescription. 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="EPiServer.Core.CategoryList">CategoryList</span></code> categoryList
+						</dt>
+						<dd>CategoryList with categories. 
+						</dd>
+						<dt>
+							<code><span title="System.bool">bool</span></code> requireAvailable
+						</dt>
+						<dd>Mark if return only categories with Available = true. 
+						</dd>
+						<dt>
+							<code><span title="System.bool">bool</span></code> requireSelectable
+						</dt>
+						<dd>Mark if return only categories with Selectable = true. 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.string">string</span></code>
+					</dt>
+					<dd>String of comma separated category LocalizedDescription. 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+	<div id="GetFullCategories" class="method">
+		<h4>
+			<span title="System.Collections.Generic.IEnumerable<Category>">IEnumerable&lt;Category&gt;</span> <strong>GetFullCategories</strong>(this <span title="EPiServer.Core.CategoryList">CategoryList</span> categoryList)
+		</h4>
+		<div class="content">Returns enumeration of Category instances for provided CategoryList. 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="EPiServer.Core.CategoryList">CategoryList</span></code> categoryList
+						</dt>
+						<dd>CategoryList with categories. 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.Collections.Generic.IEnumerable<Category>">IEnumerable&lt;Category&gt;</span></code>
+					</dt>
+					<dd>Enumeration of Category instances. 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+	
+	</section>
+	</article><footer>
+	<span id="version">Built from v1.0.0.3 of Geta.EPi.Extensions</span>
+	<span id="docu-link">
+		Generated by <a href="http://docu.jagregory.com">docu</a>
+	</span>
+</footer>
+  </body>
+</html>
