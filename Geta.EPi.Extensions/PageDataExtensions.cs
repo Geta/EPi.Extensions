@@ -1,0 +1,222 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using EPiServer;
+using EPiServer.Core;
+using EPiServer.Filters;
+using EPiServer.ServiceLocation;
+
+namespace Geta.EPi.Extensions
+{
+    /// <summary>
+    ///     Extension methods for PageData
+    /// </summary>
+    public static class PageDataExtensions
+    {
+        /// <summary>
+        ///     Returns all child pages of PageData type for provided parent page.
+        /// </summary>
+        /// <param name="parentPage">Parent page of PageData type for which to return children.</param>
+        /// <returns>Returns PageDataCollection of child pages.</returns>
+        public static PageDataCollection GetChildren(this PageData parentPage)
+        {
+            return parentPage.GetChildren<PageData>().ToPageDataCollection();
+        }
+
+        /// <summary>
+        ///     Returns all child pages of <typeparamref name="T" /> for provided parent page.
+        /// </summary>
+        /// <typeparam name="T">The type of child pages to return.</typeparam>
+        /// <param name="parentPage">Parent page of PageData type for which to return children.</param>
+        /// <returns>Returns sequence of child pages of <typeparamref name="T" /> for provided parent page.</returns>
+        public static IEnumerable<T> GetChildren<T>(this PageData parentPage)
+            where T : PageData
+        {
+            if (parentPage == null)
+            {
+                return Enumerable.Empty<T>();
+            }
+            var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
+            return contentLoader.GetChildren<T>(parentPage.ContentLink);
+        }
+
+        /// <summary>
+        ///     Returns parent page of provided page.
+        /// </summary>
+        /// <param name="page">The page for which to find parent page.</param>
+        /// <returns>Returns instance of parent page of PageData type or null if parent page not found./></returns>
+        public static PageData GetParent(this PageData page)
+        {
+            if (page == null
+                || PageReference.IsNullOrEmpty(page.ParentLink)
+                || DataFactory.Instance.IsWastebasket(page.PageLink))
+                // TODO: Might be obsolete in EPi 7 - should verify
+            {
+                return null;
+            }
+            return page.ParentLink.GetPage();
+        }
+
+        /// <summary>
+        ///     Returns all siblings of PageData type of provided page.
+        /// </summary>
+        /// <param name="currentPage">Page for which to find siblings.</param>
+        /// <param name="excludeSelf">Mark if exclude itself from sibling sequence.</param>
+        /// <returns>Sequence of siblings of provided page.</returns>
+        public static IEnumerable<PageData> GetSiblings(this PageData currentPage, bool excludeSelf = true)
+        {
+            return currentPage.GetSiblings<PageData>(excludeSelf);
+        }
+
+        /// <summary>
+        ///     Returns all siblings of <typeparamref name="T" /> type of provided page.
+        /// </summary>
+        /// <typeparam name="T">Type of siblings to return.</typeparam>
+        /// <param name="currentPage">Page for which to find siblings.</param>
+        /// <param name="excludeSelf">Mark if exclude itself from sibling sequence.</param>
+        /// <returns>Sequence of siblings of provided page.</returns>
+        public static IEnumerable<T> GetSiblings<T>(this PageData currentPage, bool excludeSelf = true)
+            where T : PageData
+        {
+            if (currentPage == null)
+            {
+                return Enumerable.Empty<T>();
+            }
+
+            var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
+            var siblings = loader.GetChildren<T>(currentPage.ParentLink);
+
+            if (excludeSelf)
+            {
+                siblings = siblings.Where(p => !p.PageGuid.Equals(currentPage.PageGuid));
+            }
+
+            return siblings;
+        }
+
+        /// <summary>
+        ///     Returns all descendants of PageData type for provided page and level deep.
+        /// </summary>
+        /// <param name="pageData">The page for which to find descendants.</param>
+        /// <param name="levels">Level of how deep to look for descendants in page hiararchy.</param>
+        /// <returns>Returns sequence of PageData of descendants for provided page.</returns>
+        public static IEnumerable<PageData> GetDescendants(this PageData pageData, int levels)
+        {
+            return pageData.GetDescendants<PageData>(levels);
+        }
+
+        /// <summary>
+        ///     Returns all descendants of <typeparamref name="T" /> type for provided page and level deep.
+        /// </summary>
+        /// <typeparam name="T">Type of pages to look for.</typeparam>
+        /// <param name="pageData">The page for which to find descendants.</param>
+        /// <param name="levels">Level of how deep to look for descendants in page hiararchy.</param>
+        /// <returns>Returns sequence of PageData of descendants for provided page.</returns>
+        public static IEnumerable<T> GetDescendants<T>(this PageData pageData, int levels) where T : PageData
+        {
+            if (pageData == null || levels <= 0)
+            {
+                yield break;
+            }
+
+            foreach (var child in pageData.GetChildren<T>())
+            {
+                yield return child;
+
+                if (levels <= 1)
+                {
+                    continue;
+                }
+
+                foreach (var grandChild in child.GetDescendants<T>(levels - 1))
+                {
+                    yield return grandChild;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Returns friendly URL for provided page.
+        /// </summary>
+        /// <param name="page">Page for which to create friendly url.</param>
+        /// <param name="includeHost">Mark if include host name in the url.</param>
+        /// <returns>String representation of URL for provided page.</returns>
+        public static string GetFriendlyUrl(this PageData page, bool includeHost = false)
+        {
+            return page != null ? page.ContentLink.GetFriendlyUrl(includeHost) : string.Empty;
+        }
+
+        /// <summary>
+        ///     Returns value of page propety if it is not null otherwise returns value of parent page property.
+        /// </summary>
+        /// <typeparam name="TPageType">Page type of page and it's parent page.</typeparam>
+        /// <typeparam name="TPropertyType">Type of property.</typeparam>
+        /// <param name="page">Page which properties value to return.</param>
+        /// <param name="expression">Expression of property to return.</param>
+        /// <returns>Returns value of property from page or parent page if found, otherwise null.</returns>
+        public static TPropertyType GetInheritedProperty<TPageType, TPropertyType>(
+            this TPageType page,
+            Expression<Func<TPageType, TPropertyType>> expression)
+            where TPageType : PageData
+            where TPropertyType : class
+        {
+            var result = page.GetPropertyValue(expression);
+            if (result != null)
+            {
+                return result;
+            }
+
+            var parent = page.GetParent() as TPageType;
+            if (parent != null)
+            {
+                result = parent.GetInheritedProperty(expression);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        ///     Compares two pages by reference or by WorkID.
+        /// </summary>
+        /// <param name="page1">First page to compare.</param>
+        /// <param name="page2">Second page to compare.</param>
+        /// <returns>
+        ///     true if first page and second page references are equals or page content link WorkID equals otherwise returns
+        ///     false.
+        /// </returns>
+        public static bool IsEqualTo(this PageData page1, PageData page2)
+        {
+            if (page1 == page2)
+            {
+                return true;
+            }
+
+            return page1 != null && page2 != null && page1.ContentLink.CompareToIgnoreWorkID(page2.ContentLink);
+        }
+
+        /// <summary>
+        ///     Sorts sequence of PageData based on FilterSortOrder.
+        /// </summary>
+        /// <param name="pages">Source sequence of PageData.</param>
+        /// <param name="sortOrder">FilterSortOrder value which indicates sort order.</param>
+        /// <returns>Sorted sequence of PageData.</returns>
+        public static IEnumerable<PageData> Sort(this IEnumerable<PageData> pages, FilterSortOrder sortOrder)
+        {
+            var asCollection = pages.ToPageDataCollection();
+            var sortFilter = new FilterSort(sortOrder);
+            sortFilter.Sort(asCollection);
+            return asCollection;
+        }
+
+        /// <summary>
+        ///     Converts sequence of PageData to PageDataCollection.
+        /// </summary>
+        /// <param name="pages">Source sequence of PageData to convert.</param>
+        /// <returns>Instance of PageDataCollection from source sequence.</returns>
+        public static PageDataCollection ToPageDataCollection(this IEnumerable<PageData> pages)
+        {
+            return new PageDataCollection(pages);
+        }
+    }
+}
