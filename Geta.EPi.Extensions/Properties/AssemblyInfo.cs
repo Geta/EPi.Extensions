@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Geta AS")]
 [assembly: AssemblyProduct("Geta.EPi.Extensions")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright © 2014 Geta AS")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

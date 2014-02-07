@@ -6,9 +6,12 @@
     <title>Geta.EPi.Extensions</title>
     <authors>Geta AS</authors>
     <owners>Geta AS</owners>
+    <projectUrl>https://github.com/Geta/EPi.Extensions</projectUrl>
+    <licenseUrl>https://github.com/Geta/EPi.Extensions/raw/master/LICENSE.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Extension methods and helpers for EPiServer.</description>
-    <copyright>Copyright ©  2014</copyright>
+    <copyright>Copyright © 2014 Geta AS</copyright>
+    <tags>EPiServer</tags>
     <dependencies>
       <dependency id="EPiServer.CMS.Core" version="7.0" />
     </dependencies>
