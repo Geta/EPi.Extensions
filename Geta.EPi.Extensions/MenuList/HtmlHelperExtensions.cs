@@ -14,6 +14,9 @@ using EPiServer.Web.Routing;
 
 namespace Geta.EPi.Extensions.MenuList
 {
+    /// <summary>
+    /// HtmlHelper extension for building menu list.
+    /// </summary>
     public static class HtmlHelperExtensions
     {
         /// <summary>
@@ -87,10 +90,25 @@ namespace Geta.EPi.Extensions.MenuList
             return x => new HelperResult(writer => writer.Write(helper.PageLink(x.Page)));
         }
 
+        /// <summary>
+        /// Model for one menu item.
+        /// It is used as a model in Menu item template.
+        /// </summary>
         public class MenuItem
         {
+            /// <summary>
+            /// Menu item's page.
+            /// </summary>
             public PageData Page { get; set; }
+
+            /// <summary>
+            /// Mark if menu item is selected.
+            /// </summary>
             public bool Selected { get; set; }
+
+            /// <summary>
+            /// Mark if menu item has child items.
+            /// </summary>
             public Lazy<bool> HasChildren { get; set; }
         }
     }
