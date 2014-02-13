@@ -174,6 +174,7 @@
     <Compile Include="MenuList\HtmlHelperExtensions.cs" />
     <Compile Include="LinkItemCollectionExtensions.cs" />
     <Compile Include="LinkItemExtensions.cs" />
+    <Compile Include="MenuList\MenuItem.cs" />
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="PageDataExtensions.cs" />
     <Compile Include="PageReferenceExtensions.cs" />

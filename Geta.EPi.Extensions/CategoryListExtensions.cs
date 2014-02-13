@@ -11,12 +11,12 @@ namespace Geta.EPi.Extensions
     public static class CategoryListExtensions
     {
         /// <summary>
-        ///     Returns string of comma separated category LocalizedDescription.
+        ///     Builds a comma separated string of categories using LocalizedDescription as name.
         /// </summary>
         /// <param name="categoryList">CategoryList with categories.</param>
-        /// <param name="requireAvailable">Mark if return only categories with Available = true.</param>
-        /// <param name="requireSelectable">Mark if return only categories with Selectable = true.</param>
-        /// <returns>String of comma separated category LocalizedDescription.</returns>
+        /// <param name="requireAvailable">Flag to filter by Available.</param>
+        /// <param name="requireSelectable">Flag to filter by Selectable.</param>
+        /// <returns>A comma separated string of categories using LocalizedDescription as name.</returns>
         public static string GetCommaSeparatedCategories(this CategoryList categoryList,
             bool requireAvailable = false,
             bool requireSelectable = false)
@@ -40,10 +40,10 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///     Returns enumeration of Category instances for provided CategoryList.
+        ///     Returns enumeration of Category for provided CategoryList.
         /// </summary>
         /// <param name="categoryList">CategoryList with categories.</param>
-        /// <returns>Enumeration of Category instances.</returns>
+        /// <returns>Enumeration of Category.</returns>
         public static IEnumerable<Category> GetFullCategories(this CategoryList categoryList)
         {
             return categoryList != null
@@ -68,7 +68,7 @@ namespace Geta.EPi.Extensions
         /// </summary>
         /// <param name="categoryList">CategoryList with categories.</param>
         /// <param name="name">Category name to seek.</param>
-        /// <returns></returns>
+        /// <returns>true if category exists in CategoryList otherwise false.</returns>
         public static bool Contains(this CategoryList categoryList, string name)
         {
             return categoryList.Select(categoryList.GetCategoryName).Any(categoryName => categoryName.Equals(name));

@@ -10,12 +10,12 @@ namespace Geta.EPi.Extensions.Helpers
     public static class XFormHelper
     {
         /// <summary>
-        ///     Replaces XForm HTML tables with divs.
+        ///     Replaces XForm HTML tables with more semantic markup.
         /// </summary>
         /// <param name="htmlFragment">HtmlFragment of XForm</param>
         /// <param name="addClassAttribute">
-        ///     Mark if to add table tag specific class to div element.
-        ///     For matching Css classes see <see cref="XFormHelper.TableTagCssClasses" />
+        ///     Will add individual HTML class for each element.
+        ///     For matching HTML classes see <see cref="XFormHelper.TableTagCssClasses" />
         /// </param>
         /// <returns>Modified HtmlFragment</returns>
         public static HtmlFragment CleanupXFormHtmlMarkup(HtmlFragment htmlFragment, bool addClassAttribute = true)
@@ -40,7 +40,7 @@ namespace Geta.EPi.Extensions.Helpers
         }
 
         /// <summary>
-        ///     Dictionary of TABLE tags and matching CSS classes for DIV replacements
+        ///     Dictionary of TABLE tags and matching HTML classes for markup replacements
         ///     when cleaning XForm using <see cref="XFormHelper.CleanupXFormHtmlMarkup" />
         ///     method with parameter addClassAttribute = true
         /// </summary>

@@ -10,10 +10,10 @@ namespace Geta.EPi.Extensions
     public static class CategoryExtensions
     {
         /// <summary>
-        ///     Returns child categories of provided parent category ID
+        ///     Returns strongly typed child categories of provided parent category ID.
         /// </summary>
-        /// <param name="categoryRootId">Parent category ID</param>
-        /// <returns>Enumeration of child categories</returns>
+        /// <param name="categoryRootId">Parent category ID.</param>
+        /// <returns>Enumeration of child categories.</returns>
         public static IEnumerable<Category> GetChildCategories(this int categoryRootId)
         {
             var root = Category.Find(categoryRootId);

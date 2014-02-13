@@ -4,7 +4,7 @@ using EPiServer;
 namespace Geta.EPi.Extensions.QueryString
 {
     /// <summary>
-    ///     Helper class for createing and modifying URL's QueryString.
+    ///     Helper class for creating and modifying URL's QueryString.
     /// </summary>
     public class QueryStringBuilder : IHtmlString
     {
@@ -35,7 +35,7 @@ namespace Geta.EPi.Extensions.QueryString
         }
 
         /// <summary>
-        ///     Adds query string parameter to query.
+        ///     Adds query string parameter to query URL encoded.
         /// </summary>
         /// <param name="name">Name of parameter.</param>
         /// <param name="value">Value of parameter.</param>
@@ -58,8 +58,7 @@ namespace Geta.EPi.Extensions.QueryString
         }
 
         /// <summary>
-        ///     Adds query string parameter to query string if parameter not present or removes query string parameter if it is
-        ///     present.
+        ///     Adds query string parameter to query string if it is not already present, otherwise it removes it.
         /// </summary>
         /// <param name="name">Name of parameter to add or remove.</param>
         /// <param name="value">Value of parameter to add.</param>

@@ -37,13 +37,8 @@ namespace Geta.EPi.Extensions.MenuList
         /// <remarks>
         ///     Filter by access rights and publication status.
         /// </remarks>
-        public static IHtmlString MenuList(
-            this HtmlHelper helper,
-            ContentReference rootLink,
-            Func<MenuItem, HelperResult> itemTemplate = null,
-            bool includeRoot = false,
-            bool requireVisibleInMenu = true,
-            bool requirePageTemplate = true)
+        public static IHtmlString MenuList(this HtmlHelper helper, ContentReference rootLink, Func<MenuItem, HelperResult> itemTemplate = null, 
+            bool includeRoot = false, bool requireVisibleInMenu = true, bool requirePageTemplate = true)
         {
             itemTemplate = itemTemplate ?? GetDefaultItemTemplate(helper);
             var currentContentLink = helper.ViewContext.RequestContext.GetContentLink();
@@ -98,28 +93,6 @@ namespace Geta.EPi.Extensions.MenuList
         private static Func<MenuItem, HelperResult> GetDefaultItemTemplate(HtmlHelper helper)
         {
             return x => new HelperResult(writer => writer.Write(helper.PageLink(x.Page)));
-        }
-
-        /// <summary>
-        ///     Model for one menu item.
-        ///     It is used as a model in Menu item template.
-        /// </summary>
-        public class MenuItem
-        {
-            /// <summary>
-            ///     Menu item's page.
-            /// </summary>
-            public PageData Page { get; set; }
-
-            /// <summary>
-            ///     Mark if menu item is selected.
-            /// </summary>
-            public bool Selected { get; set; }
-
-            /// <summary>
-            ///     Mark if menu item has child items.
-            /// </summary>
-            public Lazy<bool> HasChildren { get; set; }
         }
     }
 }
