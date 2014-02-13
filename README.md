@@ -3,7 +3,7 @@ EPi.Extensions
 
 ## What is EPi.Extensions?
 
-EPi.Extensions is library with useful extension methods and helpers working with EPiServer.
+EPi.Extensions is library with useful extension methods and helpers for EPiServer.
 
 ## How to get started?
 
