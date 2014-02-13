@@ -118,7 +118,7 @@ namespace Geta.EPi.Extensions
 
         /// <summary>
         ///     Creates QueryStringBuilder instance for provided <paramref name="url" />.
-        /// </summary>
+        /// </summary>FilterSortOrder
         /// <param name="urlHelper">UrlHelper instance.</param>
         /// <param name="url">Url for which to create builder.</param>
         /// <returns>Instance of QueryStringBuilder for provided <paramref name="url" /></returns>

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using EPiServer;
 using EPiServer.Core;
-using EPiServer.Filters;
 using EPiServer.ServiceLocation;
 
 namespace Geta.EPi.Extensions
@@ -148,35 +145,6 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///     Returns value of page propety if it is not null otherwise returns value of parent page property.
-        /// </summary>
-        /// <typeparam name="TPageType">Page type of page and it's parent page.</typeparam>
-        /// <typeparam name="TPropertyType">Type of property.</typeparam>
-        /// <param name="page">Page which properties value to return.</param>
-        /// <param name="expression">Expression of property to return.</param>
-        /// <returns>Returns value of property from page or parent page if found, otherwise null.</returns>
-        public static TPropertyType GetInheritedProperty<TPageType, TPropertyType>(
-            this TPageType page,
-            Expression<Func<TPageType, TPropertyType>> expression)
-            where TPageType : PageData
-            where TPropertyType : class
-        {
-            var result = page.GetPropertyValue(expression);
-            if (result != null)
-            {
-                return result;
-            }
-
-            var parent = page.GetParent() as TPageType;
-            if (parent != null)
-            {
-                result = parent.GetInheritedProperty(expression);
-            }
-
-            return result;
-        }
-
-        /// <summary>
         ///     Compares two pages by reference or by WorkID.
         /// </summary>
         /// <param name="page1">First page to compare.</param>
@@ -193,20 +161,6 @@ namespace Geta.EPi.Extensions
             }
 
             return page1 != null && page2 != null && page1.ContentLink.CompareToIgnoreWorkID(page2.ContentLink);
-        }
-
-        /// <summary>
-        ///     Sorts sequence of PageData based on FilterSortOrder.
-        /// </summary>
-        /// <param name="pages">Source sequence of PageData.</param>
-        /// <param name="sortOrder">FilterSortOrder value which indicates sort order.</param>
-        /// <returns>Sorted sequence of PageData.</returns>
-        public static IEnumerable<PageData> Sort(this IEnumerable<PageData> pages, FilterSortOrder sortOrder)
-        {
-            var asCollection = pages.ToPageDataCollection();
-            var sortFilter = new FilterSort(sortOrder);
-            sortFilter.Sort(asCollection);
-            return asCollection;
         }
 
         /// <summary>

@@ -21,9 +21,7 @@ namespace Geta.EPi.Extensions
         /// <param name="requirePageTemplate">Mark if should include only content with template.</param>
         /// <param name="requireVisibleInMenu">Mark if should include only pages with mark VisibleInMenu = true.</param>
         /// <returns>Returns enumeration of filtered content.</returns>
-        public static IEnumerable<T> FilterForDisplay<T>(this IEnumerable<T> content,
-            bool requirePageTemplate = false,
-            bool requireVisibleInMenu = false)
+        public static IEnumerable<T> FilterForDisplay<T>(this IEnumerable<T> content, bool requirePageTemplate = false, bool requireVisibleInMenu = false)
             where T : IContent
         {
             if (content == null) return Enumerable.Empty<T>();

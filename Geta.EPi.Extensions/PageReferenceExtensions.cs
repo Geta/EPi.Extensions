@@ -9,17 +9,6 @@ namespace Geta.EPi.Extensions
     public static class PageReferenceExtensions
     {
         /// <summary>
-        ///     Returns string representation of page LinkURL property for provided PageReference.
-        /// </summary>
-        /// <param name="pageReference"></param>
-        /// <returns></returns>
-        public static string GetLinkUrl(this PageReference pageReference)
-        {
-            var page = pageReference.GetPage();
-            return page != null ? page.LinkURL : string.Empty;
-        }
-
-        /// <summary>
         ///     Indicates whether the specified page reference is null or an EmptyReference.
         /// </summary>
         /// <param name="pageReference">Page reference to test.</param>

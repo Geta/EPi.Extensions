@@ -2,9 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using EPiServer;
-using EPiServer.Core;
 using EPiServer.Web;
-using EPiServer.Web.Routing;
 
 namespace Geta.EPi.Extensions
 {
@@ -19,7 +17,7 @@ namespace Geta.EPi.Extensions
         /// </summary>
         /// <param name="url">Url for which to create Uri.</param>
         /// <returns>External Uri for Url.</returns>
-        public static Uri ToExternalUri(this Url url)
+        public static Uri ToAbsoluteUri(this Url url)
         {
             if (url == null)
             {
@@ -50,41 +48,6 @@ namespace Geta.EPi.Extensions
             return url == null
                 ? MvcHtmlString.Empty
                 : MvcHtmlString.Create(url.ToString());
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static string Resolve(this Url url)
-        {
-            return url.Resolve(null);
-        }
-
-        /// <summary>
-        ///     Returns string representation of URL for provided Url instance and language.
-        /// </summary>
-        /// <param name="url">Url for which to create string URL.</param>
-        /// <param name="language">Language code for which to create URL.</param>
-        /// <returns>
-        ///     String representation of URL. If Url represents EPiServer page it creates Url with provided language otherwise
-        ///     returns string representation of <paramref name="url" />
-        /// </returns>
-        public static string Resolve(this Url url, string language)
-        {
-            if (url == null)
-            {
-                return null;
-            }
-
-            var reference = PermanentLinkUtility.GetContentReference(new UrlBuilder(url));
-            if (ContentReference.IsNullOrEmpty(reference))
-            {
-                return url.ToString();
-            }
-
-            var resolver = new UrlResolver();
-            return resolver.GetUrl(reference, language);
         }
 
         private static Uri GetBaseUri()
