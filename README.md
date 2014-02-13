@@ -1,4 +1,4 @@
-EPi.Extensions
+Extensions and helpers library for EPiServer
 ==============
 
 ## What is EPi.Extensions?
