@@ -1,13 +1,12 @@
 EPi.Extensions
 ==============
 
-What is EPi.Extensions?
-------------------------------
+## What is EPi.Extensions?
 
 EPi.Extensions is library with useful extension methods and helpers working with EPiServer.
 
-How to get started?
-------------------------------
+## How to get started?
+
 Start by installing NuGet package (use [EPiServer NuGet](http://nuget.episerver.com/)):
 
     Install-Package Geta.EPi.Extensions
