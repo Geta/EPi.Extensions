@@ -81,7 +81,7 @@
 		<h4>
 			<span title="EPiServer.HtmlParsing.HtmlFragment">HtmlFragment</span> <strong>CleanupXFormHtmlMarkup</strong>(<span title="EPiServer.HtmlParsing.HtmlFragment">HtmlFragment</span> htmlFragment, <span title="System.bool">bool</span> addClassAttribute)
 		</h4>
-		<div class="content">Replaces XForm HTML tables with divs. 
+		<div class="content">Replaces XForm HTML tables with more semantic markup. 
 
 
 			<div class="parameters">
@@ -95,8 +95,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> addClassAttribute
 						</dt>
-						<dd>Mark if to add table tag specific class to div element.
-For matching Css classes see  <a href="../Geta.EPi.Extensions.Helpers/XFormHelper.htm#TableTagCssClasses">TableTagCssClasses</a> 
+						<dd>Will add individual HTML class for each element.
+For matching HTML classes see  <a href="../Geta.EPi.Extensions.Helpers/XFormHelper.htm#TableTagCssClasses">TableTagCssClasses</a> 
 						</dd>
 				</dl>
 			</div>
@@ -120,7 +120,7 @@ For matching Css classes see  <a href="../Geta.EPi.Extensions.Helpers/XFormHelpe
 
   <div id="TableTagCssClasses" class="method">
     <h4>Dictionary&lt;string, string&gt; <strong>TableTagCssClasses</strong></h4>
-    <div class="content">Dictionary of TABLE tags and matching CSS classes for DIV replacements
+    <div class="content">Dictionary of TABLE tags and matching HTML classes for markup replacements
 when cleaning XForm using  <a href="../Geta.EPi.Extensions.Helpers/XFormHelper.htm#CleanupXFormHtmlMarkup">CleanupXFormHtmlMarkup</a> method with parameter addClassAttribute = true 
       <table>
         <tr>

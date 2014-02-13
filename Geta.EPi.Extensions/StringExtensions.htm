@@ -44,9 +44,6 @@
             <a href="../Geta.EPi.Extensions/CategoryListExtensions.htm">CategoryListExtensions</a>
         </li>
 				<li>
-            <a href="../Geta.EPi.Extensions/CollectionExtensions.htm">CollectionExtensions</a>
-        </li>
-				<li>
             <a href="../Geta.EPi.Extensions/ContentExtensions.htm">ContentExtensions</a>
         </li>
 				<li>
@@ -54,9 +51,6 @@
         </li>
 				<li>
             <a href="../Geta.EPi.Extensions/EnumerableExtensions.htm">EnumerableExtensions</a>
-        </li>
-				<li>
-            <a href="../Geta.EPi.Extensions/HtmlHelperExtensions.htm">HtmlHelperExtensions</a>
         </li>
 				<li>
             <a href="../Geta.EPi.Extensions/LinkItemCollectionExtensions.htm">LinkItemCollectionExtensions</a>
@@ -100,10 +94,7 @@
 		
 			<h3 class="section">Methods</h3>
 			<ul>
-				<li><a href="../Geta.EPi.Extensions/StringExtensions.htm#GenerateSlug">GenerateSlug</a></li>
-				<li><a href="../Geta.EPi.Extensions/StringExtensions.htm#GetExternalUrl">GetExternalUrl</a></li>
 				<li><a href="../Geta.EPi.Extensions/StringExtensions.htm#StripHtml">StripHtml</a></li>
-				<li><a href="../Geta.EPi.Extensions/StringExtensions.htm#ToUrl">ToUrl</a></li>
 				<li><a href="../Geta.EPi.Extensions/StringExtensions.htm#TryParseInt32">TryParseInt32</a></li>
 				<li><a href="../Geta.EPi.Extensions/StringExtensions.htm#TryParseInt64">TryParseInt64</a></li>
 			</ul>
@@ -114,75 +105,6 @@
 	
 	<h3 class="section">Public static methods</h3>
 
-	<div id="GenerateSlug" class="method">
-		<h4>
-			<span title="System.string">string</span> <strong>GenerateSlug</strong>(this <span title="System.string">string</span> phrase, <span title="System.int">int</span> maxLength)
-		</h4>
-		<div class="content">Creates URL / Html friendly slug. 
-
-
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.string">string</span></code> phrase
-						</dt>
-						<dd>Phrease to create slug from. 
-						</dd>
-						<dt>
-							<code><span title="System.int">int</span></code> maxLength
-						</dt>
-						<dd>Maximum length of the slug. 
-						</dd>
-				</dl>
-			</div>
-
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="System.string">string</span></code>
-					</dt>
-					<dd>Created string slug. 
-					</dd>
-				</dl>
-			</div>
-
-		</div>
-	</div>
-	<div id="GetExternalUrl" class="method">
-		<h4>
-			<span title="EPiServer.UrlBuilder">UrlBuilder</span> <strong>GetExternalUrl</strong>(this <span title="System.string">string</span> permanentlink)
-		</h4>
-		<div class="content">Returns absolute URL for given EPiServer  <var>permanentlink</var>. 
-
-
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.string">string</span></code> permanentlink
-						</dt>
-						<dd>Permanent URL of EPiServer content. 
-						</dd>
-				</dl>
-			</div>
-
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="EPiServer.UrlBuilder">UrlBuilder</span></code>
-					</dt>
-					<dd>UrlBuilder instance which represents absolute URL. 
-					</dd>
-				</dl>
-			</div>
-
-		</div>
-	</div>
 	<div id="StripHtml" class="method">
 		<h4>
 			<span title="System.string">string</span> <strong>StripHtml</strong>(this <span title="System.string">string</span> htmlText, <span title="System.int">int</span> maxLength)
@@ -214,38 +136,6 @@
 						<code><span title="System.string">string</span></code>
 					</dt>
 					<dd>A string with text. 
-					</dd>
-				</dl>
-			</div>
-
-		</div>
-	</div>
-	<div id="ToUrl" class="method">
-		<h4>
-			<span title="EPiServer.Url">Url</span> <strong>ToUrl</strong>(this <span title="System.string">string</span> source)
-		</h4>
-		<div class="content">Converts string URL  <var>source</var>  to Url instance. 
-
-
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.string">string</span></code> source
-						</dt>
-						<dd>String URL. 
-						</dd>
-				</dl>
-			</div>
-
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="EPiServer.Url">Url</span></code>
-					</dt>
-					<dd>Instance of Url class which represents  <var>source</var>  URL. 
 					</dd>
 				</dl>
 			</div>

@@ -44,9 +44,6 @@
             <a href="../Geta.EPi.Extensions/CategoryListExtensions.htm">CategoryListExtensions</a>
         </li>
 				<li>
-            <a href="../Geta.EPi.Extensions/CollectionExtensions.htm">CollectionExtensions</a>
-        </li>
-				<li>
             <a href="../Geta.EPi.Extensions/ContentExtensions.htm">ContentExtensions</a>
         </li>
 				<li>
@@ -54,9 +51,6 @@
         </li>
 				<li>
             <a href="../Geta.EPi.Extensions/EnumerableExtensions.htm">EnumerableExtensions</a>
-        </li>
-				<li>
-            <a href="../Geta.EPi.Extensions/HtmlHelperExtensions.htm">HtmlHelperExtensions</a>
         </li>
 				<li>
             <a href="../Geta.EPi.Extensions/LinkItemCollectionExtensions.htm">LinkItemCollectionExtensions</a>
@@ -100,12 +94,73 @@
 		
 			<h3 class="section">Methods</h3>
 			<ul>
+				<li><a href="../Geta.EPi.Extensions/CategoryExtensions.htm#Equals">Equals</a></li>
 				<li><a href="../Geta.EPi.Extensions/CategoryExtensions.htm#GetChildCategories">GetChildCategories</a></li>
+				<li><a href="../Geta.EPi.Extensions/CategoryExtensions.htm#GetHashCode">GetHashCode</a></li>
+				<li><a href="../Geta.EPi.Extensions/CategoryExtensions.htm#GetType">GetType</a></li>
+				<li><a href="../Geta.EPi.Extensions/CategoryExtensions.htm#ToString">ToString</a></li>
 			</ul>
 		
 		
 	</div>
 	
+	<h3 class="section">Public instance methods</h3>
+
+	<div id="Equals" class="method">
+		<h4>
+			<span title="System.bool">bool</span> <strong>Equals</strong>(<span title="System.object">object</span> obj)
+		</h4>
+		<div class="content">
+
+
+
+
+		</div>
+	</div>
+	<div id="GetHashCode" class="method">
+		<h4>
+			<span title="System.int">int</span> <strong>GetHashCode</strong>()
+		</h4>
+		<div class="content">
+
+
+
+
+		</div>
+	</div>
+	<div id="GetType" class="method">
+		<h4>
+			<span title="System.Type">Type</span> <strong>GetType</strong>()
+		</h4>
+		<div class="content">
+
+
+
+
+		</div>
+	</div>
+	<div id="ToString" class="method">
+		<h4>
+			<span title="System.string">string</span> <strong>ToString</strong>()
+		</h4>
+		<div class="content">Returns string representation of URL with query string. 
+
+
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.string">string</span></code>
+					</dt>
+					<dd>String representation of URL with query string. 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
 	
 	<h3 class="section">Public static methods</h3>
 
@@ -113,7 +168,7 @@
 		<h4>
 			<span title="System.Collections.Generic.IEnumerable<Category>">IEnumerable&lt;Category&gt;</span> <strong>GetChildCategories</strong>(this <span title="System.int">int</span> categoryRootId)
 		</h4>
-		<div class="content">Returns child categories of provided parent category ID 
+		<div class="content">Returns strongly typed child categories of provided parent category ID. 
 
 
 			<div class="parameters">
@@ -122,7 +177,7 @@
 						<dt>
 							<code><span title="System.int">int</span></code> categoryRootId
 						</dt>
-						<dd>Parent category ID 
+						<dd>Parent category ID. 
 						</dd>
 				</dl>
 			</div>
@@ -134,7 +189,7 @@
 					<dt>
 						<code><span title="System.Collections.Generic.IEnumerable<Category>">IEnumerable&lt;Category&gt;</span></code>
 					</dt>
-					<dd>Enumeration of child categories 
+					<dd>Enumeration of child categories. 
 					</dd>
 				</dl>
 			</div>

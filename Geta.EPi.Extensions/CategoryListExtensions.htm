@@ -44,9 +44,6 @@
             <a href="../Geta.EPi.Extensions/CategoryListExtensions.htm" class="current">CategoryListExtensions</a>
         </li>
 				<li>
-            <a href="../Geta.EPi.Extensions/CollectionExtensions.htm">CollectionExtensions</a>
-        </li>
-				<li>
             <a href="../Geta.EPi.Extensions/ContentExtensions.htm">ContentExtensions</a>
         </li>
 				<li>
@@ -54,9 +51,6 @@
         </li>
 				<li>
             <a href="../Geta.EPi.Extensions/EnumerableExtensions.htm">EnumerableExtensions</a>
-        </li>
-				<li>
-            <a href="../Geta.EPi.Extensions/HtmlHelperExtensions.htm">HtmlHelperExtensions</a>
         </li>
 				<li>
             <a href="../Geta.EPi.Extensions/LinkItemCollectionExtensions.htm">LinkItemCollectionExtensions</a>
@@ -135,6 +129,17 @@
 				</dl>
 			</div>
 
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.bool">bool</span></code>
+					</dt>
+					<dd>true if category exists in CategoryList otherwise false. 
+					</dd>
+				</dl>
+			</div>
 
 		</div>
 	</div>
@@ -174,7 +179,7 @@
 		<h4>
 			<span title="System.string">string</span> <strong>GetCommaSeparatedCategories</strong>(this <span title="EPiServer.Core.CategoryList">CategoryList</span> categoryList, <span title="System.bool">bool</span> requireAvailable, <span title="System.bool">bool</span> requireSelectable)
 		</h4>
-		<div class="content">Returns string of comma separated category LocalizedDescription. 
+		<div class="content">Builds a comma separated string of categories using LocalizedDescription as name. 
 
 
 			<div class="parameters">
@@ -188,12 +193,12 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> requireAvailable
 						</dt>
-						<dd>Mark if return only categories with Available = true. 
+						<dd>Flag to filter by Available. 
 						</dd>
 						<dt>
 							<code><span title="System.bool">bool</span></code> requireSelectable
 						</dt>
-						<dd>Mark if return only categories with Selectable = true. 
+						<dd>Flag to filter by Selectable. 
 						</dd>
 				</dl>
 			</div>
@@ -205,7 +210,7 @@
 					<dt>
 						<code><span title="System.string">string</span></code>
 					</dt>
-					<dd>String of comma separated category LocalizedDescription. 
+					<dd>A comma separated string of categories using LocalizedDescription as name. 
 					</dd>
 				</dl>
 			</div>
@@ -216,7 +221,7 @@
 		<h4>
 			<span title="System.Collections.Generic.IEnumerable<Category>">IEnumerable&lt;Category&gt;</span> <strong>GetFullCategories</strong>(this <span title="EPiServer.Core.CategoryList">CategoryList</span> categoryList)
 		</h4>
-		<div class="content">Returns enumeration of Category instances for provided CategoryList. 
+		<div class="content">Returns enumeration of Category for provided CategoryList. 
 
 
 			<div class="parameters">
@@ -237,7 +242,7 @@
 					<dt>
 						<code><span title="System.Collections.Generic.IEnumerable<Category>">IEnumerable&lt;Category&gt;</span></code>
 					</dt>
-					<dd>Enumeration of Category instances. 
+					<dd>Enumeration of Category. 
 					</dd>
 				</dl>
 			</div>
