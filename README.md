@@ -97,6 +97,31 @@ Example of a custom DisplayTemplate for XForm using the _XFormHelper_ to clean u
         }
     }
 
+Markup would look something like this:
+
+    <form action="" class="form xform" method="post">
+        <div id="id_matrix" class="xform-table">
+            <div class="xform-body">
+                <div class="xform-row">
+                    <div class="xform-col">
+                        <label for="Input_54330581">
+                            Navn
+                        </label>
+                        <input id="Input_54330581" name="Navn" size="70" type="text" value="" />
+                    </div>
+                </div><div class="xform-row">
+                    <div class="xform-col">
+                        <label for="Input_54330581">
+                            Epost
+                        </label>
+                        <input id="Input_54330581" name="Epost" size="70" type="text" value="" />
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
 ## QueryStringBuilder
 
 Here we have an example of using _QueryStringBuilder_ to build a filter URL. This can be useful for lists that have filter functionality or sort functionality. To instantiate _QueryStringBuilder_ _UrlHelper_ extensions are used.
