@@ -168,6 +168,8 @@
     <Compile Include="CategoryListExtensions.cs" />
     <Compile Include="ContentExtensions.cs" />
     <Compile Include="ContentReferenceExtensions.cs" />
+    <Compile Include="EditorDescriptors\EnumEditorDescriptor.cs" />
+    <Compile Include="EditorDescriptors\EnumSelectionFactory.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="MenuList\HtmlHelperExtensions.cs" />
     <Compile Include="LinkItemCollectionExtensions.cs" />
