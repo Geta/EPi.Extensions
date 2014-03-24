@@ -28,12 +28,12 @@ namespace Geta.EPi.Extensions.MenuList
         ///     A template for each page which will be used to produce the return value. Can be either a
         ///     delegate or a Razor helper.
         /// </param>
-        /// <param name="includeRoot">Wether an element for the root page should be returned</param>
+        /// <param name="includeRoot">Whether an element for the root page should be returned</param>
         /// <param name="requireVisibleInMenu">
         ///     Wether pages that do not have the "Display in navigation" checkbox checked should be
         ///     excluded
         /// </param>
-        /// <param name="requirePageTemplate">Wether page that do not have a template (i.e. container pages) should be excluded</param>
+        /// <param name="requirePageTemplate">Whether page that do not have a template (i.e. container pages) should be excluded</param>
         /// <remarks>
         ///     Filter by access rights and publication status.
         /// </remarks>
@@ -44,25 +44,16 @@ namespace Geta.EPi.Extensions.MenuList
             var currentContentLink = helper.ViewContext.RequestContext.GetContentLink();
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
 
-            Func<IEnumerable<PageData>, IEnumerable<PageData>> filter =
-                pages => pages.FilterForDisplay(requirePageTemplate, requireVisibleInMenu);
-
-            var pagePath = contentLoader.GetAncestors(currentContentLink)
-                .Reverse()
-                .Select(x => x.ContentLink)
-                .SkipWhile(x => !x.CompareToIgnoreWorkID(rootLink))
-                .ToList();
-
+            Func<IEnumerable<PageData>, IEnumerable<PageData>> filter = pages => pages.FilterForDisplay(requirePageTemplate, requireVisibleInMenu);
+            
             var menuItems = contentLoader.GetChildren<PageData>(rootLink)
                 .FilterForDisplay(requirePageTemplate, requireVisibleInMenu)
-                .Select(x => CreateMenuItem(x, currentContentLink, pagePath, contentLoader, filter))
+                .Select(x => CreateMenuItem(x, currentContentLink, rootLink, contentLoader, filter))
                 .ToList();
 
             if (includeRoot)
             {
-                menuItems.Insert(0,
-                    CreateMenuItem(contentLoader.Get<PageData>(rootLink), currentContentLink, pagePath, contentLoader,
-                        filter));
+                menuItems.Insert(0, CreateMenuItem(contentLoader.Get<PageData>(rootLink), currentContentLink, rootLink, contentLoader, filter));
             }
 
             var buffer = new StringBuilder();
@@ -75,19 +66,29 @@ namespace Geta.EPi.Extensions.MenuList
             return new MvcHtmlString(buffer.ToString());
         }
 
-        private static MenuItem CreateMenuItem(PageData page, ContentReference currentContentLink,
-            List<ContentReference> pagePath, IContentLoader contentLoader,
-            Func<IEnumerable<PageData>, IEnumerable<PageData>> filter)
+        private static MenuItem CreateMenuItem(PageData page, ContentReference currentContentLink, ContentReference rootLink, IContentLoader contentLoader, Func<IEnumerable<PageData>, IEnumerable<PageData>> filter)
         {
             var menuItem = new MenuItem
             {
                 Page = page,
-                Selected = page.ContentLink.CompareToIgnoreWorkID(currentContentLink) ||
-                           pagePath.Contains(page.ContentLink),
-                HasChildren =
-                    new Lazy<bool>(() => filter(contentLoader.GetChildren<PageData>(page.ContentLink)).Any())
+                Selected = page.ContentLink.CompareToIgnoreWorkID(currentContentLink),
+                HasChildren = new Lazy<bool>(() => filter(contentLoader.GetChildren<PageData>(page.ContentLink)).Any()),
+                HasSelectedChildPage = new Lazy<bool>(() => HasSelectedChildPage(rootLink, currentContentLink, page))
             };
             return menuItem;
+        }
+
+        private static bool HasSelectedChildPage(ContentReference rootLink, ContentReference currentContentLink, PageData page)
+        {
+            var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
+
+            List<ContentReference> pagePath = contentLoader.GetAncestors(currentContentLink)
+                .Reverse()
+                .Select(x => x.ContentLink)
+                .SkipWhile(x => !x.CompareToIgnoreWorkID(rootLink))
+                .ToList();
+
+            return pagePath.Contains(page.ContentLink);
         }
 
         private static Func<MenuItem, HelperResult> GetDefaultItemTemplate(HtmlHelper helper)

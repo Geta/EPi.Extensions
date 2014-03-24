@@ -23,5 +23,10 @@ namespace Geta.EPi.Extensions.MenuList
         ///     Mark if menu item has child items.
         /// </summary>
         public Lazy<bool> HasChildren { get; set; }
+
+        /// <summary>
+        /// Mark if menu item has a child page that is marked as selected.
+        /// </summary>
+        public Lazy<bool> HasSelectedChildPage { get; set; }
     }
 }
