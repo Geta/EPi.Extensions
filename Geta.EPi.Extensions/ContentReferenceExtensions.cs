@@ -66,6 +66,20 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
+        /// Returns a concrete type for provided content reference.
+        /// </summary>
+        /// <typeparam name="T">Type of content data</typeparam>
+        /// <param name="contentReference">Content reference for the content data</param>
+        /// <returns>Content of <typeparamref name="T" /> that match content reference.</returns>
+        public static T Get<T>(this ContentReference contentReference) where T : IContentData
+        {
+            if (contentReference.IsNullOrEmpty()) return default(T);
+
+            var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
+            return loader.Get<T>(contentReference);
+        }
+
+        /// <summary>
         ///     Returns friendly URL for provided content reference.
         /// </summary>
         /// <param name="contentReference">Content reference for which to create friendly url.</param>
