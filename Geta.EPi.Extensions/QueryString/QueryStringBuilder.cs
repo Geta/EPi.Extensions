@@ -47,6 +47,17 @@ namespace Geta.EPi.Extensions.QueryString
         }
 
         /// <summary>
+        ///     Adds a segment at the end of the URL.
+        /// </summary>
+        /// <param name="segment">Name of the segment</param>
+        /// <returns>Instance of modified QueryStringBuilder.</returns>
+        public QueryStringBuilder AddSegment(string segment)
+        {
+            UrlBuilder.Path = VirtualPathUtility.AppendTrailingSlash(UrlBuilder.Path) + segment.TrimStart('/');
+            return this;
+        }
+
+        /// <summary>
         ///     Removes query string parameter from query.
         /// </summary>
         /// <param name="name">Name of parameter to remove.</param>
