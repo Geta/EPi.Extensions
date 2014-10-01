@@ -47,6 +47,22 @@ namespace Geta.EPi.Extensions.QueryString
         }
 
         /// <summary>
+        ///     Adds query string parameter to query URL encoded.
+        /// </summary>
+        /// <param name="name">Name of parameter.</param>
+        /// <param name="value">Value of parameter.</param>
+        /// <returns>Instance of modified QueryStringBuilder.</returns>
+        public QueryStringBuilder Add(string name, object value)
+        {
+            if (value != null)
+            {
+                return Add(name, value.ToString());
+            }
+
+            return this;
+        }
+
+        /// <summary>
         ///     Adds a segment at the end of the URL.
         /// </summary>
         /// <param name="segment">Name of the segment</param>
