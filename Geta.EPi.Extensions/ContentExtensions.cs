@@ -26,8 +26,7 @@ namespace Geta.EPi.Extensions
         {
             if (content == null) return Enumerable.Empty<T>();
 
-            var contentRepository = ServiceLocator.Current.GetInstance<IContentRepository>();
-            var publishedFilter = new FilterPublished(contentRepository);
+            var publishedFilter = new FilterPublished();
             var accessFilter = new FilterAccess();
             content = content.Where(x => !publishedFilter.ShouldFilter(x) && !accessFilter.ShouldFilter(x));
 

@@ -82,24 +82,6 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///     Creates QueryStringBuilder instance for provided EPiServer page reference.
-        /// </summary>
-        /// <param name="urlHelper">UrlHelper instance.</param>
-        /// <param name="pageLink">Page reference for which to crete builder.</param>
-        /// <returns>Instance of QueryStringBuilder for provided page reference.</returns>
-        public static QueryStringBuilder QueryBuilder(this UrlHelper urlHelper, PageReference pageLink)
-        {
-            if (PageReference.IsNullOrEmpty(pageLink))
-            {
-                return QueryStringBuilder.Empty;
-            }
-
-            var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
-            var page = contentLoader.Get<PageData>(pageLink);
-            return urlHelper.QueryBuilder(page);
-        }
-
-        /// <summary>
         ///     Creates QueryStringBuilder instance for provided EPiServer page.
         /// </summary>
         /// <param name="urlHelper">UrlHelper instance.</param>
@@ -112,8 +94,25 @@ namespace Geta.EPi.Extensions
                 return QueryStringBuilder.Empty;
             }
 
-            var url = urlHelper.PageUrl(page);
-            return QueryStringBuilder.Create(url.ToHtmlString());
+            var url = urlHelper.ContentUrl(page.ContentLink);
+            return QueryStringBuilder.Create(url);
+        }
+
+        /// <summary>
+        ///     Creates QueryStringBuilder instance for provided EPiServer page.
+        /// </summary>
+        /// <param name="urlHelper">UrlHelper instance.</param>
+        /// <param name="contentLink">ContentReference for which to create builder.</param>
+        /// <returns>Instance of QueryStringBuilder for provided page.</returns>
+        public static QueryStringBuilder QueryBuilder(this UrlHelper urlHelper, ContentReference contentLink)
+        {
+            if (ContentReference.IsNullOrEmpty(contentLink))
+            {
+                return QueryStringBuilder.Empty;
+            }
+
+            var url = urlHelper.ContentUrl(contentLink);
+            return QueryStringBuilder.Create(url);
         }
 
         /// <summary>
