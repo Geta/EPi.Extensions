@@ -69,7 +69,7 @@ namespace Geta.EPi.Extensions.QueryString
         /// <returns>Instance of modified QueryStringBuilder.</returns>
         public QueryStringBuilder AddSegment(string segment)
         {
-            UrlBuilder.Path = VirtualPathUtility.AppendTrailingSlash(UrlBuilder.Path) + segment.TrimStart('/');
+            UrlBuilder.Path = VirtualPathUtility.AppendTrailingSlash(UrlBuilder.Path) + HttpUtility.UrlPathEncode(segment.TrimStart('/'));
             return this;
         }
 

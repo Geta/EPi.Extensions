@@ -120,5 +120,41 @@ namespace Geta.EPi.Extensions
         {
             return ContentReference.IsNullOrEmpty(contentReference);
         }
+
+        /// <summary>
+        ///     Gets IContentData from ContentReference.
+        /// </summary>
+        /// <param name="contentLink">The ContentReference</param>
+        /// <returns>IContentData if found, otherwise null.</returns>
+        public static IContentData GetContentData(this ContentReference contentLink)
+        {
+            if (ContentReference.IsNullOrEmpty(contentLink))
+            {
+                return null;
+            }
+
+            var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
+            IContentData contentData;
+            contentLoader.TryGet(contentLink, out contentData);
+            return contentData;
+        }
+
+        /// <summary>
+        ///     Get IContent from ContentReference.
+        /// </summary>
+        /// <param name="contentLink">The ContentReference</param>
+        /// <returns>IContent if found by content loader, otherwise null.</returns>
+        public static IContent GetContent(this ContentReference contentLink)
+        {
+            if (ContentReference.IsNullOrEmpty(contentLink))
+            {
+                return null;
+            }
+
+            var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
+            IContent content;
+            contentLoader.TryGet(contentLink, out content);
+            return content;
+        }
     }
 }
