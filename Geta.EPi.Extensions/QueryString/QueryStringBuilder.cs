@@ -1,5 +1,8 @@
 ﻿using System.Web;
 using EPiServer;
+using EPiServer.Core;
+using EPiServer.ServiceLocation;
+using EPiServer.Web.Routing;
 
 namespace Geta.EPi.Extensions.QueryString
 {
@@ -34,6 +37,16 @@ namespace Geta.EPi.Extensions.QueryString
             return new QueryStringBuilder(url);
         }
 
+        /// <summary>
+        ///     Factory method for instantiating new QueryStringBuilder with provided URL.
+        /// </summary>
+        /// <param name="contentLink">Content for which to build query.</param>
+        /// <returns>Instance of QueryStringBuilder.</returns>
+        public static QueryStringBuilder Create(ContentReference contentLink)
+        {
+            var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
+            return new QueryStringBuilder(urlResolver.GetUrl(contentLink));
+        }
         /// <summary>
         ///     Adds query string parameter to query URL encoded.
         /// </summary>

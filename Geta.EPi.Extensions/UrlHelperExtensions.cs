@@ -85,16 +85,16 @@ namespace Geta.EPi.Extensions
         ///     Creates QueryStringBuilder instance for provided EPiServer page.
         /// </summary>
         /// <param name="urlHelper">UrlHelper instance.</param>
-        /// <param name="page">Page for which to create builder.</param>
+        /// <param name="content">Content for which to create builder.</param>
         /// <returns>Instance of QueryStringBuilder for provided page.</returns>
-        public static QueryStringBuilder QueryBuilder(this UrlHelper urlHelper, PageData page)
+        public static QueryStringBuilder QueryBuilder(this UrlHelper urlHelper, IContent content)
         {
-            if (page == null)
+            if (content == null)
             {
                 return QueryStringBuilder.Empty;
             }
 
-            var url = urlHelper.ContentUrl(page.ContentLink);
+            var url = urlHelper.ContentUrl(content.ContentLink);
             return QueryStringBuilder.Create(url);
         }
 
