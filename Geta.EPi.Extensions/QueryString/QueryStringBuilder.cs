@@ -12,6 +12,7 @@ namespace Geta.EPi.Extensions.QueryString
     public class QueryStringBuilder : IHtmlString
     {
         protected readonly UrlBuilder UrlBuilder;
+        protected readonly UrlResolver EPiUrlResolver;
 
         /// <summary>
         ///     Represents the empty query string. Field is read-only.
@@ -25,6 +26,25 @@ namespace Geta.EPi.Extensions.QueryString
         public QueryStringBuilder(string url)
         {
             UrlBuilder = new UrlBuilder(url);
+        }
+
+        /// <summary>
+        ///     Instantiates new QueryStringBuilder with provided URL.
+        /// </summary>
+        /// <param name="contentLink">ContentReference for which to build query.</param>
+        public QueryStringBuilder(ContentReference contentLink) : this(contentLink, ServiceLocator.Current.GetInstance<UrlResolver>())
+        {
+        }
+
+        /// <summary>
+        ///     Instantiates new QueryStringBuilder with provided URL.
+        /// </summary>
+        /// <param name="contentLink">ContentReference for which to build query.</param>
+        /// <param name="urlResolver">UrlResolver instance.</param>
+        public QueryStringBuilder(ContentReference contentLink, UrlResolver urlResolver)
+        {
+            EPiUrlResolver = urlResolver;
+            UrlBuilder = new UrlBuilder(EPiUrlResolver.GetUrl(contentLink));
         }
 
         /// <summary>
@@ -44,9 +64,20 @@ namespace Geta.EPi.Extensions.QueryString
         /// <returns>Instance of QueryStringBuilder.</returns>
         public static QueryStringBuilder Create(ContentReference contentLink)
         {
-            var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-            return new QueryStringBuilder(urlResolver.GetUrl(contentLink));
+            return new QueryStringBuilder(contentLink);
         }
+
+        /// <summary>
+        ///     Factory method for instantiating new QueryStringBuilder with provided URL.
+        /// </summary>
+        /// <param name="contentLink">Content for which to build query.</param>
+        /// <returns>Instance of QueryStringBuilder.</returns>
+        /// <param name="urlResolver">UrlResolver instance.</param>
+        public static QueryStringBuilder Create(ContentReference contentLink, UrlResolver urlResolver)
+        {
+            return new QueryStringBuilder(contentLink, urlResolver);
+        }
+
         /// <summary>
         ///     Adds query string parameter to query URL encoded.
         /// </summary>
