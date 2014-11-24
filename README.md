@@ -172,3 +172,9 @@ When you have a CategoryList and want to get strongly typed Category objects bac
 If you need to check if the CategoryList has that category you can use the Contains() method.
 
     bool hasBikes = CurrentPage.Category.Contains("bikes");
+
+## External/friendly URL
+
+This can be useful when used together with sharing widgets.
+
+    string fullUrl = CurrentPage.GetFriendlyUrl();
