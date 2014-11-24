@@ -15,6 +15,13 @@ See [reference](http://geta.github.io/EPi.Extensions/) and examples below.
 
 # Examples
 
+## Basics
+
+You can use the GetChildren and GetPage extension methods to easily fetch pages. They also have generic overloads.
+
+    var startPage = ContentReference.StartPage.GetPage<StartPage>();
+    var sections = ContentReference.StartPage.GetChildren<SectionPage>();
+
 ## Filters
 
 You can use _FilterForDisplay_ to easily filter out pages that the user shouldn't see. Here is an example of how to filter child pages of start page.
@@ -135,3 +142,8 @@ Output when URL is: /list
 Output when URL is: /list?sort=alphabet
 
     <a href="/list">A-Å</a>
+
+## Validation
+We have included a simple validation helper for validating email address' using .NET's built in email validation (which updates together with newer versions/patches for .NET).
+
+    bool isValidEmail = ValidationHelper.IsValidEmail("test@example.com");
