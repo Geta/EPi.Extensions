@@ -144,6 +144,17 @@ Output when URL is: /list?sort=alphabet
     <a href="/list">A-Å</a>
 
 ## Validation
+
 We have included a simple validation helper for validating email address' using .NET's built in email validation (which updates together with newer versions/patches for .NET).
 
     bool isValidEmail = ValidationHelper.IsValidEmail("test@example.com");
+
+## Enum properties
+
+If you have enum values you want to use in your content types you can use the EnumAttribute to decorate your properties. The values can also be localized.
+
+    [BackingType(typeof(PropertyNumber))]
+    [EnumAttribute(typeof(Priority))]
+    public virtual Priority Priority { get; set; }
+
+Credits: http://world.episerver.com/Blogs/Linus-Ekstrom/Dates/2014/5/Enum-properties-for-EPiServer-75/
