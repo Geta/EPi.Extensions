@@ -158,3 +158,14 @@ If you have enum values you want to use in your content types you can use the En
     public virtual Priority Priority { get; set; }
 
 Credits: http://world.episerver.com/Blogs/Linus-Ekstrom/Dates/2014/5/Enum-properties-for-EPiServer-75/
+
+## Categories
+
+You can easily get the child categories of any root category you like (as long as you have it's ID).
+    IEnumerable<Category> categories = Category.GetRoot().ID.GetChildCategories();
+
+When you have a CategoryList and want to get strongly typed Category objects back you can use the GetFullCategories() method.
+    IEnumerable<Category> categories = CurrentPage.Category.GetFullCategories();
+
+If you need to check if the CategoryList has that category you can use the Contains() method.
+    bool hasBikes = CurrentPage.Category.Contains("bikes");
