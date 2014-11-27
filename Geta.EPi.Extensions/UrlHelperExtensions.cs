@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using EPiServer;
 using EPiServer.Core;
@@ -124,6 +125,47 @@ namespace Geta.EPi.Extensions
         public static QueryStringBuilder QueryBuilder(this UrlHelper urlHelper, string url)
         {
             return QueryStringBuilder.Create(url);
+        }
+
+        /// <summary>
+        ///     Appends action name to the end of a content url.
+        /// </summary>
+        /// <param name="urlHelper">UrlHelper instance</param>
+        /// <param name="contentLink">ContentReference</param>
+        /// <param name="actionName">The action name</param>
+        public static string ContentActionUrl(this UrlHelper urlHelper, ContentReference contentLink, string actionName)
+        {
+            if (ContentReference.IsNullOrEmpty(contentLink))
+            {
+                return string.Empty;
+            }
+
+            var contentUrl = urlHelper.ContentUrl(contentLink);
+
+            if (actionName.Equals("Index", StringComparison.OrdinalIgnoreCase))
+            {
+                return contentUrl;
+            }
+
+            var urlBuilder = new UrlBuilder(contentUrl);
+            urlBuilder.Path = VirtualPathUtility.AppendTrailingSlash(urlBuilder.Path) + actionName;
+            return urlBuilder.ToString();
+        }
+
+        /// <summary>
+        ///     Appends action name to the end of a content url.
+        /// </summary>
+        /// <param name="urlHelper">UrlHelper instance</param>
+        /// <param name="content">IContent instance</param>
+        /// <param name="actionName">The action name</param>
+        public static string ContentActionUrl(this UrlHelper urlHelper, IContent content, string actionName)
+        {
+            if (content == null)
+            {
+                return string.Empty;
+            }
+
+            return ContentActionUrl(urlHelper, content.ContentLink, actionName);
         }
     }
 }
