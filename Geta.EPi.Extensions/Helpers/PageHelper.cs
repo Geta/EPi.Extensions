@@ -1,6 +1,4 @@
-﻿using EPiServer;
-using EPiServer.Core;
-using EPiServer.ServiceLocation;
+﻿using EPiServer.Core;
 
 namespace Geta.EPi.Extensions.Helpers
 {
@@ -25,8 +23,7 @@ namespace Geta.EPi.Extensions.Helpers
         /// <returns>StartPage of <typeparamref name="T" /></returns>
         public static T GetStartPage<T>() where T : PageData
         {
-            var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
-            return loader.Get<PageData>(ContentReference.StartPage) as T;
+            return ContentReference.StartPage.Get<T>();
         }
     }
 }

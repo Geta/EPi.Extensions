@@ -15,6 +15,13 @@ See [reference](http://geta.github.io/EPi.Extensions/) and examples below.
 
 # Examples
 
+## Basics
+
+You can use the GetChildren and GetPage extension methods to easily fetch pages. They also have generic overloads.
+
+    var startPage = ContentReference.StartPage.GetPage<StartPage>();
+    var sections = ContentReference.StartPage.GetChildren<SectionPage>();
+
 ## Filters
 
 You can use _FilterForDisplay_ to easily filter out pages that the user shouldn't see. Here is an example of how to filter child pages of start page.
@@ -135,3 +142,47 @@ Output when URL is: /list
 Output when URL is: /list?sort=alphabet
 
     <a href="/list">A-Å</a>
+    
+Here is an example of using _QueryStringBuilder_ to add a segment to a EPiServer page URL. This can be useful for forms if you want to post to a page controller action.
+
+    <form action="@Url.QueryBuilder(Model.CurrentPage.ContentLink).AddSegment("MyActionName")"></form>
+    
+Output when page URL is: /about-us
+
+    <form action="/about-us/MyActionName"></form>
+
+## Validation
+
+We have included a simple validation helper for validating email address' using .NET's built in email validation (which updates together with newer versions/patches for .NET).
+
+    bool isValidEmail = ValidationHelper.IsValidEmail("test@example.com");
+
+## Enum properties
+
+If you have enum values you want to use in your content types you can use the EnumAttribute to decorate your properties. The values can also be localized.
+
+    [BackingType(typeof(PropertyNumber))]
+    [EnumAttribute(typeof(Priority))]
+    public virtual Priority Priority { get; set; }
+
+Credits: http://world.episerver.com/Blogs/Linus-Ekstrom/Dates/2014/5/Enum-properties-for-EPiServer-75/
+
+## Categories
+
+You can easily get the child categories of any root category you like (as long as you have it's ID).
+
+    IEnumerable<Category> categories = Category.GetRoot().ID.GetChildCategories();
+
+When you have a CategoryList and want to get strongly typed Category objects back you can use the GetFullCategories() method.
+
+    IEnumerable<Category> categories = CurrentPage.Category.GetFullCategories();
+
+If you need to check if the CategoryList has that category you can use the Contains() method.
+
+    bool hasBikes = CurrentPage.Category.Contains("bikes");
+
+## External/friendly URL
+
+This can be useful when used together with sharing widgets.
+
+    string fullUrl = CurrentPage.GetFriendlyUrl();
