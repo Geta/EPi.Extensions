@@ -142,6 +142,14 @@ Output when URL is: /list
 Output when URL is: /list?sort=alphabet
 
     <a href="/list">A-Å</a>
+    
+Here is an example of using _QueryStringBuilder_ to add a segment to a EPiServer page URL. This can be useful for forms if you want to post to a page controller action.
+
+    <form action="@Url.QueryBuilder(Model.CurrentPage.ContentLink).AddSegment("MyActionName")"></form>
+    
+Output when page URL is: /about-us
+
+    <form action="/about-us/MyActionName"></form>
 
 ## Validation
 
