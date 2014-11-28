@@ -142,7 +142,7 @@ namespace Geta.EPi.Extensions
 
             var contentUrl = urlHelper.ContentUrl(contentLink);
 
-            if (actionName.Equals("Index", StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrWhiteSpace(actionName) || actionName.Equals("Index", StringComparison.OrdinalIgnoreCase))
             {
                 return contentUrl;
             }
