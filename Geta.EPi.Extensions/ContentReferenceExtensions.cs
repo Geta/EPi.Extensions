@@ -102,18 +102,7 @@ namespace Geta.EPi.Extensions
                 return url;
             }
 
-            var siteUri = HttpContext.Current != null
-                ? HttpContext.Current.Request.Url
-                : SiteDefinition.Current.SiteUrl;
-
-            var urlBuilder = new UrlBuilder(url)
-            {
-                Scheme = siteUri.Scheme,
-                Host = siteUri.Host,
-                Port = siteUri.Port
-            };
-
-            return urlBuilder.ToString();
+            return url.GetExternalUrl();
         }
 
         /// <summary>

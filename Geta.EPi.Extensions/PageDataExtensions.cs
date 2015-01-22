@@ -180,14 +180,18 @@ namespace Geta.EPi.Extensions
         /// </summary>
         /// <param name="page">Page to get canonical url for</param>
         /// <param name="considerFetchDataFrom">Consider fetch data from setting in EPiServer.</param>
+        /// <param name="considerSimpleAddress">Use simple address of page if it is set.</param>
         /// <param name="urlResolver">Optional UrlResolver instance.</param>
         /// <returns>The complete link to the page. If LinkType is FetchData then the original page URL will be returned.</returns>
-        public static string GetCanonicalUrl(this PageData page, bool considerFetchDataFrom = true, UrlResolver urlResolver = null)
+        public static string GetCanonicalUrl(this PageData page, bool considerFetchDataFrom = true, bool considerSimpleAddress = false, UrlResolver urlResolver = null)
         {
             if (page == null)
             {
                 return null;
             }
+
+            PageData canonicalPage = page;
+            PageReference pageLink = page.PageLink;
 
             if (considerFetchDataFrom && page.LinkType == PageShortcutType.FetchData)
             {
@@ -195,11 +199,26 @@ namespace Geta.EPi.Extensions
 
                 if (!PageReference.IsNullOrEmpty(shortcutLink))
                 {
-                    return shortcutLink.GetFriendlyUrl(true, urlResolver);
+                    pageLink = shortcutLink;
                 }
             }
 
-            return page.PageLink.GetFriendlyUrl(true, urlResolver);
+            if (!page.PageLink.CompareToIgnoreWorkID(canonicalPage.PageLink))
+            {
+                canonicalPage = pageLink.GetPage();
+            }
+
+            if (considerSimpleAddress)
+            {
+                var simpleAddress = canonicalPage["PageExternalUrl"] as string;
+
+                if (!string.IsNullOrWhiteSpace(simpleAddress))
+                {
+                    return simpleAddress.GetExternalUrl();
+                }
+            }
+
+            return canonicalPage.PageLink.GetFriendlyUrl(true, urlResolver);
         }
     }
 }

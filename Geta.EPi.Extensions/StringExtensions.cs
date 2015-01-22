@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Web;
+using EPiServer;
 using EPiServer.Core.Html;
+using EPiServer.Web;
 
 namespace Geta.EPi.Extensions
 {
@@ -41,6 +44,27 @@ namespace Geta.EPi.Extensions
         {
             long outValue;
             return long.TryParse(input, out outValue) ? (long?) outValue : null;
+        }
+
+        /// <summary>
+        /// Adds scheme and host to a relative url.
+        /// </summary>
+        /// <param name="input">Url</param>
+        /// <returns>String</returns>
+        public static string GetExternalUrl(this string input)
+        {
+            var siteUri = HttpContext.Current != null
+                            ? HttpContext.Current.Request.Url
+                            : SiteDefinition.Current.SiteUrl;
+
+            var urlBuilder = new UriBuilder(input)
+            {
+                Scheme = siteUri.Scheme,
+                Host = siteUri.Host,
+                Port = siteUri.Port
+            };
+
+            return urlBuilder.ToString();
         }
     }
 }
