@@ -57,7 +57,7 @@ namespace Geta.EPi.Extensions
                             ? HttpContext.Current.Request.Url
                             : SiteDefinition.Current.SiteUrl;
 
-            var urlBuilder = new UriBuilder(input)
+            var urlBuilder = new UrlBuilder(input)
             {
                 Scheme = siteUri.Scheme,
                 Host = siteUri.Host,
