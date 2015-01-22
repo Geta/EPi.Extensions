@@ -84,12 +84,17 @@ namespace Geta.EPi.Extensions
         /// </summary>
         /// <param name="contentReference">Content reference for which to create friendly url.</param>
         /// <param name="includeHost">Mark if include host name in the url.</param>
+        /// <param name="urlResolver">Optional UrlResolver instance.</param>
         /// <returns>String representation of URL for provided content reference.</returns>
-        public static string GetFriendlyUrl(this ContentReference contentReference, bool includeHost = false)
+        public static string GetFriendlyUrl(this ContentReference contentReference, bool includeHost = false, UrlResolver urlResolver = null)
         {
             if (contentReference.IsNullOrEmpty()) return string.Empty;
 
-            var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
+            if (urlResolver == null)
+            {
+                urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
+            }
+
             var url = urlResolver.GetUrl(contentReference);
 
             if (!includeHost)

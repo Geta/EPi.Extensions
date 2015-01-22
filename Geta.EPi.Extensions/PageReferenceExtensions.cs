@@ -27,5 +27,28 @@ namespace Geta.EPi.Extensions
         {
             return new PageDataCollection(pageReferences);
         }
+
+        /// <summary>
+        /// Gets the canonical URL for a page. If LinkType is FetchData the original page URL will be the canonical link.
+        /// </summary>
+        /// <param name="pageLink">The PageReference to get canonical URL from.</param>
+        /// <param name="considerFetchDataFrom">Consider fetch data from setting in EPiServer.</param>
+        /// <returns></returns>
+        public static string GetCanonicalUrl(this PageReference pageLink, bool considerFetchDataFrom = true)
+        {
+            if (PageReference.IsNullOrEmpty(pageLink))
+            {
+                return null;
+            }
+
+            PageData page = pageLink.GetPage();
+
+            if (page == null)
+            {
+                return null;
+            }
+
+            return page.GetCanonicalUrl(considerFetchDataFrom);
+        }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
+using EPiServer.Web.Routing;
 
 namespace Geta.EPi.Extensions
 {
@@ -171,6 +173,33 @@ namespace Geta.EPi.Extensions
         public static PageDataCollection ToPageDataCollection(this IEnumerable<PageData> pages)
         {
             return new PageDataCollection(pages);
+        }
+
+        /// <summary>
+        /// Gets the canonical link for a page. 
+        /// </summary>
+        /// <param name="page">Page to get canonical url for</param>
+        /// <param name="considerFetchDataFrom">Consider fetch data from setting in EPiServer.</param>
+        /// <param name="urlResolver">Optional UrlResolver instance.</param>
+        /// <returns>The complete link to the page. If LinkType is FetchData then the original page URL will be returned.</returns>
+        public static string GetCanonicalUrl(this PageData page, bool considerFetchDataFrom = true, UrlResolver urlResolver = null)
+        {
+            if (page == null)
+            {
+                return null;
+            }
+
+            if (considerFetchDataFrom && page.LinkType == PageShortcutType.FetchData)
+            {
+                var shortcutLink = page["PageShortcutLink"] as PageReference;
+
+                if (!PageReference.IsNullOrEmpty(shortcutLink))
+                {
+                    return shortcutLink.GetFriendlyUrl(true, urlResolver);
+                }
+            }
+
+            return page.PageLink.GetFriendlyUrl(true, urlResolver);
         }
     }
 }
