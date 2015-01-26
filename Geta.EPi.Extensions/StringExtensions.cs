@@ -53,9 +53,19 @@ namespace Geta.EPi.Extensions
         /// <returns>String</returns>
         public static string GetExternalUrl(this string input)
         {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return string.Empty;
+            }
+
             var siteUri = HttpContext.Current != null
                             ? HttpContext.Current.Request.Url
                             : SiteDefinition.Current.SiteUrl;
+
+            if (!input.StartsWith("/"))
+            {
+                input = "/" + input;
+            }
 
             var urlBuilder = new UrlBuilder(input)
             {
