@@ -39,7 +39,8 @@ namespace Geta.EPi.Extensions
             return linkItemCollection
                 .Select(x => x.ToContentReference())
                 .Where(x => !x.IsNullOrEmpty())
-                .Select(contentLoader.Get<T>);
+                .Select(contentLoader.Get<IContent>)
+                .SafeOfType<T>();
         }
     }
 }
