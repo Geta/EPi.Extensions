@@ -4,13 +4,14 @@
     <id>Geta.EPi.Extensions</id>
     <version>0.0.0.1</version>
     <title>Geta.EPi.Extensions</title>
-    <authors>Geta AS</authors>
-    <owners>Geta AS</owners>
+    <authors>Geta</authors>
+    <owners>Geta</owners>
     <projectUrl>https://github.com/Geta/EPi.Extensions</projectUrl>
     <licenseUrl>https://raw.github.com/Geta/EPi.Extensions/master/LICENSE.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Extension methods and helpers for EPiServer.</description>
-    <copyright>Copyright © 2014 Geta AS</copyright>
+    <copyright>Copyright © 2015 Geta</copyright>
+    <iconUrl>http://cdn.geta.no/opensource/icons/geta-epi-icon.png</iconUrl>
     <tags>EPiServer</tags>
     <dependencies>
       <dependency id="EPiServer.CMS.Core" version="7.6" />      
