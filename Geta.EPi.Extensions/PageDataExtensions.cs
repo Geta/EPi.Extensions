@@ -14,6 +14,19 @@ namespace Geta.EPi.Extensions
     public static class PageDataExtensions
     {
         /// <summary>
+        ///     Returns all ancestor pages for provided page.
+        /// </summary>
+        /// <param name="page">Page of PageData type for which to return ancestors.</param>
+        /// <returns>Returns IEnumerable of ancestor pages.</returns>
+        public static IEnumerable<PageData> GetAncestors(this PageData page)
+        {
+            while ((page = page.GetParent()) != null)
+            {
+                yield return page;
+            }
+        }
+
+        /// <summary>
         ///     Returns all child pages of PageData type for provided parent page.
         /// </summary>
         /// <param name="parentPage">Parent page of PageData type for which to return children.</param>
