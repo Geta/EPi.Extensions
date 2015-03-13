@@ -20,7 +20,7 @@ namespace Geta.EPi.Extensions
         /// <returns>Returns IEnumerable of ancestor pages.</returns>
         public static IEnumerable<PageData> GetAncestors(this PageData page)
         {
-            while (page.ParentLink != PageReference.RootPage && (page = page.GetParent()) != null)
+            while ((!includeRootPage || page.ParentLink != PageReference.RootPage) && (page = page.GetParent()) != null)
             {
                 yield return page;
             }
