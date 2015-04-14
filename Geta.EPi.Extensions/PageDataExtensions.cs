@@ -17,8 +17,9 @@ namespace Geta.EPi.Extensions
         ///     Returns all ancestor pages for provided page.
         /// </summary>
         /// <param name="page">Page of PageData type for which to return ancestors.</param>
+        /// <param name="includeRootPage">True will include root page</param>
         /// <returns>Returns IEnumerable of ancestor pages.</returns>
-        public static IEnumerable<PageData> GetAncestors(this PageData page)
+        public static IEnumerable<PageData> GetAncestors(this PageData page, bool includeRootPage = false)
         {
             while ((!includeRootPage || page.ParentLink != PageReference.RootPage) && (page = page.GetParent()) != null)
             {
