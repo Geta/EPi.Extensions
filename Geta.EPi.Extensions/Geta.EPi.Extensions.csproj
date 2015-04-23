@@ -212,7 +212,6 @@
     <Compile Include="UrlHelperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Geta.EPi.Extensions.nuspec">
       <SubType>Designer</SubType>
     </None>
