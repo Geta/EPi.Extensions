@@ -2,7 +2,6 @@
 using FluentAssertions;
 using Geta.EPi.Extensions.Helpers;
 using Xunit;
-using Xunit.Extensions;
 
 namespace Geta.EPi.Extensions.Tests.Helpers
 {
