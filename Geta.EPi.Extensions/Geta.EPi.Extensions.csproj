@@ -188,6 +188,8 @@
     <Compile Include="CategoryListExtensions.cs" />
     <Compile Include="ContentExtensions.cs" />
     <Compile Include="ContentReferenceExtensions.cs" />
+    <Compile Include="ContentLoaderExtensions.cs" />
+    <Compile Include="ContentRepositoryExtensions.cs" />
     <Compile Include="EditorDescriptors\EnumAttribute.cs" />
     <Compile Include="EditorDescriptors\EnumEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\EnumSelectionFactory.cs" />
