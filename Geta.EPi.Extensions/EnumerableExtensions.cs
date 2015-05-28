@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -39,6 +40,18 @@ namespace Geta.EPi.Extensions
         public static IEnumerable<T> OrEmptyIfNull<T>(this IEnumerable<T> source)
         {
             return source ?? Enumerable.Empty<T>();
+        }
+
+        /// <summary>
+        ///     Checks whether given sequence is null or empty.
+        /// </summary>
+        /// <typeparam name="T">The type of elements of the sequence.</typeparam>
+        /// <param name="source">The <see cref="T:System.Collections.Generic.IEnumerable`1" /> to check.</param>
+        /// <returns>Returns <code>true</code> if given sequence is null or is empty</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source" /> is null.</exception>
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> source)
+        {
+            return source == null || !source.Any();
         }
     }
 }
