@@ -86,7 +86,11 @@ namespace Geta.EPi.Extensions.QueryString
         /// <returns>Instance of modified QueryStringBuilder.</returns>
         public QueryStringBuilder Add(string name, string value)
         {
-            UrlBuilder.QueryCollection[name] = HttpUtility.UrlEncode(value);
+            if (!string.IsNullOrEmpty(value))
+            {
+                UrlBuilder.QueryCollection[name] = HttpUtility.UrlEncode(value);
+            }
+
             return this;
         }
 
@@ -98,12 +102,7 @@ namespace Geta.EPi.Extensions.QueryString
         /// <returns>Instance of modified QueryStringBuilder.</returns>
         public QueryStringBuilder Add(string name, object value)
         {
-            if (value != null)
-            {
-                return Add(name, value.ToString());
-            }
-
-            return this;
+            return Add(name, value.ToString());
         }
 
         /// <summary>
