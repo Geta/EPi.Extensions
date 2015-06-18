@@ -102,6 +102,11 @@ namespace Geta.EPi.Extensions.QueryString
         /// <returns>Instance of modified QueryStringBuilder.</returns>
         public QueryStringBuilder Add(string name, object value)
         {
+            if (value == null)
+            {
+                return this;
+            }
+
             return Add(name, value.ToString());
         }
 
