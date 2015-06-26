@@ -36,5 +36,23 @@ namespace Geta.EPi.Extensions
             var resolver = ServiceLocator.Current.GetInstance<UrlResolver>();
             return resolver.Route(urlBuilder);
         }
+
+        /// <summary>
+        ///     Returns friendly URL if item is EPiServer content, otherwise returns the original Href property value.
+        /// </summary>
+        /// <param name="linkItem">Source LinkItem for which to return external URL.</param>
+        /// <returns>Returns friendly URL if item is EPiServer content, otherwise returns the original Href property value.</returns>
+        public static string GetExternalUrl(this LinkItem linkItem)
+        {
+            // If the link type is an email link, return as-is
+            if (linkItem.Href.StartsWith("mailto:"))
+            {
+                return linkItem.Href;
+            }
+
+            var url = new UrlBuilder(linkItem.Href);
+            Global.UrlRewriteProvider.ConvertToExternal(url, null, System.Text.Encoding.UTF8);
+            return url.Uri.IsAbsoluteUri ? url.Uri.AbsoluteUri : url.Uri.OriginalString;
+        }
     }
 }
