@@ -2,7 +2,9 @@
 using System.Web;
 using System.Web.Mvc;
 using EPiServer;
+using EPiServer.ServiceLocation;
 using EPiServer.Web;
+using EPiServer.Web.Routing;
 
 namespace Geta.EPi.Extensions
 {
@@ -13,7 +15,7 @@ namespace Geta.EPi.Extensions
     {
         /// <summary>
         ///     Creates external Uri from provided Url.
-        ///     Uses HttpContext if available, othervise uses EPiServer SiteDefinition SiteUrl.
+        ///     Uses HttpContext if available, otherwise uses EPiServer SiteDefinition SiteUrl.
         /// </summary>
         /// <param name="url">Url for which to create Uri.</param>
         /// <returns>External Uri for Url.</returns>
@@ -39,6 +41,23 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
+        ///     Gets the friendly URL for the EPiServer permanent link.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">Thrown if <c>url</c> is null.</exception>
+        public static string GetFriendlyUrl(this Url url)
+        {
+            if (url == null)
+            {
+                throw new ArgumentNullException("url");
+            }
+
+            var resolver = ServiceLocator.Current.GetInstance<UrlResolver>();
+            return resolver.GetUrl(url.ToString());
+        }
+
+        /// <summary>
         ///     Creates Html string of provided Url.
         /// </summary>
         /// <param name="url">Url for which to create Html string.</param>
@@ -52,12 +71,9 @@ namespace Geta.EPi.Extensions
 
         private static Uri GetBaseUri()
         {
-            if (HttpContext.Current == null)
-            {
-                return SiteDefinition.Current.SiteUrl;
-            }
-
-            return new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority));
+            return HttpContext.Current == null
+                ? SiteDefinition.Current.SiteUrl
+                : new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority));
         }
     }
 }
