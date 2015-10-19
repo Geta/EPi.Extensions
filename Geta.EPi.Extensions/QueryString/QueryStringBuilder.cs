@@ -32,7 +32,8 @@ namespace Geta.EPi.Extensions.QueryString
         ///     Instantiates new QueryStringBuilder with provided URL.
         /// </summary>
         /// <param name="contentLink">ContentReference for which to build query.</param>
-        public QueryStringBuilder(ContentReference contentLink) : this(contentLink, ServiceLocator.Current.GetInstance<UrlResolver>())
+        /// <param name="includeHost">Mark if include host name in the url.</param>
+        public QueryStringBuilder(ContentReference contentLink, bool includeHost = false) : this(contentLink, ServiceLocator.Current.GetInstance<UrlResolver>(), includeHost)
         {
         }
 
@@ -41,10 +42,18 @@ namespace Geta.EPi.Extensions.QueryString
         /// </summary>
         /// <param name="contentLink">ContentReference for which to build query.</param>
         /// <param name="urlResolver">UrlResolver instance.</param>
-        public QueryStringBuilder(ContentReference contentLink, UrlResolver urlResolver)
+        /// <param name="includeHost">Mark if include host name in the url.</param>
+        public QueryStringBuilder(ContentReference contentLink, UrlResolver urlResolver, bool includeHost = false)
         {
             EPiUrlResolver = urlResolver;
-            UrlBuilder = new UrlBuilder(EPiUrlResolver.GetUrl(contentLink));
+            var url = EPiUrlResolver.GetUrl(contentLink);
+
+            if (includeHost)
+            {
+                url = url.GetExternalUrl();
+            }
+
+            UrlBuilder = new UrlBuilder(url);
         }
 
         /// <summary>
@@ -61,10 +70,11 @@ namespace Geta.EPi.Extensions.QueryString
         ///     Factory method for instantiating new QueryStringBuilder with provided URL.
         /// </summary>
         /// <param name="contentLink">Content for which to build query.</param>
+        /// <param name="includeHost">Mark if include host name in the url.</param>
         /// <returns>Instance of QueryStringBuilder.</returns>
-        public static QueryStringBuilder Create(ContentReference contentLink)
+        public static QueryStringBuilder Create(ContentReference contentLink, bool includeHost = false)
         {
-            return new QueryStringBuilder(contentLink);
+            return new QueryStringBuilder(contentLink, includeHost);
         }
 
         /// <summary>
@@ -73,9 +83,10 @@ namespace Geta.EPi.Extensions.QueryString
         /// <param name="contentLink">Content for which to build query.</param>
         /// <returns>Instance of QueryStringBuilder.</returns>
         /// <param name="urlResolver">UrlResolver instance.</param>
-        public static QueryStringBuilder Create(ContentReference contentLink, UrlResolver urlResolver)
+        /// <param name="includeHost">Mark if include host name in the url.</param>
+        public static QueryStringBuilder Create(ContentReference contentLink, UrlResolver urlResolver, bool includeHost = false)
         {
-            return new QueryStringBuilder(contentLink, urlResolver);
+            return new QueryStringBuilder(contentLink, urlResolver, includeHost);
         }
 
         /// <summary>
@@ -86,7 +97,11 @@ namespace Geta.EPi.Extensions.QueryString
         /// <returns>Instance of modified QueryStringBuilder.</returns>
         public QueryStringBuilder Add(string name, string value)
         {
-            UrlBuilder.QueryCollection[name] = HttpUtility.UrlEncode(value);
+            if (!string.IsNullOrEmpty(value))
+            {
+                UrlBuilder.QueryCollection[name] = HttpUtility.UrlEncode(value);
+            }
+
             return this;
         }
 
@@ -98,12 +113,12 @@ namespace Geta.EPi.Extensions.QueryString
         /// <returns>Instance of modified QueryStringBuilder.</returns>
         public QueryStringBuilder Add(string name, object value)
         {
-            if (value != null)
+            if (value == null)
             {
-                return Add(name, value.ToString());
+                return this;
             }
 
-            return this;
+            return Add(name, value.ToString());
         }
 
         /// <summary>

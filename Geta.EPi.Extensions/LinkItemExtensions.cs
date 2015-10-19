@@ -36,5 +36,20 @@ namespace Geta.EPi.Extensions
             var resolver = ServiceLocator.Current.GetInstance<UrlResolver>();
             return resolver.Route(urlBuilder);
         }
+
+        /// <summary>
+        ///     Returns friendly URL if item is EPiServer content, otherwise returns the original Href property value.
+        /// </summary>
+        /// <param name="linkItem">Source LinkItem for which to return external URL.</param>
+        /// <param name="includeHost">Mark if include host name in the url.</param>
+        /// <returns>Returns friendly URL if item is EPiServer content, otherwise returns the original Href property value.</returns>
+        public static string GetFriendlyUrl(this LinkItem linkItem, bool includeHost = false)
+        {
+            var contentReference = linkItem.ToContentReference();
+
+            return contentReference == ContentReference.EmptyReference
+                ? linkItem.Href
+                : contentReference.GetFriendlyUrl(includeHost);
+        }
     }
 }

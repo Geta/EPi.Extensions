@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
@@ -21,8 +20,13 @@ namespace Geta.EPi.Extensions
         /// <returns>Returns IEnumerable of ancestor pages.</returns>
         public static IEnumerable<PageData> GetAncestors(this PageData page, bool includeRootPage = false)
         {
-            while ((!includeRootPage || page.ParentLink != PageReference.RootPage) && (page = page.GetParent()) != null)
+            while ((page = page.GetParent()) != null)
             {
+                if (!includeRootPage && page.ContentLink.Equals(ContentReference.RootPage))
+                {
+                    yield break;
+                }
+
                 yield return page;
             }
         }
