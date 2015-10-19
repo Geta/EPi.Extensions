@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
-using EPiServer.Web;
 using EPiServer.Web.Routing;
 
 namespace Geta.EPi.Extensions
@@ -25,20 +23,33 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///     Returns enumeration of child contents of concrete type for provided content reference.
+        ///     Returns enumeration of child contents of concrete type for provided content reference with fallback to master language enabled.
         /// </summary>
         /// <typeparam name="T">Type of child content (IContentData).</typeparam>
         /// <param name="contentReference">Content reference for which child contents to get.</param>
         /// <returns>Enumeration of <typeparamref name="T" /> child content.</returns>
+        /// <remarks>Use <see cref="GetChildren{T}(EPiServer.Core.ContentReference,EPiServer.Core.LoaderOptions)"/> overload to customize loader options.</remarks>
         public static IEnumerable<T> GetChildren<T>(this ContentReference contentReference) where T : IContentData
         {
-            if (!contentReference.IsNullOrEmpty())
+            return contentReference.GetChildren<T>(LanguageSelector.AutoDetect(true));
+        }
+
+        /// <summary>
+        ///     Returns enumeration of child contents of concrete type for provided content reference with possible loader options.
+        /// </summary>
+        /// <typeparam name="T">Type of child content (IContentData).</typeparam>
+        /// <param name="contentReference">Content reference for which child contents to get.</param>
+        /// <param name="options">The loader options to be used while loading the content.</param>
+        /// <returns>Enumeration of <typeparamref name="T" /> child content.</returns>
+        public static IEnumerable<T> GetChildren<T>(this ContentReference contentReference, LoaderOptions options) where T : IContentData
+        {
+            if (contentReference.IsNullOrEmpty())
             {
-                var repository = ServiceLocator.Current.GetInstance<IContentLoader>();
-                return repository.GetChildren<T>(contentReference);
+                return Enumerable.Empty<T>();
             }
 
-            return Enumerable.Empty<T>();
+            var repository = ServiceLocator.Current.GetInstance<IContentLoader>();
+            return repository.GetChildren<T>(contentReference);
         }
 
         /// <summary>
@@ -59,21 +70,27 @@ namespace Geta.EPi.Extensions
         /// <returns>Page of <typeparamref name="T" /> that match content reference.</returns>
         public static T GetPage<T>(this ContentReference contentReference) where T : PageData
         {
-            if (contentReference.IsNullOrEmpty()) return null;
+            if (contentReference.IsNullOrEmpty())
+            {
+                return null;
+            }
 
             var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
             return loader.Get<PageData>(contentReference) as T;
         }
 
         /// <summary>
-        /// Returns a concrete type for provided content reference.
+        ///     Returns a concrete type for provided content reference.
         /// </summary>
         /// <typeparam name="T">Type of content data</typeparam>
         /// <param name="contentReference">Content reference for the content data</param>
         /// <returns>Content of <typeparamref name="T" /> that match content reference.</returns>
         public static T Get<T>(this ContentReference contentReference) where T : IContentData
         {
-            if (contentReference.IsNullOrEmpty()) return default(T);
+            if (contentReference.IsNullOrEmpty())
+            {
+                return default(T);
+            }
 
             var loader = ServiceLocator.Current.GetInstance<IContentLoader>();
             return loader.Get<T>(contentReference);
@@ -88,7 +105,10 @@ namespace Geta.EPi.Extensions
         /// <returns>String representation of URL for provided content reference.</returns>
         public static string GetFriendlyUrl(this ContentReference contentReference, bool includeHost = false, UrlResolver urlResolver = null)
         {
-            if (contentReference.IsNullOrEmpty()) return string.Empty;
+            if (contentReference.IsNullOrEmpty())
+            {
+                return string.Empty;
+            }
 
             if (urlResolver == null)
             {
