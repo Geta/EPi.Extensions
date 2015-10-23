@@ -13,8 +13,5 @@
     <copyright>Copyright © 2015 Geta</copyright>
     <iconUrl>http://cdn.geta.no/opensource/icons/geta-epi-icon.png</iconUrl>
     <tags>EPiServer</tags>
-    <dependencies>
-      <dependency id="EPiServer.CMS.Core" version="7.6" />      
-    </dependencies>
   </metadata>
 </package>
