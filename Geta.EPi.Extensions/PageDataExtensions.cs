@@ -128,7 +128,7 @@ namespace Geta.EPi.Extensions
         /// </summary>
         /// <typeparam name="T">Type of pages to look for.</typeparam>
         /// <param name="pageData">The page for which to find descendants.</param>
-        /// <param name="levels">Level of how deep to look for descendants in page hiararchy.</param>
+        /// <param name="levels">Level of how deep to look for descendants in page hierarchy.</param>
         /// <returns>Returns sequence of PageData of descendants for provided page.</returns>
         public static IEnumerable<T> GetDescendants<T>(this PageData pageData, int levels) where T : PageData
         {
@@ -158,10 +158,11 @@ namespace Geta.EPi.Extensions
         /// </summary>
         /// <param name="page">Page for which to create friendly url.</param>
         /// <param name="includeHost">Mark if include host name in the url.</param>
+        /// <param name="ignoreContextMode">Mark if Url should be generating ignoring context mode. Settings this parameter to <c>true</c> friendly Url will be generated, even in EPiServer EditMode.</param>
         /// <returns>String representation of URL for provided page.</returns>
-        public static string GetFriendlyUrl(this PageData page, bool includeHost = false)
+        public static string GetFriendlyUrl(this PageData page, bool includeHost = false, bool ignoreContextMode = false)
         {
-            return page != null ? page.ContentLink.GetFriendlyUrl(includeHost) : string.Empty;
+            return page != null ? page.ContentLink.GetFriendlyUrl(includeHost, ignoreContextMode) : string.Empty;
         }
 
         /// <summary>
@@ -208,8 +209,8 @@ namespace Geta.EPi.Extensions
                 return null;
             }
 
-            PageData canonicalPage = page;
-            PageReference pageLink = page.PageLink;
+            var canonicalPage = page;
+            var pageLink = page.PageLink;
 
             if (considerFetchDataFrom && page.LinkType == PageShortcutType.FetchData)
             {
@@ -236,7 +237,7 @@ namespace Geta.EPi.Extensions
                 }
             }
 
-            return canonicalPage.PageLink.GetFriendlyUrl(true, urlResolver);
+            return canonicalPage.PageLink.GetFriendlyUrl(true, urlResolver: urlResolver);
         }
     }
 }
