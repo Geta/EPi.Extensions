@@ -3,6 +3,7 @@ using System.Linq;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
+using EPiServer.Web;
 using EPiServer.Web.Routing;
 
 namespace Geta.EPi.Extensions
@@ -101,9 +102,10 @@ namespace Geta.EPi.Extensions
         /// </summary>
         /// <param name="contentReference">Content reference for which to create friendly url.</param>
         /// <param name="includeHost">Mark if include host name in the url.</param>
+        /// <param name="ignoreContextMode"></param>
         /// <param name="urlResolver">Optional UrlResolver instance.</param>
         /// <returns>String representation of URL for provided content reference.</returns>
-        public static string GetFriendlyUrl(this ContentReference contentReference, bool includeHost = false, UrlResolver urlResolver = null)
+        public static string GetFriendlyUrl(this ContentReference contentReference, bool includeHost = false, bool ignoreContextMode = false, UrlResolver urlResolver = null)
         {
             if (contentReference.IsNullOrEmpty())
             {
@@ -116,13 +118,12 @@ namespace Geta.EPi.Extensions
             }
 
             var url = urlResolver.GetUrl(contentReference);
-
-            if (!includeHost)
+            if (ignoreContextMode)
             {
-                return url;
+                url = urlResolver.GetUrl(contentReference, null, new VirtualPathArguments { ContextMode = ContextMode.Default });
             }
 
-            return url.GetExternalUrl();
+            return !includeHost ? url : url.GetExternalUrl();
         }
 
         /// <summary>
