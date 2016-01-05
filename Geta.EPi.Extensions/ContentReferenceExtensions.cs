@@ -14,13 +14,13 @@ namespace Geta.EPi.Extensions
     public static class ContentReferenceExtensions
     {
         /// <summary>
-        ///     Returns enumeration of child contents of PageData type for provided content reference.
+        ///     Returns enumeration of child contents of IContent type for provided content reference.
         /// </summary>
         /// <param name="contentReference">Content reference for which child contents to get.</param>
-        /// <returns>Enumeration of PageData child content.</returns>
-        public static IEnumerable<PageData> GetChildren(this ContentReference contentReference)
+        /// <returns>Enumeration of IContent child content.</returns>
+        public static IEnumerable<IContent> GetChildren(this ContentReference contentReference)
         {
-            return contentReference.GetChildren<PageData>();
+            return contentReference.GetChildren<IContent>();
         }
 
         /// <summary>
