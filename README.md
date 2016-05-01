@@ -1,5 +1,6 @@
-Extensions and helpers library for EPiServer
-==============
+# Extensions and helpers library for EPiServer CMS
+
+![](http://tc.geta.no/app/rest/builds/buildType:(id:TeamFrederik_ExtensionsDebug)/statusIcon)
 
 ## What is EPi.Extensions?
 
