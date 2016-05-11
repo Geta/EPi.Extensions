@@ -5,38 +5,65 @@ using EPiServer.ServiceLocation;
 
 namespace Geta.EPi.Extensions.SingletonPage
 {
+    /// <summary>
+    /// Singleton page extensions.
+    /// </summary>
     public static class Extensions
     {
         private static readonly IContentReferenceCache DefaultContentReferenceCache 
                                                             = new DefaultContentReferenceCache();
 
+        /// <summary>
+        /// Injected IContentLoader.
+        /// </summary>
         public static Injected<IContentLoader> InjectedContentLoader { get; set; }
         private static IContentLoader ContentLoader => InjectedContentLoader.Service;
+        /// <summary>
+        /// Injected IContentReferenceCache.
+        /// </summary>
         public static Injected<IContentReferenceCache> InjectedCache { get; set; }
         private static IContentReferenceCache Cache => InjectedCache.Service ?? DefaultContentReferenceCache;
 
-        public static T GetSingletonPage<T>(this PageData page)
+        /// <summary>
+        /// Returns first page of a given type under the root rootPage.
+        /// </summary>
+        /// <param name="rootPage">The root page under which to search.</param>
+        /// <typeparam name="T">Type of the page to search for.</typeparam>
+        /// <returns>The first page of provided type if found; otherwise null.</returns>
+        public static T GetSingletonPage<T>(this PageData rootPage)
             where T : PageData, new()
         {
-            return page.ContentLink.GetSingletonPage<T>();
+            return rootPage.ContentLink.GetSingletonPage<T>();
         }
 
-        public static T GetSingletonPage<T>(this ContentReference pageLink)
+        /// <summary>
+        /// Returns first page of a given type under the root rootPage by root rootPage's content reference.
+        /// </summary>
+        /// <param name="rootPageLink">The root page's content reference under which to search.</param>
+        /// <typeparam name="T">Type of the page to search for.</typeparam>
+        /// <returns>The first page of provided type if found; otherwise null.</returns>
+        public static T GetSingletonPage<T>(this ContentReference rootPageLink)
             where T : PageData, new()
         {
-            var singletonLink = Cache.GetOrAdd(new CacheKey(typeof(T), pageLink), pageLink.GetSingletonPageLink<T>);
+            var singletonLink = Cache.GetOrAdd(new CacheKey(typeof(T), rootPageLink), rootPageLink.GetSingletonPageLink<T>);
             return ContentLoader.Get<T>(singletonLink);
         }
 
+        /// <summary>
+        /// Returns first page's of a given type content reference under the root rootPage by root rootPage's content reference.
+        /// </summary>
+        /// <param name="rootPageLink">The root page's content reference under which to search.</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static ContentReference GetSingletonPageLink<T>(this ContentReference rootPageLink)
             where T : PageData, new()
         {
-            var page = ContentLoader.GetDescendents(rootPageLink)
+            var singletonPage = ContentLoader.GetDescendents(rootPageLink)
                 .Select(ContentLoader.Get<PageData>)
                 .OfType<T>()
                 .FirstOrDefault();
 
-            return page != null ? page.ContentLink : ContentReference.EmptyReference;
+            return singletonPage != null ? singletonPage.ContentLink : ContentReference.EmptyReference;
         }
     }
 }
