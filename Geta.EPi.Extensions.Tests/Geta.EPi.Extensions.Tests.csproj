@@ -203,6 +203,9 @@
     <Compile Include="Helpers\ValidationHelperTests.cs" />
     <Compile Include="Helpers\XFormHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingletonPage\FakeCache.cs" />
+    <Compile Include="SingletonPage\TestPage.cs" />
+    <Compile Include="SingletonPage\Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

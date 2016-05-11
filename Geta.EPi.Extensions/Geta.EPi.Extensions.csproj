@@ -182,6 +182,9 @@
     <Compile Include="LinkItemCollectionExtensions.cs" />
     <Compile Include="LinkItemExtensions.cs" />
     <Compile Include="MenuList\MenuItem.cs" />
+    <Compile Include="SingletonPage\DefaultContentReferenceCache.cs" />
+    <Compile Include="SingletonPage\Extensions.cs" />
+    <Compile Include="SingletonPage\IContentReferenceCache.cs" />
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="PageDataExtensions.cs" />
     <Compile Include="PageReferenceExtensions.cs" />
