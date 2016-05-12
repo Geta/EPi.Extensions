@@ -31,7 +31,12 @@ namespace Geta.EPi.Extensions.SingletonPage
         /// <returns>A singleton page's content reference.</returns>
         public ContentReference GetOrAdd(CacheKey key, Func<ContentReference> valueFactory)
         {
-            var value = valueFactory();
+            ContentReference value;
+            if (Cache.TryGetValue(key, out value))
+            {
+                return value;
+            }
+            value = valueFactory();
             return value == ContentReference.EmptyReference ? value : Cache.GetOrAdd(key, value);
         }
     }
