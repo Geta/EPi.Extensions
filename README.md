@@ -187,3 +187,16 @@ If you need to check if the CategoryList has that category you can use the Conta
 This can be useful when used together with sharing widgets.
 
     string fullUrl = CurrentPage.GetFriendlyUrl();
+
+## Singleton page
+
+Allows easily load the page which is a single instance of a type.
+
+Loading the singleton page of a type by a parent _ContentReference_.
+
+    var testPage1 = ContentReference.StartPage.GetSingletonPage<TestPage>();
+
+Loading the singleton page of a type by a parent page.
+
+    var startPage = _contentLoader.Get<StartPage>(ContentReference.StartPage);
+    var testPage2 = startPage.GetSingletonPage<TestPage>();
