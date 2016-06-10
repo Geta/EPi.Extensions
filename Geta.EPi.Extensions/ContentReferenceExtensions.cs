@@ -185,5 +185,17 @@ namespace Geta.EPi.Extensions
             contentLoader.TryGet(contentLink, out content);
             return content;
         }
+
+        /// <summary>
+        /// Opens download dialog for documents and media files
+        /// </summary>
+        /// <param name="contentReferenceToMediaFile">Content reference to media file</param>
+        /// <returns></returns>
+        public static string GetDownloadLink(this ContentReference contentReferenceToMediaFile)
+        {
+            var url = UrlResolver.Current.GetUrl(contentReferenceToMediaFile);
+
+            return url + "/download";
+        }
     }
 }
