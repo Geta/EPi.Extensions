@@ -50,7 +50,7 @@ namespace Geta.EPi.Extensions
         {
             if (url == null)
             {
-                throw new ArgumentNullException("url");
+                throw new ArgumentNullException(nameof(url));
             }
 
             var resolver = ServiceLocator.Current.GetInstance<UrlResolver>();

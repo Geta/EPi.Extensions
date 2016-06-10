@@ -107,6 +107,20 @@ namespace Geta.EPi.Extensions
         /// <returns>String representation of URL for provided content reference.</returns>
         public static string GetFriendlyUrl(this ContentReference contentReference, bool includeHost = false, bool ignoreContextMode = false, UrlResolver urlResolver = null)
         {
+            return GetFriendlyUrl(contentReference, null, includeHost, ignoreContextMode, urlResolver);
+        }
+
+        /// <summary>
+        ///     Returns friendly URL for provided content reference.
+        /// </summary>
+        /// <param name="contentReference">Content reference for which to create friendly url.</param>
+        /// <param name="language">Language of content</param>
+        /// <param name="includeHost">Mark if include host name in the url.</param>
+        /// <param name="ignoreContextMode"></param>
+        /// <param name="urlResolver">Optional UrlResolver instance.</param>
+        /// <returns>String representation of URL for provided content reference.</returns>
+        public static string GetFriendlyUrl(this ContentReference contentReference, string language, bool includeHost = false, bool ignoreContextMode = false, UrlResolver urlResolver = null)
+        {
             if (contentReference.IsNullOrEmpty())
             {
                 return string.Empty;
@@ -120,7 +134,7 @@ namespace Geta.EPi.Extensions
             var url = urlResolver.GetUrl(contentReference);
             if (ignoreContextMode)
             {
-                url = urlResolver.GetUrl(contentReference, null, new VirtualPathArguments { ContextMode = ContextMode.Default });
+                url = urlResolver.GetUrl(contentReference, language, new VirtualPathArguments { ContextMode = ContextMode.Default });
             }
 
             return !includeHost ? url : url.GetExternalUrl();
