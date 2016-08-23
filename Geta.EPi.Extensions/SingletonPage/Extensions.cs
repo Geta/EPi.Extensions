@@ -59,7 +59,7 @@ namespace Geta.EPi.Extensions.SingletonPage
             where T : PageData, new()
         {
             var singletonPage = ContentLoader.GetDescendents(rootPageLink)
-                .Select(ContentLoader.Get<PageData>)
+                .Select(ContentLoader.Get<IContent>)
                 .OfType<T>()
                 .FirstOrDefault();
 
