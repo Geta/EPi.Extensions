@@ -4,15 +4,15 @@ using EPiServer.Core;
 namespace Geta.EPi.Extensions.MenuList
 {
     /// <summary>
-    ///     Model for one menu item.
+    ///     Generic model for one menu item.
     ///     It is used as a model in Menu item template.
     /// </summary>
-    public class MenuItem
+    public class MenuItem<T> where T : IContent
     {
         /// <summary>
-        ///     Menu item's page.
+        ///     Menu item's content.
         /// </summary>
-        public PageData Page { get; set; }
+        public virtual T Content { get; set; }
 
         /// <summary>
         ///     Mark if menu item is selected.
@@ -25,8 +25,25 @@ namespace Geta.EPi.Extensions.MenuList
         public Lazy<bool> HasChildren { get; set; }
 
         /// <summary>
-        /// Mark if menu item has a child page that is marked as selected.
+        ///     Mark if menu item has a child page that is marked as selected.
         /// </summary>
-        public Lazy<bool> HasSelectedChildPage { get; set; }
+        public virtual Lazy<bool> HasSelectedChildContent { get; set; }
+    }
+
+    /// <summary>
+    ///     Model for one menu item.
+    ///     It is used as a model in Menu item template.
+    /// </summary>
+    public class MenuItem : MenuItem<PageData>
+    {
+        /// <summary>
+        ///     Menu item's page.
+        /// </summary>
+        public PageData Page => Content;
+
+        /// <summary>
+        ///     Mark if menu item has a child page that is marked as selected.
+        /// </summary>
+        public Lazy<bool> HasSelectedChildPage => HasSelectedChildContent;
     }
 }

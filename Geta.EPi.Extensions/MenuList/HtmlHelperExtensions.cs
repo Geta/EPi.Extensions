@@ -37,23 +37,58 @@ namespace Geta.EPi.Extensions.MenuList
         /// <remarks>
         ///     Filter by access rights and publication status.
         /// </remarks>
-        public static IHtmlString MenuList(this HtmlHelper helper, ContentReference rootLink, Func<MenuItem, HelperResult> itemTemplate = null, 
+        public static IHtmlString MenuList(this HtmlHelper helper, ContentReference rootLink, Func<MenuItem, HelperResult> itemTemplate = null,
             bool includeRoot = false, bool requireVisibleInMenu = true, bool requirePageTemplate = true)
         {
-            itemTemplate = itemTemplate ?? GetDefaultItemTemplate(helper);
+            var template = new Func<MenuItem<PageData>, HelperResult>(x =>
+            {
+                var menuItem = new MenuItem
+                {
+                    Content = x.Content,
+                    Selected = x.Selected,
+                    HasChildren = x.HasChildren,
+                    HasSelectedChildContent = x.HasSelectedChildContent
+                };
+                return itemTemplate?.Invoke(menuItem);
+            });
+
+            return MenuList(helper, rootLink, template, includeRoot, requireVisibleInMenu, requirePageTemplate);
+        }
+
+        /// <summary>
+        ///     Returns an element for each child page of the rootLink using the itemTemplate.
+        /// </summary>
+        /// <param name="helper">The html helper in whose context the list should be created</param>
+        /// <param name="rootLink">A reference to the root whose children should be listed</param>
+        /// <param name="itemTemplate">
+        ///     A template for each page which will be used to produce the return value. Can be either a
+        ///     delegate or a Razor helper.
+        /// </param>
+        /// <param name="includeRoot">Whether an element for the root page should be returned</param>
+        /// <param name="requireVisibleInMenu">
+        ///     Wether pages that do not have the "Display in navigation" checkbox checked should be
+        ///     excluded
+        /// </param>
+        /// <param name="requireTemplate">Whether page that do not have a template (i.e. container pages) should be excluded</param>
+        /// <remarks>
+        ///     Filter by access rights and publication status.
+        /// </remarks>
+        public static IHtmlString MenuList<T>(this HtmlHelper helper, ContentReference rootLink, Func<MenuItem<T>, HelperResult> itemTemplate = null, bool includeRoot = false, bool requireVisibleInMenu = true, bool requireTemplate = true) where T : IContent
+        {
+            itemTemplate = itemTemplate ?? GetDefaultItemTemplate<T>(helper);
             var currentContentLink = helper.ViewContext.RequestContext.GetContentLink();
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
 
-            Func<IEnumerable<PageData>, IEnumerable<PageData>> filter = pages => pages.FilterForDisplay(requirePageTemplate, requireVisibleInMenu);
-            
-            var menuItems = contentLoader.GetChildren<PageData>(rootLink)
-                .FilterForDisplay(requirePageTemplate, requireVisibleInMenu)
+            Func<IEnumerable<T>, IEnumerable<T>> filter = contents => contents.FilterForDisplay(requireTemplate, requireVisibleInMenu);
+
+            var menuItems = contentLoader.GetChildren<T>(rootLink)
+                .FilterForDisplay(requireTemplate, requireVisibleInMenu)
                 .Select(x => CreateMenuItem(x, currentContentLink, rootLink, contentLoader, filter))
                 .ToList();
 
             if (includeRoot)
             {
-                menuItems.Insert(0, CreateMenuItem(contentLoader.Get<PageData>(rootLink), currentContentLink, rootLink, contentLoader, filter));
+                menuItems.Insert(0, CreateMenuItem(contentLoader.Get<T>(rootLink), currentContentLink, rootLink, contentLoader, filter));
             }
 
             var buffer = new StringBuilder();
@@ -66,34 +101,34 @@ namespace Geta.EPi.Extensions.MenuList
             return new MvcHtmlString(buffer.ToString());
         }
 
-        private static MenuItem CreateMenuItem(PageData page, ContentReference currentContentLink, ContentReference rootLink, IContentLoader contentLoader, Func<IEnumerable<PageData>, IEnumerable<PageData>> filter)
+        private static MenuItem<T> CreateMenuItem<T>(T content, ContentReference currentContentLink, ContentReference rootLink, IContentLoader contentLoader, Func<IEnumerable<T>, IEnumerable<T>> filter) where T : IContent
         {
-            var menuItem = new MenuItem
+            var menuItem = new MenuItem<T>
             {
-                Page = page,
-                Selected = page.ContentLink.CompareToIgnoreWorkID(currentContentLink),
-                HasChildren = new Lazy<bool>(() => filter(contentLoader.GetChildren<PageData>(page.ContentLink)).Any()),
-                HasSelectedChildPage = new Lazy<bool>(() => HasSelectedChildPage(rootLink, currentContentLink, page))
+                Content = content,
+                Selected = content.ContentLink.CompareToIgnoreWorkID(currentContentLink),
+                HasChildren = new Lazy<bool>(() => filter(contentLoader.GetChildren<T>(content.ContentLink)).Any()),
+                HasSelectedChildContent = new Lazy<bool>(() => HasSelectedChildContent(rootLink, currentContentLink, content))
             };
             return menuItem;
         }
 
-        private static bool HasSelectedChildPage(ContentReference rootLink, ContentReference currentContentLink, PageData page)
+        private static bool HasSelectedChildContent<T>(ContentReference rootLink, ContentReference currentContentLink, T content) where T : IContent
         {
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
 
-            List<ContentReference> pagePath = contentLoader.GetAncestors(currentContentLink)
+            var contentPath = contentLoader.GetAncestors(currentContentLink)
                 .Reverse()
                 .Select(x => x.ContentLink)
                 .SkipWhile(x => !x.CompareToIgnoreWorkID(rootLink))
                 .ToList();
 
-            return pagePath.Contains(page.ContentLink);
+            return contentPath.Contains(content.ContentLink);
         }
 
-        private static Func<MenuItem, HelperResult> GetDefaultItemTemplate(HtmlHelper helper)
+        private static Func<MenuItem<T>, HelperResult> GetDefaultItemTemplate<T>(HtmlHelper helper) where T : IContent
         {
-            return x => new HelperResult(writer => writer.Write(helper.PageLink(x.Page)));
+            return x => new HelperResult(writer => writer.Write(helper.ContentLink(x.Content)));
         }
     }
 }
