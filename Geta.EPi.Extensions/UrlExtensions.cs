@@ -77,22 +77,32 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///     Gets the Url type of provided Url
+        ///     Gets the Url type
         /// </summary>
         /// <param name="url"></param>
-        /// <returns>The type of Url (Internal, External). Returns Unknown if resolution fails.</returns>
+        /// <returns>The type of Url (Internal, External, Media). Returns Unknown if resolution fails.</returns>
         public static UrlType GetUrlType(this Url url)
         {
             if (url.IsAbsoluteUri)
             {
-                return UrlType.External;
+                if (SiteDefinition.Current == null)
+                {
+                    // if we fail to get site definition (for instance in scheduled jobs) we assume that link is external
+                    return UrlType.External;
+                }
+
+                return SiteDefinition.Current.Hosts.Any(h => h.Name.Equals(url.Host, StringComparison.InvariantCultureIgnoreCase)) ? UrlType.Internal : UrlType.External;
             }
 
             var content = UrlResolver.Current.Route(new UrlBuilder(url.Path));
             if (content == null)
-            {
                 return UrlType.Unknown;
-            }
+
+            if (content is MediaData)
+                return UrlType.Media;
+
+            if (content is PageData)
+                return UrlType.Page;
 
             return UrlType.Internal;
         }
@@ -113,7 +123,15 @@ namespace Geta.EPi.Extensions
             /// <summary>
             ///     External Url type
             /// </summary>
-            External
+            External,
+            /// <summary>
+            ///     Internal media Url type
+            /// </summary>
+            Media,
+            /// <summary>
+            ///     Episerver page Url type
+            /// </summary>
+            Page
         }
     }
 }
