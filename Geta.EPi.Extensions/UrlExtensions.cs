@@ -91,10 +91,16 @@ namespace Geta.EPi.Extensions
                     return UrlType.External;
                 }
 
-                return SiteDefinition.Current.Hosts.Any(h => h.Name.Equals(url.Host, StringComparison.InvariantCultureIgnoreCase)) ? UrlType.Internal : UrlType.External;
+                if (
+                    !SiteDefinition.Current.Hosts.Any(
+                        h => h.Name.Equals(url.Host, StringComparison.InvariantCultureIgnoreCase)))
+                {
+                    return UrlType.External;
+                }
             }
 
             var content = UrlResolver.Current.Route(new UrlBuilder(url.Path));
+
             if (content == null)
                 return UrlType.Unknown;
 
