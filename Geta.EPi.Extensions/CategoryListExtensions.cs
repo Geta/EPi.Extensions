@@ -2,6 +2,7 @@
 using System.Linq;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
+using EPiServer.ServiceLocation;
 
 namespace Geta.EPi.Extensions
 {
@@ -10,6 +11,10 @@ namespace Geta.EPi.Extensions
     /// </summary>
     public static class CategoryListExtensions
     {
+        #pragma warning disable 649
+        private static Injected<CategoryRepository> _categoryRepository;
+        #pragma warning restore 649
+
         /// <summary>
         ///     Builds a comma separated string of categories using LocalizedDescription as name.
         /// </summary>
@@ -47,7 +52,7 @@ namespace Geta.EPi.Extensions
         public static IEnumerable<Category> GetFullCategories(this CategoryList categoryList)
         {
             return categoryList != null
-                ? categoryList.Select(Category.Find).Where(category => category != null)
+                ? categoryList.Select(_categoryRepository.Service.Get).Where(category => category != null)
                 : Enumerable.Empty<Category>();
         }
 
@@ -59,7 +64,7 @@ namespace Geta.EPi.Extensions
         public static IEnumerable<string> GetCategoryNames(this CategoryList categoryList)
         {
             return categoryList != null
-                ? categoryList.Select(categoryList.GetCategoryName)
+                ? categoryList.Select(c => _categoryRepository.Service.Get(c).Name)
                 : Enumerable.Empty<string>();
         }
 
@@ -71,7 +76,7 @@ namespace Geta.EPi.Extensions
         /// <returns>true if category exists in CategoryList otherwise false.</returns>
         public static bool Contains(this CategoryList categoryList, string name)
         {
-            return categoryList.Select(categoryList.GetCategoryName).Any(categoryName => categoryName.Equals(name));
+            return categoryList.Select(c => _categoryRepository.Service.Get(c).Name).Any(categoryName => categoryName.Equals(name));
         }
     }
 }

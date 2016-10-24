@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using EPiServer.DataAbstraction;
+using EPiServer.ServiceLocation;
 
 namespace Geta.EPi.Extensions
 {
@@ -9,6 +10,10 @@ namespace Geta.EPi.Extensions
     /// </summary>
     public static class CategoryExtensions
     {
+        #pragma warning disable 649
+        private static Injected<CategoryRepository> _categoryRepository;
+        #pragma warning restore 649
+
         /// <summary>
         ///     Returns strongly typed child categories of provided parent category ID.
         /// </summary>
@@ -16,10 +21,8 @@ namespace Geta.EPi.Extensions
         /// <returns>Enumeration of child categories.</returns>
         public static IEnumerable<Category> GetChildCategories(this int categoryRootId)
         {
-            var root = Category.Find(categoryRootId);
-            return root != null
-                ? root.Categories.Cast<Category>()
-                : Enumerable.Empty<Category>();
+            var root = _categoryRepository.Service.Get(categoryRootId);
+            return root?.Categories ?? Enumerable.Empty<Category>();
         }
     }
 }
