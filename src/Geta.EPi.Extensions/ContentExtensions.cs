@@ -14,6 +14,12 @@ namespace Geta.EPi.Extensions
     public static class ContentExtensions
     {
         /// <summary>
+        /// Injected IContentLoader.
+        /// </summary>
+        public static Injected<IContentLoader> InjectedContentLoader { get; set; }
+        private static IContentLoader ContentLoader => InjectedContentLoader.Service;
+
+        /// <summary>
         ///     Filters content which should not be visible to the user.
         /// </summary>
         /// <typeparam name="T">Type of content (IContent).</typeparam>
@@ -43,6 +49,18 @@ namespace Geta.EPi.Extensions
             }
 
             return content;
+        }
+
+        /// <summary>
+        /// Returns first ancestor of type.
+        /// </summary>
+        /// <typeparam name="T">Type of content (IContent).</typeparam>
+        /// <param name="instance">Content instance.</param>
+        /// <returns>First ancestor or default of T.</returns>
+        public static T ClosestAncestor<T>(this IContent instance)
+            where T : IContent
+        {
+            return ContentLoader.GetAncestors(instance.ContentLink).OfType<T>().FirstOrDefault();
         }
 
         private static bool VisibleInMenu(IContent content)

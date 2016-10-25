@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using EPiFakeMaker;
+﻿using EPiFakeMaker;
 using EPiServer;
 using EPiServer.ServiceLocation;
 using Geta.EPi.Extensions.SingletonPage;
+using Geta.EPi.Extensions.Tests.Base;
 using Xunit;
 
 namespace Geta.EPi.Extensions.Tests.SingletonPage
@@ -16,7 +15,7 @@ namespace Geta.EPi.Extensions.Tests.SingletonPage
             var fakeRoot = FakePage.Create("Root");
             var fakeStart = FakePage.Create("Start")
                                     .ChildOf(fakeRoot)
-                                    .WithChildren(RandomPages(10));
+                                    .WithChildren(Fixture.RandomPages(10));
             var fakeExpected = FakePage.Create<TestPage>("Test page")
                                         .ChildOf(fakeStart);
             _fake.AddToRepository(fakeRoot);
@@ -35,7 +34,7 @@ namespace Geta.EPi.Extensions.Tests.SingletonPage
             var fakeRoot = FakePage.Create("Root");
             var fakeStart = FakePage.Create("Start")
                                     .ChildOf(fakeRoot)
-                                    .WithChildren(RandomPages(10));
+                                    .WithChildren(Fixture.RandomPages(10));
             var fakeExpected = FakePage.Create<TestPage>("Test page")
                                         .ChildOf(fakeStart);
             _fake.AddToRepository(fakeRoot);
@@ -53,7 +52,7 @@ namespace Geta.EPi.Extensions.Tests.SingletonPage
             var fakeRoot = FakePage.Create("Root");
             var fakeStart = FakePage.Create("Start")
                                     .ChildOf(fakeRoot)
-                                    .WithChildren(RandomPages(10));
+                                    .WithChildren(Fixture.RandomPages(10));
             _fake.AddToRepository(fakeRoot);
 
             var actual = fakeStart.Page.GetSingletonPage<TestPage>();
@@ -67,7 +66,7 @@ namespace Geta.EPi.Extensions.Tests.SingletonPage
             var fakeRoot = FakePage.Create("Root");
             var fakeStart = FakePage.Create("Start")
                                     .ChildOf(fakeRoot)
-                                    .WithChildren(RandomPages(10));
+                                    .WithChildren(Fixture.RandomPages(10));
             var fakeExpected = FakePage.Create<TestPage>("Test page")
                                         .ChildOf(fakeStart);
             var fakeSecond = FakePage.Create<TestPage>("Test page 2")
@@ -107,10 +106,10 @@ namespace Geta.EPi.Extensions.Tests.SingletonPage
             var fakeRoot = FakePage.Create("Root");
             var fakeStart = FakePage.Create("Start")
                                     .ChildOf(fakeRoot)
-                                    .WithChildren(RandomPages(10));
+                                    .WithChildren(Fixture.RandomPages(10));
             var fakeChild = FakePage.Create("Test page")
                                     .ChildOf(fakeStart)
-                                    .WithChildren(RandomPages(10));
+                                    .WithChildren(Fixture.RandomPages(10));
             var fakeExpected = FakePage.Create<TestPage>("Second level test page")
                                     .ChildOf(fakeChild);
 
@@ -130,12 +129,12 @@ namespace Geta.EPi.Extensions.Tests.SingletonPage
             var fakeRoot = FakePage.Create("Root");
             var firstStart = FakePage.Create("Start")
                                     .ChildOf(fakeRoot)
-                                    .WithChildren(RandomPages(10));
+                                    .WithChildren(Fixture.RandomPages(10));
             var firstSingleton = FakePage.Create<TestPage>("First test page")
                                     .ChildOf(firstStart);
             var secondStart = FakePage.Create("Second start")
                                     .ChildOf(firstStart)
-                                    .WithChildren(RandomPages(10));
+                                    .WithChildren(Fixture.RandomPages(10));
             var secondSingleton = FakePage.Create<TestPage>("Second test page")
                                     .ChildOf(secondStart);
             _fake.AddToRepository(fakeRoot);
@@ -163,14 +162,6 @@ namespace Geta.EPi.Extensions.Tests.SingletonPage
             var key = new CacheKey(typeof(TestPage), fakeStart.Page.PageLink);
             var actual = _fakeCache.InternalCache.ContainsKey(key);
             Assert.False(actual);
-        }
-
-        public IEnumerable<FakePage> RandomPages(int count)
-        {
-            for (var i = 0; i < count; i++)
-            {
-                yield return FakePage.Create(Guid.NewGuid().ToString());
-            }
         }
 
         public Tests()
