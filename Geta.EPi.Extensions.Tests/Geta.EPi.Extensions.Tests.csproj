@@ -200,6 +200,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\Fixture.cs" />
+    <Compile Include="ContentExtensionsTests\ClosestAncestorTests.cs" />
     <Compile Include="Helpers\ValidationHelperTests.cs" />
     <Compile Include="Helpers\XFormHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
