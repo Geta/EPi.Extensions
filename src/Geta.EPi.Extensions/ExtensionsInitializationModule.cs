@@ -8,6 +8,8 @@ namespace Geta.EPi.Extensions
     /// <summary>
     ///     Initialization module for extensions package.
     /// </summary>
+    [InitializableModule]
+    [ModuleDependency(typeof(EPiServer.Web.InitializationModule))]
     public class ExtensionsInitializationModule : IInitializableModule
     {
         /// <summary>

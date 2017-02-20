@@ -229,7 +229,7 @@ namespace Geta.EPi.Extensions
                 iconCssClass = modelMetaData.AdditionalValues[MetadataConstants.EditButton.IconCssClassPropertyName] as string;
             }
 
-            string tag = GetEditButtonTag(helper, expr, modelMetaData.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ?? modelMetaData.DisplayName, iconCssClass);
+            string tag = GetEditButtonTag(helper, expr, modelMetaData.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ?? modelMetaData.DisplayName ?? modelMetaData.PropertyName, iconCssClass);
             return new MvcHtmlString(tag);
         }
 
@@ -296,7 +296,8 @@ namespace Geta.EPi.Extensions
 
                 if (categorizableContent != null)
                 {
-                    iconCssDivs.Add(GetSpecialEditButtonTag("Category", "Kategori", null));
+                    var categoryMetaData = ModelMetadata.FromLambdaExpression(x => categorizableContent.Category, helper.ViewData);
+                    iconCssDivs.Add(GetSpecialEditButtonTag("Category", categoryMetaData.DisplayName ?? categoryMetaData.PropertyName, null));
                     fullRefreshPropertyNames.Add("icategorizable_category");
                 }
             }
@@ -334,7 +335,7 @@ namespace Geta.EPi.Extensions
                     fullRefreshPropertyNames.Add(propertyMetadata.PropertyName);
                 }
 
-                var editButtonHtml = GetEditButtonTag(helper, propertyMetadata.PropertyName, propertyMetadata.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ?? propertyMetadata.DisplayName, iconCssClass);
+                var editButtonHtml = GetEditButtonTag(helper, propertyMetadata.PropertyName, propertyMetadata.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ?? propertyMetadata.DisplayName ?? propertyMetadata.PropertyName, iconCssClass);
 
                 iconCssDivs.Add(editButtonHtml);
             }

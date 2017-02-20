@@ -189,7 +189,6 @@
     <Compile Include="MenuList\MenuItem.cs" />
     <Compile Include="MetadataConstants.cs" />
     <Compile Include="ModelMetadataExtensions.cs" />
-    <Compile Include="RoutingConstants.cs" />
     <Compile Include="SingletonPage\DefaultContentReferenceCache.cs" />
     <Compile Include="SingletonPage\Extensions.cs" />
     <Compile Include="SingletonPage\IContentReferenceCache.cs" />
