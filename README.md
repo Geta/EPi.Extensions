@@ -252,6 +252,6 @@ You can also render a help summary for all properties marked with the EditorHelp
 
 Please note that the buttons and help texts are not styled with any CSS in this package. You will have to do that yourself.
 
-### Example screenshots of EditButton and EditorHelp helpers
+### Example screenshot of EditButton and EditorHelp helpers
 
 ![ScreenShot](/docs/content-editor-enhancements.png)
