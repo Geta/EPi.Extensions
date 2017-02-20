@@ -167,8 +167,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\EditButtonAttribute.cs" />
+    <Compile Include="Attributes\EditorHelpAttribute.cs" />
     <Compile Include="CategoryExtensions.cs" />
     <Compile Include="CategoryListExtensions.cs" />
+    <Compile Include="ContentEditorExtensions.cs" />
     <Compile Include="ContentExtensions.cs" />
     <Compile Include="ContentReferenceExtensions.cs" />
     <Compile Include="ContentLoaderExtensions.cs" />
@@ -177,14 +180,19 @@
     <Compile Include="EditorDescriptors\EnumEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\EnumSelectionFactory.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="ExtensionsInitializationModule.cs" />
+    <Compile Include="HttpContextBaseExtensions.cs" />
     <Compile Include="JsonExtensions.cs" />
     <Compile Include="MenuList\HtmlHelperExtensions.cs" />
     <Compile Include="LinkItemCollectionExtensions.cs" />
     <Compile Include="LinkItemExtensions.cs" />
     <Compile Include="MenuList\MenuItem.cs" />
+    <Compile Include="MetadataConstants.cs" />
+    <Compile Include="ModelMetadataExtensions.cs" />
     <Compile Include="SingletonPage\DefaultContentReferenceCache.cs" />
     <Compile Include="SingletonPage\Extensions.cs" />
     <Compile Include="SingletonPage\IContentReferenceCache.cs" />
+    <Compile Include="TemplateModelExtensions.cs" />
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="PageDataExtensions.cs" />
     <Compile Include="PageReferenceExtensions.cs" />
@@ -196,6 +204,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryString\QueryStringBuilder.cs" />
     <Compile Include="UrlHelperExtensions.cs" />
+    <Compile Include="ViewContextExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Geta.EPi.Extensions.nuspec">

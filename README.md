@@ -202,3 +202,56 @@ Loading the singleton page of a type by a parent page.
 
     var startPage = _contentLoader.Get<StartPage>(ContentReference.StartPage);
     var testPage2 = startPage.GetSingletonPage<TestPage>();
+
+## Content editor user experience helpers/extensions
+
+Set of extension methods and HTML helpers to improve user experience for content editors. 
+The goal is to reduce the need for "All properties view" in the Episerver edit interface.
+
+### EditButton attribute
+
+Attribute to use on properties that you want to have editable in On Page edit mode. Typical usage is for settings properties or other properties that are normally not rendered in your view. 
+
+	[EditButton(ButtonLabel = "My property")] // If you don't supply ButtonLabel, display name of the property will be used instead.
+	public virtual string MyProperty { get; set; }
+
+The edit button is then rendered in the view, only when page is in edit mode, with EditButtonFor helper:
+
+	@Html.EditButtonFor(m => m.MyProperty)
+
+You can also use the EditButtonsGroup helper to render buttons for all properties marked with the EditButtonAttribute:
+
+	@Html.EditButtonsGroup() // If view model is IContentData 
+	@Html.EditButtonsGroup(m => m.CurrentPage) // If view model is page view model
+
+Note: EditButtonsGroup accepts an argument named includeBuiltInProperties (defaults to false) which, if true, also renders buttons for the following built-in properties:
+	
+	Category
+	Simple address
+	URLSegment
+	Display in navigation
+	Published
+	Update modified date
+
+### EditorHelp attribute
+
+Attribute to use on properties you might want an extended help text for in edit mode.
+
+	[EditorHelp("This is the main content area for blocks. The following block types are supported: My block 1, My block 2.")]
+	public virtual ContentArea MainContentArea { get;set; }
+
+The help text is rendered in the view (as ul element) with EditorHelpFor helper:
+
+	@Html.EditorHelpFor(m => m.MainContentArea)
+	@Html.PropertyFor(m => m.MainContentArea)
+
+You can also render a help summary for all properties marked with the EditorHelpAttribute:
+
+	@Html.EditorHelpSummary() // If view model is IContentData
+	@Html.EditorHelpSummary(m => m.CurrentPage) // If view model is page view model
+
+Please note that the buttons and help texts are not styled with any CSS in this package. You will have to do that yourself.
+
+### Example screenshot of EditButton and EditorHelp helpers
+
+![ScreenShot](/docs/content-editor-enhancements.png)
