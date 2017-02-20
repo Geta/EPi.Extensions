@@ -240,7 +240,7 @@ Attribute to use on properties you might want an extended help text for in edit 
 	[EditorHelp("This is the main content area for blocks. The following block types are supported: My block 1, My block 2.")]
 	public virtual ContentArea MainContentArea { get;set; }
 
-The help text is rendered in the view (as unordered list <ul>) with EditorHelpFor helper:
+The help text is rendered in the view (as ul element) with EditorHelpFor helper:
 
 	@Html.EditorHelpFor(m => m.MainContentArea)
 	@Html.PropertyFor(m => m.MainContentArea)
