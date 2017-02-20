@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using EPiServer;
 using EPiServer.Core;
+using EPiServer.Framework.Localization;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
 using Foundation.Core.Extensions;
@@ -290,18 +291,6 @@ namespace Geta.EPi.Extensions
             IList<string> iconCssDivs = new List<string>();
             IList<string> fullRefreshPropertyNames = new List<string>();
 
-            if (includeBuiltInProperties)
-            {
-                var categorizableContent = content as ICategorizable;
-
-                if (categorizableContent != null)
-                {
-                    var categoryMetaData = ModelMetadata.FromLambdaExpression(x => categorizableContent.Category, helper.ViewData);
-                    iconCssDivs.Add(GetSpecialEditButtonTag("Category", categoryMetaData.DisplayName ?? categoryMetaData.PropertyName, null));
-                    fullRefreshPropertyNames.Add("icategorizable_category");
-                }
-            }
-
             foreach (var propertyMetadata in propertiesMeta)
             {
                 object showInGroupObj;
@@ -338,6 +327,50 @@ namespace Geta.EPi.Extensions
                 var editButtonHtml = GetEditButtonTag(helper, propertyMetadata.PropertyName, propertyMetadata.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ?? propertyMetadata.DisplayName ?? propertyMetadata.PropertyName, iconCssClass);
 
                 iconCssDivs.Add(editButtonHtml);
+            }
+
+            if (includeBuiltInProperties)
+            {
+                var categorizableContent = content as ICategorizable;
+
+                if (categorizableContent != null)
+                {
+                    iconCssDivs.Add(GetSpecialEditButtonTag("Category", LocalizationService.Current.GetString("/contenttypes/icontentdata/properties/icategorizable_category/caption"), null));
+                    fullRefreshPropertyNames.Add("icategorizable_category");
+                }
+
+                var pageContent = content as PageData;
+
+                if (pageContent != null)
+                {
+                    iconCssDivs.Add(GetSpecialEditButtonTag("PageExternalURL", LocalizationService.Current.GetString("/contenttypes/icontentdata/properties/pageexternalurl/caption"), null));
+                }
+
+                var routable = content as IRoutable;
+
+                if (routable != null)
+                {
+                    iconCssDivs.Add(GetSpecialEditButtonTag("iroutable_routesegment", LocalizationService.Current.GetString("/contenttypes/icontentdata/properties/pageurlsegment/caption"), null));
+                }
+
+                if (pageContent != null)
+                {
+                    iconCssDivs.Add(GetSpecialEditButtonTag("PageVisibleInMenu", LocalizationService.Current.GetString("/contenttypes/icontentdata/properties/pagevisibleinmenu/caption"), null));
+                }
+
+                var versionableContent = content as IVersionable;
+
+                if (versionableContent != null)
+                {
+                    iconCssDivs.Add(GetSpecialEditButtonTag("iversionable_startpublish", LocalizationService.Current.GetString("/contenttypes/icontentdata/properties/iversionable_startpublish/caption"), null));
+                }
+
+                var changeTrackableContent = content as IChangeTrackable;
+
+                if (changeTrackableContent != null)
+                {
+                    iconCssDivs.Add(GetSpecialEditButtonTag("ichangetrackable_setchangedonpublish", LocalizationService.Current.GetString("/contenttypes/icontentdata/properties/ichangetrackable_setchangedonpublish/caption"), null));
+                }
             }
 
             if (iconCssDivs.Count > 0)

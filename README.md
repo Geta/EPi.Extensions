@@ -224,6 +224,15 @@ You can also use the EditButtonsGroup helper to render buttons for all propertie
 	@Html.EditButtonsGroup() // If view model is IContentData 
 	@Html.EditButtonsGroup(m => m.CurrentPage) // If view model is page view model
 
+Note: EditButtonsGroup accepts an argument named includeBuiltInProperties (defaults to false) which, if true, also renders buttons for the following built-in properties:
+	
+	Category
+	Simple address
+	URLSegment
+	Display in navigation
+	Published
+	Update modified date
+
 ### EditorHelp attribute
 
 Attribute to use on properties you might want an extended help text for in edit mode.
@@ -242,3 +251,7 @@ You can also render a help summary for all properties marked with the EditorHelp
 	@Html.EditorHelpSummary(m => m.CurrentPage) // If view model is page view model
 
 Please note that the buttons and help texts are not styled with any CSS in this package. You will have to do that yourself.
+
+### Example screenshots of EditButton and EditorHelp helpers
+
+![ScreenShot](/docs/content-editor-enhancements.png)
