@@ -203,12 +203,12 @@ Loading the singleton page of a type by a parent page.
     var startPage = _contentLoader.Get<StartPage>(ContentReference.StartPage);
     var testPage2 = startPage.GetSingletonPage<TestPage>();
 
-## Content editor user experience helpers/extensions
+# Content editor user experience helpers/extensions
 
 Set of extension methods and HTML helpers to improve user experience for content editors. 
 The goal is to reduce the need for "All properties view" in the Episerver edit interface.
 
-### EditButton attribute
+## EditButton attribute
 
 Attribute to use on properties that you want to have editable in On Page edit mode. Typical usage is for settings properties or other properties that are normally not rendered in your view. 
 
@@ -233,7 +233,7 @@ Note: EditButtonsGroup accepts an argument named includeBuiltInProperties (defau
 	Published
 	Update modified date
 
-### EditorHelp attribute
+## EditorHelp attribute
 
 Attribute to use on properties you might want an extended help text for in edit mode.
 
@@ -252,6 +252,6 @@ You can also render a help summary for all properties marked with the EditorHelp
 
 Please note that the buttons and help texts are not styled with any CSS in this package. You will have to do that yourself.
 
-### Example screenshot of EditButton and EditorHelp helpers
+## Example screenshot of EditButton and EditorHelp helpers
 
 ![ScreenShot](/docs/content-editor-enhancements.png)
