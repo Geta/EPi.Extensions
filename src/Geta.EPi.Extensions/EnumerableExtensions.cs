@@ -53,5 +53,20 @@ namespace Geta.EPi.Extensions
         {
             return source == null || !source.Any();
         }
+
+        /// <summary>
+        /// Filters by page and page size.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="page">Page number.</param>
+        /// <param name="pageSize">Page size.</param>
+        /// <typeparam name="T">The type of the source.</typeparam>
+        /// <returns>Filtered sequence.</returns>
+        public static IEnumerable<T> FilterPaging<T>(this IEnumerable<T> source, int page, int pageSize)
+        {
+            var take = pageSize;
+            var skip = pageSize * (page - 1);
+            return source.Skip(skip).Take(take);
+        }
     }
 }
