@@ -183,6 +183,7 @@
     <Compile Include="ExtensionsInitializationModule.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="ContentAreaExtensions.cs" />
+    <Compile Include="RequestBaseExtensionMethods.cs" />
     <Compile Include="HttpContextBaseExtensions.cs" />
     <Compile Include="JsonExtensions.cs" />
     <Compile Include="MenuList\HtmlHelperExtensions.cs" />
