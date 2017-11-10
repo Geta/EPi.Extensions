@@ -181,6 +181,7 @@
     <Compile Include="EditorDescriptors\EnumSelectionFactory.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="ExtensionsInitializationModule.cs" />
+    <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="ContentAreaExtensions.cs" />
     <Compile Include="HttpContextBaseExtensions.cs" />
     <Compile Include="JsonExtensions.cs" />
