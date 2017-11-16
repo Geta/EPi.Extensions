@@ -4,6 +4,7 @@ using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.SpecializedProperties;
+using Geta.Net.Extensions;
 
 namespace Geta.EPi.Extensions
 {
