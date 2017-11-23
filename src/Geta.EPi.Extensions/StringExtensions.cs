@@ -62,6 +62,10 @@ namespace Geta.EPi.Extensions
                             ? HttpContext.Current.Request.Url
                             : SiteDefinition.Current.SiteUrl;
 
+            var scheme = HttpContext.Current != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Headers["X-Forwarded-Proto"])
+                            ? HttpContext.Current.Request.Headers["X-Forwarded-Proto"]
+                            : siteUri.Scheme;
+
             if (!input.StartsWith("/"))
             {
                 input = "/" + input;
@@ -69,7 +73,7 @@ namespace Geta.EPi.Extensions
 
             var urlBuilder = new UrlBuilder(input)
             {
-                Scheme = siteUri.Scheme,
+                Scheme = scheme,
                 Host = siteUri.Host,
                 Port = siteUri.Port
             };
