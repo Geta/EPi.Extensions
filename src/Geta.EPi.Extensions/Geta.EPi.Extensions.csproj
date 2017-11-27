@@ -185,6 +185,7 @@
     <Compile Include="ExtensionsInitializationModule.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="ContentAreaExtensions.cs" />
+    <Compile Include="QueryString\QueryStringBuilderExtensions.cs" />
     <Compile Include="RequestBaseExtensionMethods.cs" />
     <Compile Include="HttpRequestExtensions.cs" />
     <Compile Include="HttpContextBaseExtensions.cs" />
