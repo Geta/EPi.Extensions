@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Geta.EPi.Extensions</id>
-    <version>0.0.0.1</version>
+    <version>$version$</version>
     <title>Geta.EPi.Extensions</title>
     <authors>Geta</authors>
     <owners>Geta</owners>
@@ -10,8 +10,12 @@
     <licenseUrl>https://raw.github.com/Geta/EPi.Extensions/master/LICENSE.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Extension methods and helpers for EPiServer.</description>
-    <copyright>Copyright © 2016 Geta</copyright>
+    <copyright>Copyright © 2017 Geta</copyright>
     <iconUrl>http://cdn.geta.no/opensource/icons/geta-epi-icon.png</iconUrl>
     <tags>EPiServer</tags>
+    <dependencies>
+      <dependency id="EPiServer.CMS.UI.Core" version="[11.1.0, 12.0)" />
+      <dependency id="Geta.Net.Extensions" version="[1.0.2, 2.0)" />
+    </dependencies>
   </metadata>
 </package>
