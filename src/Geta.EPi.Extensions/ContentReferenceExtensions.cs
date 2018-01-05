@@ -131,13 +131,11 @@ namespace Geta.EPi.Extensions
                 urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
             }
 
-            var url = urlResolver.GetUrl(contentReference, language);
-            if (ignoreContextMode)
-            {
-                url = urlResolver.GetUrl(contentReference, language, new VirtualPathArguments { ContextMode = ContextMode.Default });
-            }
+            var url = ignoreContextMode
+                ? urlResolver.GetUrl(contentReference, language, new VirtualPathArguments { ContextMode = ContextMode.Default })
+                : urlResolver.GetUrl(contentReference, language);
 
-            return !includeHost ? url : url.GetExternalUrl();
+            return includeHost ? url.AddHost() : url.RemoveHost();
         }
 
         /// <summary>

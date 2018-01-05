@@ -97,8 +97,8 @@
     <Reference Include="EPiServer.Web.WebControls, Version=11.2.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.2.1\lib\net461\EPiServer.Web.WebControls.dll</HintPath>
     </Reference>
-    <Reference Include="Geta.Net.Extensions, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Geta.Net.Extensions.1.0.2\lib\net452\Geta.Net.Extensions.dll</HintPath>
+    <Reference Include="Geta.Net.Extensions, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Geta.Net.Extensions.1.0.3\lib\net452\Geta.Net.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -181,6 +181,7 @@
     <Compile Include="EditorDescriptors\EnumEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\EnumSelectionFactory.cs" />
     <Compile Include="ExtensionsInitializationModule.cs" />
+    <Compile Include="Helpers\UriHelpers.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="ContentAreaExtensions.cs" />
     <Compile Include="QueryString\QueryStringBuilderExtensions.cs" />

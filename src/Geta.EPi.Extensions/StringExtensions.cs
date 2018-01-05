@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Web;
-using EPiServer;
 using EPiServer.Core.Html;
-using EPiServer.Web;
+using Geta.EPi.Extensions.Helpers;
+using Geta.Net.Extensions;
 
 namespace Geta.EPi.Extensions
 {
@@ -47,38 +46,53 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Adds scheme and host to a relative url.
+        /// Adds scheme and host to a relative URL.
         /// </summary>
-        /// <param name="input">Url</param>
-        /// <returns>String</returns>
+        /// <param name="input">URL</param>
+        /// <returns>Returns URL with scheme and host.</returns>
         public static string GetExternalUrl(this string input)
         {
-            if (string.IsNullOrWhiteSpace(input))
+            return AddHost(input);
+        }
+
+        /// <summary>
+        /// Removes scheme and host from the URL.
+        /// </summary>
+        /// <param name="url">URL</param>
+        /// <returns>Returns URL without scheme and host.</returns>
+        public static string RemoveHost(this string url)
+        {
+            if (url.IsAbsoluteUrl())
             {
-                return string.Empty;
+                var uri = new Uri(url);
+                return uri.PathAndQuery;
             }
+            return url ?? string.Empty;
+        }
 
-            var siteUri = HttpContext.Current != null
-                            ? HttpContext.Current.Request.Url
-                            : SiteDefinition.Current.SiteUrl;
+        /// <summary>
+        /// Adds scheme and host to a relative URL. Uses UriHelpers.GetBaseUri() to retrieve base URL for the scheme and host.
+        /// </summary>
+        /// <param name="url">URL</param>
+        /// <returns>Returns URL with scheme and host.</returns>
+        public static string AddHost(this string url)
+        {
+            return url.AddHost(UriHelpers.GetBaseUri);
+        }
 
-            var scheme = HttpContext.Current != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Headers["X-Forwarded-Proto"])
-                            ? HttpContext.Current.Request.Headers["X-Forwarded-Proto"]
-                            : siteUri.Scheme;
-
-            if (!input.StartsWith("/"))
-            {
-                input = "/" + input;
-            }
-
-            var urlBuilder = new UrlBuilder(input)
-            {
-                Scheme = scheme,
-                Host = siteUri.Host,
-                Port = siteUri.Port
-            };
-
-            return urlBuilder.ToString();
+        /// <summary>
+        /// Adds scheme and host to a relative URL.
+        /// </summary>
+        /// <param name="url">URL</param>
+        /// <param name="getBaseUri">Function which returns base URL.</param>
+        /// <returns>Returns URL with scheme and host.</returns>
+        public static string AddHost(this string url, Func<Uri> getBaseUri)
+        {
+            var baseUri = getBaseUri();
+            var uri = new Uri(baseUri, url).ToString();
+            return
+                new UriBuilder(uri) { Scheme = baseUri.Scheme, Port = -1 }
+                .ToString();
         }
     }
 }
