@@ -16,23 +16,23 @@ Start by installing NuGet package (use [EPiServer NuGet](http://nuget.episerver.
 
 See [reference](http://geta.github.io/EPi.Extensions/) and examples below.
 
-# Features
+## Features
 
-## Basics
+### Basics
 
 You can use the GetChildren and GetPage extension methods to easily fetch pages. They also have generic overloads.
 
     var startPage = ContentReference.StartPage.GetPage<StartPage>();
     var sections = ContentReference.StartPage.GetChildren<SectionPage>();
 
-## Filters
+### Filters
 
 You can use _FilterForDisplay_ to easily filter out pages that the user shouldn't see. Here is an example of how to filter child pages of start page.
 
     var childPages = ContentReference.StartPage.GetChildren().FilterForDisplay();
 
 
-## MenuList extension for HtmlHelper
+### MenuList extension for HtmlHelper
 
 _MenuList_ extension method helps to build menus. Extension method requires two parameters - _ContentReference_ of the menu root page and _@helper_ which generates menu item. _MenuList_ uses _FilterForDisplay_ extension method to filter out pages that the user doesn't have access to, are not published and are not visible in menu and that don't have a template.
 
@@ -81,7 +81,7 @@ _MenuList_ creates the list only for one level. For multiple menu levels use _Me
         </ul>
     </nav>
 
-## XFormHelper
+### XFormHelper
 
 Example of a custom DisplayTemplate for XForm using the _XFormHelper_ to clean up the markup.
 
@@ -132,7 +132,7 @@ Markup would look something like this:
         </div>
     </form>
 
-## QueryStringBuilder
+### QueryStringBuilder
 
 Here we have an example of using _QueryStringBuilder_ to build a filter URL. This can be useful for lists that have filter functionality or sort functionality. To instantiate _QueryStringBuilder_ _UrlHelper_ extensions are used.
 
@@ -154,13 +154,13 @@ Output when page URL is: /about-us
 
     <form action="/about-us/MyActionName"></form>
 
-## Validation
+### Validation
 
 We have included a simple validation helper for validating email address' using .NET's built in email validation (which updates together with newer versions/patches for .NET).
 
     bool isValidEmail = ValidationHelper.IsValidEmail("test@example.com");
 
-## Enum properties
+### Enum properties
 
 If you have enum values you want to use in your content types you can use the EnumAttribute to decorate your properties. The values can also be localized.
 
@@ -170,7 +170,7 @@ If you have enum values you want to use in your content types you can use the En
 
 Credits: http://world.episerver.com/Blogs/Linus-Ekstrom/Dates/2014/5/Enum-properties-for-EPiServer-75/
 
-## Categories
+### Categories
 
 You can easily get the child categories of any root category you like (as long as you have it's ID).
 
@@ -184,13 +184,13 @@ If you need to check if the CategoryList has that category you can use the Conta
 
     bool hasBikes = CurrentPage.Category.Contains("bikes");
 
-## External/friendly URL
+### External/friendly URL
 
 This can be useful when used together with sharing widgets.
 
     string fullUrl = CurrentPage.GetFriendlyUrl();
 
-## Singleton page
+### Singleton page
 
 Allows easily load the page which is a single instance of a type.
 
@@ -203,12 +203,12 @@ Loading the singleton page of a type by a parent page.
     var startPage = _contentLoader.Get<StartPage>(ContentReference.StartPage);
     var testPage2 = startPage.GetSingletonPage<TestPage>();
 
-# Content editor user experience helpers/extensions
+### Content editor user experience helpers/extensions
 
 Set of extension methods and HTML helpers to improve user experience for content editors. 
 The goal is to reduce the need for "All properties view" in the Episerver edit interface.
 
-## EditButton attribute
+#### EditButton attribute
 
 Attribute to use on properties that you want to have editable in On Page edit mode. Typical usage is for settings properties or other properties that are normally not rendered in your view. 
 
@@ -233,7 +233,7 @@ Note: EditButtonsGroup accepts an argument named includeBuiltInProperties (defau
 	Published
 	Update modified date
 
-## EditorHelp attribute
+### EditorHelp attribute
 
 Attribute to use on properties you might want an extended help text for in edit mode.
 
@@ -252,7 +252,7 @@ You can also render a help summary for all properties marked with the EditorHelp
 
 Please note that the buttons and help texts are not styled with any CSS in this package. You will have to do that yourself.
 
-## Example screenshot of EditButton and EditorHelp helpers
+### Example screenshot of EditButton and EditorHelp helpers
 
 ![ScreenShot](/docs/content-editor-enhancements.png)
 
