@@ -181,6 +181,7 @@
     <Compile Include="EditorDescriptors\EnumEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\EnumSelectionFactory.cs" />
     <Compile Include="ExtensionsInitializationModule.cs" />
+    <Compile Include="Helpers\UriHelpers.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="ContentAreaExtensions.cs" />
     <Compile Include="QueryString\QueryStringBuilderExtensions.cs" />

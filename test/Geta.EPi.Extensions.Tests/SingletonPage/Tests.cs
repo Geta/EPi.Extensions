@@ -172,9 +172,9 @@ namespace Geta.EPi.Extensions.Tests.SingletonPage
         private void SetupFakes()
         {
             _fake = new FakeMaker();
-            Extensions.SingletonPage.Extensions.InjectedContentLoader = new Injected<IContentLoader>(_fake.ContentRepository);
+            EPi.Extensions.SingletonPage.Extensions.InjectedContentLoader = new Injected<IContentLoader>(_fake.ContentRepository);
             _fakeCache = new FakeCache();
-            Extensions.SingletonPage.Extensions.InjectedCache = new Injected<IContentReferenceCache>(_fakeCache);
+            EPi.Extensions.SingletonPage.Extensions.InjectedCache = new Injected<IContentReferenceCache>(_fakeCache);
         }
 
         private FakeMaker _fake;
