@@ -4,7 +4,7 @@
 [![Platform](https://img.shields.io/badge/Platform-.NET%204.6.1-blue.svg?style=flat)](https://msdn.microsoft.com/en-us/library/w0x726c2%28v=vs.110%29.aspx)
 [![Platform](https://img.shields.io/badge/Episerver-%2011-orange.svg?style=flat)](http://world.episerver.com/cms/)
 
-## What is EPi.Extensions?
+## Description
 
 EPi.Extensions is library with useful extension methods and helpers for EPiServer.
 
@@ -16,7 +16,7 @@ Start by installing NuGet package (use [EPiServer NuGet](http://nuget.episerver.
 
 See [reference](http://geta.github.io/EPi.Extensions/) and examples below.
 
-# Examples
+# Features
 
 ## Basics
 
@@ -255,3 +255,6 @@ Please note that the buttons and help texts are not styled with any CSS in this 
 ## Example screenshot of EditButton and EditorHelp helpers
 
 ![ScreenShot](/docs/content-editor-enhancements.png)
+
+## Package maintainer
+https://github.com/marisks
