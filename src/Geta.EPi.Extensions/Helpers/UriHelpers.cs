@@ -21,7 +21,7 @@ namespace Geta.EPi.Extensions.Helpers
                 : SiteDefinition.Current.SiteUrl;
 
             var scheme = HttpContext.Current != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Headers["X-Forwarded-Proto"])
-                ? HttpContext.Current.Request.Headers["X-Forwarded-Proto"]
+                ? HttpContext.Current.Request.Headers["X-Forwarded-Proto"].Split(',')[0]
                 : siteUri.Scheme;
 
             var urlBuilder = new UrlBuilder(siteUri)
