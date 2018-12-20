@@ -16,17 +16,27 @@ namespace Geta.EPi.Extensions.Helpers
         /// <returns>Base site URI</returns>
         public static Uri GetBaseUri()
         {
-            var siteUri = HttpContext.Current != null
-                ? HttpContext.Current.Request.Url
-                : SiteDefinition.Current.SiteUrl;
+            var context = HttpContext.Current != null ? new HttpContextWrapper(HttpContext.Current) : null;
+            return GetBaseUri(context, SiteDefinition.Current);
+        }
 
-            var scheme = HttpContext.Current != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Headers["X-Forwarded-Proto"])
-                ? HttpContext.Current.Request.Headers["X-Forwarded-Proto"]
-                : siteUri.Scheme;
+        /// <summary>
+        /// Returns base URI for the site.
+        /// </summary>
+        /// <returns>Base site URI</returns>
+        public static Uri GetBaseUri(HttpContextBase context, SiteDefinition siteDefinition)
+        {
+            var siteUri = context != null
+                ? context.Request.Url
+                : siteDefinition.SiteUrl;
+
+            var scheme = context != null && !string.IsNullOrEmpty(context.Request.Headers["X-Forwarded-Proto"])
+                ? context.Request.Headers["X-Forwarded-Proto"].Split(',')[0]
+                : siteUri?.Scheme;
 
             var urlBuilder = new UrlBuilder(siteUri)
             {
-                Scheme = scheme
+                Scheme = scheme ?? "https"
             };
             return urlBuilder.Uri;
         }
