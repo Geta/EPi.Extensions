@@ -213,7 +213,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\Fixture.cs" />
+    <Compile Include="Base\Http\FakeHttpContext.cs" />
+    <Compile Include="Base\Http\FakeHttpRequest.cs" />
+    <Compile Include="Base\Http\FakeHttpResponse.cs" />
+    <Compile Include="Base\Http\FakeHttpServerUtility.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
+    <Compile Include="Helpers\UriHelperTests.cs" />
     <Compile Include="Helpers\ValidationHelperTests.cs" />
     <Compile Include="Helpers\XFormHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
