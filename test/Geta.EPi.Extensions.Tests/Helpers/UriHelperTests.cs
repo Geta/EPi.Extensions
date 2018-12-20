@@ -71,6 +71,5 @@ namespace Geta.EPi.Extensions.Tests.Helpers
 
             Assert.Equal(expected, result.ToString());
         }
-
     }
 }
