@@ -41,7 +41,7 @@ namespace Geta.EPi.Extensions
         ///     Returns friendly URL if item is EPiServer content, otherwise returns the original Href property value.
         /// </summary>
         /// <param name="linkItem">Source LinkItem for which to return external URL.</param>
-        /// <param name="includeHost">Mark if include host name in the url.</param>
+        /// <param name="includeHost">Mark if include host name in the url, unless it is external url then it still will contain absolute url</param>
         /// <returns>Returns friendly URL if item is EPiServer content, otherwise returns the original Href property value.</returns>
         public static string GetFriendlyUrl(this LinkItem linkItem, bool includeHost = false)
         {
