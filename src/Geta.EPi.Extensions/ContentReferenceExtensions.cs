@@ -101,7 +101,7 @@ namespace Geta.EPi.Extensions
         ///     Returns friendly URL for provided content reference.
         /// </summary>
         /// <param name="contentReference">Content reference for which to create friendly url.</param>
-        /// <param name="includeHost">Mark if include host name in the url.</param>
+        /// <param name="includeHost">Mark if include host name in the url, unless it is external url then it still will contain absolute url.</param>
         /// <param name="ignoreContextMode"></param>
         /// <param name="urlResolver">Optional UrlResolver instance.</param>
         /// <returns>String representation of URL for provided content reference.</returns>
@@ -114,8 +114,8 @@ namespace Geta.EPi.Extensions
         ///     Returns friendly URL for provided content reference.
         /// </summary>
         /// <param name="contentReference">Content reference for which to create friendly url.</param>
-        /// <param name="language">Language of content</param>
-        /// <param name="includeHost">Mark if include host name in the url.</param>
+        /// <param name="language">Language of content.</param>
+        /// <param name="includeHost">Mark if include host name in the url, unless it is external url then it still will contain absolute url.</param>
         /// <param name="ignoreContextMode"></param>
         /// <param name="urlResolver">Optional UrlResolver instance.</param>
         /// <returns>String representation of URL for provided content reference.</returns>
@@ -135,7 +135,15 @@ namespace Geta.EPi.Extensions
                 ? urlResolver.GetUrl(contentReference, language, new VirtualPathArguments { ContextMode = ContextMode.Default })
                 : urlResolver.GetUrl(contentReference, language);
 
-            return includeHost ? url.AddHost() : url.RemoveHost();
+            if (includeHost)
+            {
+                return url.AddHost();
+            }
+
+            var content = Get<IContent>(contentReference);
+            var pageData = content as PageData;
+
+            return pageData?.LinkType == PageShortcutType.External ? url : url.RemoveHost();
         }
 
         /// <summary>
