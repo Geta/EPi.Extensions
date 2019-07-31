@@ -53,9 +53,16 @@ namespace Geta.EPi.Extensions
                 throw new ArgumentNullException(nameof(url));
             }
 
+            if (IsMailTo(url))
+            {
+                return url.ToString();
+            }
+
             var resolver = ServiceLocator.Current.GetInstance<UrlResolver>();
             return resolver.GetUrl(url.ToString());
         }
+
+        private static bool IsMailTo(Url url) => url.Scheme == "mailto";
 
         /// <summary>
         ///     Creates Html string of provided Url.
