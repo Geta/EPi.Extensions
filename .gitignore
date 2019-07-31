@@ -108,3 +108,6 @@ Backup*/
 UpgradeLog*.XML
 
 .vs
+
+# Rider
+.idea
