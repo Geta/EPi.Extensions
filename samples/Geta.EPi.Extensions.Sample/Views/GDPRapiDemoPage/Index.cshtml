@@ -1,0 +1,60 @@
+@using System.Web.Mvc.Html
+@using EPiServer.Editor
+@using EPiServer.Find
+@using Geta.EPi.Extensions.Sample
+@using Geta.EPi.Extensions.Sample.Models.ViewModels
+@using Newtonsoft.Json
+@model GDPRDemoModel
+
+<div class="page-header">
+    <h1>GDPR API demo page</h1>
+</div>
+
+<div class="row">
+    <div class="span8">
+        @using (Html.BeginForm(null, null, Model.Layout.SearchActionUrl, PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <input id="srchTxt" type="text" tabindex="1" name="q" value="@Model.GDPRGetQuery" class="search-query" placeholder="keyword for track query" />
+            <button type="submit" class="searchButton"></button>
+        }
+
+        @if (Model.GetHits != null)
+        {
+            <div class="row">
+                <div class="span8">
+                    <p>Total: @Model.GetHits.Count</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span8 SearchResults">
+                    @foreach (var hit in Model.GetHits)
+                {
+                        <div class="listResult">
+                            <pre>@JsonConvert.SerializeObject(hit)</pre>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.DeleteStatus))
+        {
+            <div class="span8 DeleteResult">
+                <pre>Delete Status: @Model.DeleteStatus</pre>
+            </div>
+        }
+
+        <div class="row">
+            <div class="span8">
+                @using (Html.BeginForm(null, null, Model.Layout.SearchActionUrl, FormMethod.Post))
+                {
+                    <input id="deleteTxt" type="text" tabindex="1" name="q" value="@Model.GDPRGetQuery" class="search-query" style="display: none" placeholder="keyword for query" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="span4">
+        @Html.Partial("_TrackSanitizerPatternsOverview")
+    </div>
+</div>

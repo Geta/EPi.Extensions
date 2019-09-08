@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Language="C#" Inherits="Geta.EPi.Extensions.Sample.EPiServerApplication" %>

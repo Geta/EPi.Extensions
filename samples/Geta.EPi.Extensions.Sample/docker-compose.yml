@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  geta-epi-extensions-sample-web:
+    image: ${DOCKER_REGISTRY-}geta-epi-extensions-sample-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks: 
+      geta-epi-extensions-network:
+        ipv4_address: 172.16.238.85
+    depends_on:
+     - geta-epi-extensions-sample-db
+    mac_address: 84-69-95-6C-7F-85
+  geta-epi-extensions-sample-db:
+    image: microsoft/mssql-server-windows-developer:1709
+    environment:
+     - ACCEPT_EULA=Y
+     - sa_password=EpiExtensions19
+     - attach_dbs=[{'dbName':'EPiServerDB_9ebdbb84','dbFiles':['C:\\data\\EPiServerDB_9ebdbb84.mdf','C:\\data\\EPiServerDB_9ebdbb84_log.ldf']}]
+    volumes:
+      - ../Geta.EPi.Extensions.Sample/App_Data:C:/data/
+    networks:
+      geta-epi-extensions-network:
+        ipv4_address: 172.16.238.86
+networks:
+  geta-epi-extensions-network:
+    ipam:
+      driver: default
+      config:
+         - subnet: '172.16.238.0/24'
