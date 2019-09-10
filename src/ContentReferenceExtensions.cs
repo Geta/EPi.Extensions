@@ -169,8 +169,7 @@ namespace Geta.EPi.Extensions
             }
 
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
-            IContentData contentData;
-            contentLoader.TryGet(contentLink, out contentData);
+            contentLoader.TryGet(contentLink, out IContentData contentData);
             return contentData;
         }
 
@@ -187,8 +186,7 @@ namespace Geta.EPi.Extensions
             }
 
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
-            IContent content;
-            contentLoader.TryGet(contentLink, out content);
+            contentLoader.TryGet(contentLink, out IContent content);
             return content;
         }
 
