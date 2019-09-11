@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geta.EPi.Extensions", "src\Geta.EPi.Extensions\Geta.EPi.Extensions.csproj", "{31D431C7-6614-4E22-BE07-7A2097E8337E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geta.EPi.Extensions", "src\Geta.EPi.Extensions.csproj", "{31D431C7-6614-4E22-BE07-7A2097E8337E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geta.EPi.Extensions.Tests", "test\Geta.EPi.Extensions.Tests\Geta.EPi.Extensions.Tests.csproj", "{7B76C878-8360-4488-925C-442C4094B5B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geta.EPi.Extensions.Tests", "test\Geta.EPi.Extensions.Tests.csproj", "{7B76C878-8360-4488-925C-442C4094B5B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1FA5751E-DA68-42AC-B9DB-813575B521AF}
 	EndGlobalSection
 EndGlobal
