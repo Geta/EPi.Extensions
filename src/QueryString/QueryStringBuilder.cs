@@ -45,14 +45,8 @@ namespace Geta.EPi.Extensions.QueryString
         /// <param name="includeHost">Mark if include host name in the url.</param>
         public QueryStringBuilder(ContentReference contentLink, UrlResolver urlResolver, bool includeHost = false)
         {
+            var url = contentLink.GetFriendlyUrl(includeHost, false, urlResolver);
             EPiUrlResolver = urlResolver;
-            var url = EPiUrlResolver.GetUrl(contentLink);
-
-            if (includeHost)
-            {
-                url = url.GetExternalUrl();
-            }
-
             UrlBuilder = new UrlBuilder(url);
         }
 
