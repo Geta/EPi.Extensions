@@ -15,8 +15,6 @@ namespace Geta.EPi.Extensions
     /// </summary>
     public static class ContentReferenceExtensions
     {
-        private static readonly ILogger _logger = LogManager.GetLogger();
-
         /// <summary>
         ///     Returns enumeration of child contents of PageData type for provided content reference.
         /// </summary>
@@ -135,27 +133,19 @@ namespace Geta.EPi.Extensions
                 urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
             }
 
-            try
+            var url = ignoreContextMode ?
+                urlResolver.GetUrl(contentReference, language, new VirtualPathArguments { ContextMode = ContextMode.Default })
+              : urlResolver.GetUrl(contentReference, language);
+
+            if (includeHost)
             {
-                var url = ignoreContextMode ? 
-                    urlResolver.GetUrl(contentReference, language, new VirtualPathArguments { ContextMode = ContextMode.Default })
-                  : urlResolver.GetUrl(contentReference, language);
-
-                if (includeHost)
-                {
-                    return url.AddHost();
-                }
-
-                var content = Get<IContent>(contentReference);
-                var pageData = content as PageData;
-
-                return pageData?.LinkType == PageShortcutType.External ? url : url.RemoveHost();
+                return url.AddHost();
             }
-            catch (Exception ex)
-            {
-                _logger.Error($"Geta.Epi.Extensions - GetFriendlyUrl: Cannot return friendly url for content reference ID: {contentReference.ID}", ex);
-                return string.Empty;
-            }
+
+            var content = Get<IContent>(contentReference);
+            var pageData = content as PageData;
+
+            return pageData?.LinkType == PageShortcutType.External ? url : url.RemoveHost();
         }
 
         /// <summary>

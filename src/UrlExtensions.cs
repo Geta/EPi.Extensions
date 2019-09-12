@@ -14,8 +14,6 @@ namespace Geta.EPi.Extensions
     /// </summary>
     public static class UrlExtensions
     {
-        private static readonly ILogger _logger = LogManager.GetLogger();
-
         /// <summary>
         ///     Creates external Uri from provided Url.
         ///     Uses HttpContext if available, otherwise uses EPiServer SiteDefinition SiteUrl.
@@ -52,8 +50,7 @@ namespace Geta.EPi.Extensions
         {
             if (url == null)
             {
-                _logger.Error("Geta.Epi.Extensions - GetFriendlyUrl: Passed url is null.");
-                return string.Empty;
+                throw new ArgumentNullException(nameof(url));
             }
 
             if (IsMailTo(url))
@@ -62,15 +59,7 @@ namespace Geta.EPi.Extensions
             }
 
             var resolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-            try
-            {
-                return resolver.GetUrl(url.ToString());
-            }
-            catch (Exception ex)
-            {
-                _logger.Error($"Geta.Epi.Extensions - GetFriendlyUrl: Cannot return friendly url for: {url}", ex);
-                return url.ToString();
-            }
+            return resolver.GetUrl(url.ToString());
         }
 
         private static bool IsMailTo(Url url) => url.Scheme == "mailto";

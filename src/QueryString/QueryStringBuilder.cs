@@ -12,7 +12,6 @@ namespace Geta.EPi.Extensions.QueryString
     public class QueryStringBuilder : IHtmlString
     {
         protected readonly UrlBuilder UrlBuilder;
-        protected readonly UrlResolver EPiUrlResolver;
 
         /// <summary>
         ///     Represents the empty query string. Field is read-only.
@@ -46,7 +45,6 @@ namespace Geta.EPi.Extensions.QueryString
         public QueryStringBuilder(ContentReference contentLink, UrlResolver urlResolver, bool includeHost = false)
         {
             var url = contentLink.GetFriendlyUrl(includeHost, false, urlResolver);
-            EPiUrlResolver = urlResolver;
             UrlBuilder = new UrlBuilder(url);
         }
 
