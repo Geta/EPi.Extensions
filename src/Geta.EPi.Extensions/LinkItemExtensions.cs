@@ -15,7 +15,7 @@ namespace Geta.EPi.Extensions
         ///     Returns ContentReference for provided LinkItem if it is EPiServer content otherwise returns EmptyReference.
         /// </summary>
         /// <param name="source">Source LinkItem for which to return content reference.</param>
-        /// <returns>Returns ContentReference for provided LinkItem if it is EPiServer content otherwise returns EmptyReference. Note: do not use this to later on to generate url as remaining url part will be lost</returns>
+        /// <returns>Returns ContentReference for provided LinkItem if it is EPiServer content otherwise returns EmptyReference. Note: do not use this to later on generate url as remaining url part will be lost</returns>
         public static ContentReference ToContentReference(this LinkItem source)
         {
             var content = source.ToContent();
@@ -29,7 +29,7 @@ namespace Geta.EPi.Extensions
         ///     Returns IContent for provided LinkItem if it is EPiServer content otherwise returns null.
         /// </summary>
         /// <param name="source">Source LinkItem for which to return content.</param>
-        /// <returns>Returns IContent for provided LinkItem if it is EPiServer content otherwise returns null. Note: do not use this to later on to generate url as remaining url part will be lost</returns>
+        /// <returns>Returns IContent for provided LinkItem if it is EPiServer content otherwise returns null. Note: do not use this to later on generate url as remaining url part will be lost</returns>
         public static IContent ToContent(this LinkItem source)
         {
             var urlBuilder = new UrlBuilder(source.GetMappedHref());
