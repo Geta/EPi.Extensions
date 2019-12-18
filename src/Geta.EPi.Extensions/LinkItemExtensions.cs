@@ -45,7 +45,7 @@ namespace Geta.EPi.Extensions
         /// <returns>Returns friendly URL if item is EPiServer content, otherwise returns the original Href property value.</returns>
         public static string GetFriendlyUrl(this LinkItem linkItem, bool includeHost = false)
         {
-            if (linkItem.Href == null)
+            if (string.IsNullOrWhiteSpace(linkItem.Href))
             {
                 return string.Empty;
             }
@@ -60,7 +60,7 @@ namespace Geta.EPi.Extensions
                 ? url.ToString()
                 : UrlResolver.Current.GetUrl(url.ToString()) ?? url.ToString();
 
-            return includeHost && !friendlyUrl.IsEmpty() ? friendlyUrl.AddHost() : friendlyUrl;
+            return includeHost && !string.IsNullOrWhiteSpace(friendlyUrl) ? friendlyUrl.AddHost() : friendlyUrl;
         }
     }
 }
