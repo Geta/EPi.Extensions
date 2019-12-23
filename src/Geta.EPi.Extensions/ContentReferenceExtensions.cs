@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EPiServer;
 using EPiServer.Core;
@@ -104,10 +105,16 @@ namespace Geta.EPi.Extensions
         /// <param name="includeHost">Mark if include host name in the url, unless it is external url then it still will contain absolute url.</param>
         /// <param name="ignoreContextMode"></param>
         /// <param name="urlResolver">Optional UrlResolver instance.</param>
+        /// <param name="contentLoader">Optional ContentLoader instance.</param>
         /// <returns>String representation of URL for provided content reference.</returns>
-        public static string GetFriendlyUrl(this ContentReference contentReference, bool includeHost = false, bool ignoreContextMode = false, UrlResolver urlResolver = null)
+        public static string GetFriendlyUrl(
+            this ContentReference contentReference,
+            bool includeHost = false,
+            bool ignoreContextMode = false,
+            UrlResolver urlResolver = null,
+            IContentLoader contentLoader = null)
         {
-            return GetFriendlyUrl(contentReference, null, includeHost, ignoreContextMode, urlResolver);
+            return GetFriendlyUrl(contentReference, null, includeHost, ignoreContextMode, urlResolver, contentLoader);
         }
 
         /// <summary>
@@ -118,8 +125,15 @@ namespace Geta.EPi.Extensions
         /// <param name="includeHost">Mark if include host name in the url, unless it is external url then it still will contain absolute url.</param>
         /// <param name="ignoreContextMode"></param>
         /// <param name="urlResolver">Optional UrlResolver instance.</param>
+        /// <param name="contentLoader">Optional ContentLoader instance.</param>
         /// <returns>String representation of URL for provided content reference.</returns>
-        public static string GetFriendlyUrl(this ContentReference contentReference, string language, bool includeHost = false, bool ignoreContextMode = false, UrlResolver urlResolver = null)
+        public static string GetFriendlyUrl(
+            this ContentReference contentReference,
+            string language,
+            bool includeHost = false,
+            bool ignoreContextMode = false,
+            UrlResolver urlResolver = null,
+            IContentLoader contentLoader = null)
         {
             if (contentReference.IsNullOrEmpty())
             {
@@ -132,8 +146,29 @@ namespace Geta.EPi.Extensions
             }
 
             var url = ignoreContextMode
-                ? urlResolver.GetUrl(contentReference, language, new VirtualPathArguments { ContextMode = ContextMode.Default })
+                ? urlResolver.GetUrl(contentReference, language, new VirtualPathArguments {ContextMode = ContextMode.Default})
                 : urlResolver.GetUrl(contentReference, language);
+
+            if (!string.IsNullOrWhiteSpace(url) &&
+                url.StartsWith("link", StringComparison.InvariantCultureIgnoreCase) &&
+                url.EndsWith(".aspx", StringComparison.InvariantCultureIgnoreCase))
+            {
+                // caller asked for friendly url, but got ugly one
+                if (Guid.TryParse(url.ToLower().Replace("/link/", string.Empty).Replace(".aspx", string.Empty),
+                    out var targetContentGuid))
+                {
+                    if (contentLoader == null)
+                    {
+                        contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
+                    }
+
+                    if(contentLoader.TryGet<IContent>(targetContentGuid, out var destinationContent))
+                    {
+                        // in case this is shortcut from one IContent instance to another IContent instance, will try to get target content friendly url instead
+                        url = destinationContent.ContentLink.GetFriendlyUrl();
+                    }
+                }
+            }
 
             if (includeHost)
             {
