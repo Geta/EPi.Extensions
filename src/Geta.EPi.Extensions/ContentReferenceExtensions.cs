@@ -150,7 +150,7 @@ namespace Geta.EPi.Extensions
                 : urlResolver.GetUrl(contentReference, language);
 
             if (!string.IsNullOrWhiteSpace(url) &&
-                url.StartsWith("link", StringComparison.InvariantCultureIgnoreCase) &&
+                url.StartsWith("/link/", StringComparison.InvariantCultureIgnoreCase) &&
                 url.EndsWith(".aspx", StringComparison.InvariantCultureIgnoreCase))
             {
                 // caller asked for friendly url, but got ugly one
