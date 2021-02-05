@@ -12,6 +12,7 @@
     <description>Extension methods and helpers for EPiServer.</description>
     <copyright>Copyright © 2017 Geta</copyright>
     <iconUrl>http://cdn.geta.no/opensource/icons/geta-epi-icon.png</iconUrl>
+    <repository type="git" url="URL" branch="BRANCH_NAME" commit="COMMIT" />
     <tags>EPiServer</tags>
   </metadata>
 </package>
