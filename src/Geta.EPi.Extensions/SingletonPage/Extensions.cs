@@ -10,7 +10,7 @@ namespace Geta.EPi.Extensions.SingletonPage
     /// </summary>
     public static class Extensions
     {
-        private static readonly IContentReferenceCache DefaultContentReferenceCache 
+        private static readonly IContentReferenceCache DefaultContentReferenceCache
                                                             = new DefaultContentReferenceCache();
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Geta.EPi.Extensions.SingletonPage
             where T : PageData, new()
         {
             var singletonLink = Cache.GetOrAdd(new CacheKey(typeof(T), rootPageLink), rootPageLink.GetSingletonPageLink<T>);
-            return ContentLoader.Get<T>(singletonLink);
+            return singletonLink != ContentReference.EmptyReference ? ContentLoader.Get<T>(singletonLink) : null;
         }
 
         /// <summary>
